@@ -11,14 +11,14 @@ class TestAdventure extends FlameGame {
   Color backgroundColor() => const Color(0xFF211F30);
 
   @override
-  final world = Level(levelName: "lvl2");
+  final world = Level(levelName: "placeholder");
 
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
     cam = CameraComponent.withFixedResolution(
-        world: world, width: 640, height: 360);
+        world: world, width: 1000, height: 1000);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
