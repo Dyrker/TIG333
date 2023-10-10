@@ -9,10 +9,10 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
-  double speed = 100;
+  double speed = 300;
   
   String character;
-  Player({position, required this.character}) : super(position: position);
+  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128));
 
   @override
   FutureOr<void> onLoad() {
@@ -26,7 +26,7 @@ class Player extends SpriteAnimationGroupComponent
 
     position.x += speed * dt;
 
-    if (position.x < 0 || position.x + width > gameRef.gameWidth) {
+    if (position.x < 0 || position.x + size.x> gameRef.gameWidth) {
       flipHorizontally();
       speed = -speed;
       position.x += speed * dt;
@@ -54,6 +54,7 @@ class Player extends SpriteAnimationGroupComponent
 
     current = PlayerState.idle;
   }
+  
 
 
     }
