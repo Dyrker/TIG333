@@ -12,8 +12,8 @@ class Player extends SpriteAnimationGroupComponent
 
   double velocityX = 300;
   double velocityY = 700;
-  double shortJumpAddVelocity = -2000;
-  double longJumpAddVelocity = -3000;
+  double shortJumpAddVelocity = -1200;
+  double longJumpAddVelocity = -2000;
   double gravity = 25;
 
   bool isjumping = false;
@@ -24,6 +24,7 @@ class Player extends SpriteAnimationGroupComponent
   @override
   FutureOr<void> onLoad() {
     loadAnimations();
+    position.y = 1200;
     return super.onLoad();
   }
 
@@ -41,10 +42,19 @@ class Player extends SpriteAnimationGroupComponent
     }
 
     position.x += velocityX * dt;
+
+    if (position.y > 1200) {
+      velocityY = 0;
+    }
+
     position.y += velocityY * dt;
   }
 
   void startJump(isShortJump) {
+    if (velocityY != 0) {
+      return;
+    }
+    position.y = 1195;
     isShortJump
         ? velocityY += shortJumpAddVelocity
         : velocityY += longJumpAddVelocity;
