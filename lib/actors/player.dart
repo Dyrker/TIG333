@@ -1,18 +1,20 @@
 import 'dart:async';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flutter_flame/test_adventure.dart';
 
 enum PlayerState { idle, running }
 
 class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<TestAdventure> {
+    with HasGameRef<TestAdventure>, TapCallbacks {
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
   double speed = 300;
-  
+
   String character;
-  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128));
+  Player({position, required this.character})
+      : super(position: position, size: Vector2(128, 128));
 
   @override
   FutureOr<void> onLoad() {
@@ -26,12 +28,18 @@ class Player extends SpriteAnimationGroupComponent
 
     position.x += speed * dt;
 
-    if (position.x < 0 || position.x + size.x> gameRef.gameWidth) {
+    if (position.x < 0 || position.x + size.x > gameRef.gameWidth) {
       flipHorizontally();
       speed = -speed;
       position.x += speed * dt;
     }
+  }
 
+  @override
+  void onTapUp(TapUpEvent event) {
+    // Handle tap action here
+    // You can add player actions or trigger events when the screen is tapped
+    speed = -speed;
   }
 
   void loadAnimations() {
@@ -54,7 +62,4 @@ class Player extends SpriteAnimationGroupComponent
 
     current = PlayerState.idle;
   }
-  
-
-
-    }
+}
