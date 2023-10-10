@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
 
 class TestAdventure extends FlameGame {
   late CameraComponent cam;
-  
+  final double gameWidth = 1080;
+  final double gameHeight = 2400;
+
   @override
   Color backgroundColor() => const Color(0xFF211F30);
 
@@ -19,7 +23,7 @@ class TestAdventure extends FlameGame {
     await images.loadAllImages();
 
     cam = CameraComponent.withFixedResolution(
-        world: world, width: 1000, height: 1000);
+        world: world, width: gameWidth, height: gameHeight);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);

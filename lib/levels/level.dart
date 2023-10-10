@@ -3,12 +3,12 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/levels/background.dart';
+import 'package:flutter_flame/test_adventure.dart';
 
-class Level extends World{
+class Level extends World with HasGameRef<TestAdventure>{
   late TiledComponent level;
   final String levelName;
-  final double _width = 500;
-  final double _height = 1000;
+
 
   Player player;
 
@@ -16,7 +16,7 @@ class Level extends World{
 
   @override
   FutureOr<void> onLoad() async {
-    StaticBackground level = StaticBackground(Vector2(_width,_height));
+    StaticBackground level = StaticBackground(Vector2(gameRef.gameWidth,gameRef.gameHeight));
 
     addAll([level, player]);
 

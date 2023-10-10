@@ -10,7 +10,7 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
   double speed = 100;
-
+  
   String character;
   Player({position, required this.character}) : super(position: position);
 
@@ -26,7 +26,7 @@ class Player extends SpriteAnimationGroupComponent
 
     position.x += speed * dt;
 
-    if (position.x < 0 || position.x + width > 1000) {
+    if (position.x < 0 || position.x + width > gameRef.gameWidth) {
       flipHorizontally();
       speed = -speed;
       position.x += speed * dt;
@@ -41,7 +41,7 @@ class Player extends SpriteAnimationGroupComponent
           SpriteAnimationData.sequenced(
             amount: amount,
             stepTime: stepTime,
-            textureSize: Vector2.all(32),
+            textureSize: Vector2.all(128),
           ));
     }
 

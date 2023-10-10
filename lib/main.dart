@@ -7,7 +7,7 @@ import "test_adventure.dart";
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
-  Flame.device.setLandscape();
+  Flame.device.setPortrait();
 
   TestAdventure game = TestAdventure();
   runApp(GameWidget(game: kDebugMode ? TestAdventure() : game));
