@@ -9,8 +9,13 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
+
   double velocityX = 300;
-  double velocityY = 100;
+  double velocityY = 700;
+  double shortJumpAddVelocity = -2000;
+  double longJumpAddVelocity = -3000;
+  double gravity = 25;
+
   bool isjumping = false;
   String character;
   Player({position, required this.character})
@@ -26,22 +31,23 @@ class Player extends SpriteAnimationGroupComponent
   void update(double dt) {
     super.update(dt);
 
-    position.x += velocityX * dt;
-
     if (position.x < 0 || position.x + size.x > gameRef.gameWidth) {
       flipHorizontally();
       velocityX = -velocityX;
-      position.x += velocityX * dt;
     }
-    if (isjumping) {
-      position.y += -velocityY * dt;
-    } else {
-      position.y += velocityY * dt;
+
+    if (velocityY < 700) {
+      velocityY += gravity;
     }
+
+    position.x += velocityX * dt;
+    position.y += velocityY * dt;
   }
 
-  void togglejump() {
-    isjumping = !isjumping;
+  void startJump(isShortJump) {
+    isShortJump
+        ? velocityY += shortJumpAddVelocity
+        : velocityY += longJumpAddVelocity;
   }
 
   void loadAnimations() {

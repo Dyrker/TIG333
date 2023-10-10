@@ -13,9 +13,14 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   Player player;
   @override
   void onTapUp(TapUpEvent event) {
-    player.togglejump();
+    player.startJump(true);
     // Handle tap action here
     // You can add player actions or trigger events when the screen is tapped
+  }
+
+  @override
+  void onLongTapDown(TapDownEvent event) {
+    player.startJump(false);
   }
 
   Level({required this.levelName, required this.player});
