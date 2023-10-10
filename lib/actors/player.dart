@@ -9,10 +9,12 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
-  double speed = 300;
-  
+  double velocityX = 300;
+  double velocityY = 100;
+  bool isjumping = false;
   String character;
-  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128));
+  Player({position, required this.character})
+      : super(position: position, size: Vector2(128, 128));
 
   @override
   FutureOr<void> onLoad() {
@@ -24,14 +26,22 @@ class Player extends SpriteAnimationGroupComponent
   void update(double dt) {
     super.update(dt);
 
-    position.x += speed * dt;
+    position.x += velocityX * dt;
 
-    if (position.x < 0 || position.x + size.x> gameRef.gameWidth) {
+    if (position.x < 0 || position.x + size.x > gameRef.gameWidth) {
       flipHorizontally();
-      speed = -speed;
-      position.x += speed * dt;
+      velocityX = -velocityX;
+      position.x += velocityX * dt;
     }
+    if (isjumping) {
+      position.y += -velocityY * dt;
+    } else {
+      position.y += velocityY * dt;
+    }
+  }
 
+  void togglejump() {
+    isjumping = !isjumping;
   }
 
   void loadAnimations() {
@@ -54,7 +64,4 @@ class Player extends SpriteAnimationGroupComponent
 
     current = PlayerState.idle;
   }
-  
-
-
-    }
+}
