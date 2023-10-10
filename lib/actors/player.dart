@@ -13,7 +13,7 @@ class Player extends SpriteAnimationGroupComponent
   
   String character;
   Player({position, required this.character}) : super(position: position, size: Vector2(128, 128));
-
+  
   @override
   FutureOr<void> onLoad() {
     loadAnimations();
