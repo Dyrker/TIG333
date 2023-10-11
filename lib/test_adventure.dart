@@ -8,7 +8,7 @@ import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
 
-class TestAdventure extends FlameGame with TapCallbacks {
+class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;

@@ -1,45 +1,45 @@
 // player.dart
 
 import 'dart:async';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter_flame/test_adventure.dart';
+import "package:flutter_flame/actors/platform.dart";
 
 enum PlayerState { idle, running }
 
 class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<TestAdventure> {
+    with HasGameRef<TestAdventure>, CollisionCallbacks {
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
-
+  final hitbox = CircleHitbox()..collisionType = CollisionType.active;
   double velocityX = 300;
   double velocityY = 0;
-  double jumpVelocity = -1200;
-  double longJumpVelocity = -1600;
-  double gravity = 50;
-  double maxJumpPosY = 1200;
-  double maxLongJump = 1600;
-  double currentJumpPos = 0.0;
+  double jumpVelocity = -700;
+  double longJumpVelocity = -600;
+  double gravity = 0;
+  double jumpStartingPosition = 0;
   bool isLongJump = false;
   bool isjumping = false; //används ej atm.
   bool notFlipped = true;
   bool flipCooldown = true;
+  
 
   String character;
 
-  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128));
+  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)){add(hitbox);}
   
   @override
   FutureOr<void> onLoad() {
     loadAnimations();
-    position.y = 1200;
+    position.y = gameRef.gameHeight - Platform().size.y - size.y;
     return super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    currentJumpPos = position.y;
     if ((position.x > 540) && (position.x < 550)) {
       flipCooldown = false;
     }
@@ -58,29 +58,21 @@ class Player extends SpriteAnimationGroupComponent
       velocityX = -velocityX;
       flipCooldown = true;
     }
-
-    if (currentJumpPos <= maxJumpPosY && !isLongJump) {
-      velocityY += gravity;
-    } else if (currentJumpPos <= maxLongJump && isLongJump) {
-      velocityY += gravity;
-    }
-
-    print(position.y);
-
+    
+    velocityY += gravity;
     position.x += velocityX * dt;
 
-    if (position.y > 1200) {
-      velocityY = 0;
-    }
-
+    
     position.y += velocityY * dt;
   }
 
   void startJump() {
-    if (velocityY != 0) {
+    
+    if (velocityY != 0){
       return;
     }
-    position.y = 1195;
+    gravity = 20;
+    jumpStartingPosition = position.y;
     isLongJump = false;
     velocityY = isLongJump ? longJumpVelocity : jumpVelocity;
   }
@@ -110,4 +102,48 @@ class Player extends SpriteAnimationGroupComponent
 
     current = PlayerState.idle;
   }
+
+@override
+void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+  if (velocityY < 0) {
+    return; 
+  }
+
+  final isTopCollision = isTopCollisionWithPlatform(intersectionPoints);
+
+  if (isTopCollision) {
+    gravity = 0;
+    velocityY = 0;
+  }
+
+  super.onCollision(intersectionPoints, other);
+
+  if (other is Platform) {
+    if (intersectionPoints.length == 2) {
+      platformIntersectionCheck(intersectionPoints);
+    }
+  }
+}
+
+bool isTopCollisionWithPlatform(Set<Vector2> intersectionPoints) {
+  
+  final characterCenter = Vector2(position.x + size.x / 2, position.y + size.y / 2);
+  
+  final averageIntersectionPoint = intersectionPoints.reduce((a, b) => a + b) / 2;
+
+  return characterCenter.y < averageIntersectionPoint.y;
+}
+
+
+  void platformIntersectionCheck(Set<Vector2> intersectionPoints){
+    final Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
+
+    final Vector2 collisionNormal = absoluteCenter - mid;
+    double penetrationlength = (size.x / 2) - collisionNormal.length;
+    collisionNormal.normalize();
+
+    position += collisionNormal.scaled(penetrationlength);
+    
+  }
+
 }

@@ -10,7 +10,7 @@ import 'package:flutter_flame/test_adventure.dart';
 import "package:flutter_flame/actors/platform.dart";
 
 
-class Level extends World with HasGameRef<TestAdventure> {
+class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   late TiledComponent level;
   final String levelName;
   final int numberOfPlatforms = 5;
@@ -50,7 +50,7 @@ class Level extends World with HasGameRef<TestAdventure> {
     addAll([level, player]);
 
     for (double i = 1; i <= numberOfPlatforms; i++) {
-      add(createPlatforms(i * 0, ((i * gameRef.gameHeight/numberOfPlatforms) - 128) ));
+      add(createPlatforms(i * 0, ((i * gameRef.gameHeight/numberOfPlatforms) - 64) ));
     }
     return super.onLoad();
   }
