@@ -22,6 +22,9 @@ class Player extends SpriteAnimationGroupComponent
   double currentJumpPos = 0.0;
   bool isLongJump = false;
   bool isjumping = false; //används ej atm.
+  bool notFlipped = true;
+  bool flipCooldown = true;
+
   String character;
   Player({position, required this.character})
       : super(position: position, size: Vector2(128, 128));
@@ -37,9 +40,23 @@ class Player extends SpriteAnimationGroupComponent
   void update(double dt) {
     super.update(dt);
     currentJumpPos = position.y;
-    if (position.x < 0 || position.x + size.x > gameRef.gameWidth) {
+    if ((position.x > 540) && (position.x < 550)) {
+      flipCooldown = false;
+    }
+
+    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) &&
+        !flipCooldown) {
+      if (notFlipped) {
+        position.x += 128;
+        notFlipped = false;
+      } else {
+        position.x -= 128;
+        notFlipped = true;
+      }
+
       flipHorizontally();
       velocityX = -velocityX;
+      flipCooldown = true;
     }
 
     if (currentJumpPos <= maxJumpPosY && !isLongJump) {
