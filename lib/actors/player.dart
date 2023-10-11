@@ -26,9 +26,9 @@ class Player extends SpriteAnimationGroupComponent
   bool flipCooldown = true;
 
   String character;
-  Player({position, required this.character})
-      : super(position: position, size: Vector2(128, 128));
 
+  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128));
+  
   @override
   FutureOr<void> onLoad() {
     loadAnimations();
