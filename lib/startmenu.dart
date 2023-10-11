@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Startmenu extends StatelessWidget {
   final VoidCallback onPlayButtonPressed; // Callback for the button press
@@ -18,12 +19,12 @@ class Startmenu extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Hello, Flutter!',
-                style: TextStyle(fontSize: 24),
-              ),
+                style: GoogleFonts.pressStart2p()),
+              
               SizedBox(height: 16),
               ElevatedButton(
                 onPressed: onPlayButtonPressed, // Call the callback here
-                child: Text('Click Me'),
+                child: Text('Play Game'),
               ),
             ],
           ),
