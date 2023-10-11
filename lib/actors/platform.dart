@@ -11,7 +11,7 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
 
   @override
   FutureOr<void> onLoad() async{
-    sprite = await Sprite.load('/Terrain/redplatform.png');
+    sprite = await Sprite.load('Terrain/redplatform.png');
     add(hitbox);
     return super.onLoad();
   }

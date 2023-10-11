@@ -10,10 +10,10 @@ import 'package:flutter_flame/test_adventure.dart';
 import "package:flutter_flame/actors/platform.dart";
 
 
-class Level extends World with HasGameRef<TestAdventure> {
+class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   late TiledComponent level;
   final String levelName;
-  final int numberOfPlatforms = 5;
+  final int numberOfPlatforms = 1;
 
   Player player;
 
