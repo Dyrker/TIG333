@@ -1,3 +1,5 @@
+// level.dart
+
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -11,16 +13,28 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   final String levelName;
 
   Player player;
+
+  bool longTapDetected = false; // Define the variable here
+
   @override
-  void onTapUp(TapUpEvent event) {
-    player.startJump(true);
-    // Handle tap action here
-    // You can add player actions or trigger events when the screen is tapped
+  void onTapDown(TapDownEvent event) {
+    // Check if it's a short tap (not a long tap)
+    if (!longTapDetected) {
+      player.startJump();
+    }
   }
 
   @override
   void onLongTapDown(TapDownEvent event) {
-    player.startJump(false);
+    // Set the long tap state
+    longTapDetected = true;
+    player.longJump();
+  }
+
+  // Add onTapUp to reset the longTapDetected state
+  @override
+  void onTapUp(TapUpEvent event) {
+    longTapDetected = false;
   }
 
   Level({required this.levelName, required this.player});

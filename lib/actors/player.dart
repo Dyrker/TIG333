@@ -1,3 +1,5 @@
+// player.dart
+
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter_flame/test_adventure.dart';
@@ -11,12 +13,15 @@ class Player extends SpriteAnimationGroupComponent
   final double stepTime = 0.05;
 
   double velocityX = 300;
-  double velocityY = 700;
-  double shortJumpAddVelocity = -1200;
-  double longJumpAddVelocity = -2000;
-  double gravity = 25;
-
-  bool isjumping = false;
+  double velocityY = 0;
+  double jumpVelocity = -1200;
+  double longJumpVelocity = -1600;
+  double gravity = 50;
+  double maxJumpPosY = 1200;
+  double maxLongJump = 1600;
+  double currentJumpPos = 0.0;
+  bool isLongJump = false;
+  bool isjumping = false; //används ej atm.
   String character;
   Player({position, required this.character})
       : super(position: position, size: Vector2(128, 128));
@@ -31,15 +36,19 @@ class Player extends SpriteAnimationGroupComponent
   @override
   void update(double dt) {
     super.update(dt);
-
+    currentJumpPos = position.y;
     if (position.x < 0 || position.x + size.x > gameRef.gameWidth) {
       flipHorizontally();
       velocityX = -velocityX;
     }
 
-    if (velocityY < 700) {
+    if (currentJumpPos <= maxJumpPosY && !isLongJump) {
+      velocityY += gravity;
+    } else if (currentJumpPos <= maxLongJump && isLongJump) {
       velocityY += gravity;
     }
+
+    print(position.y);
 
     position.x += velocityX * dt;
 
@@ -50,14 +59,18 @@ class Player extends SpriteAnimationGroupComponent
     position.y += velocityY * dt;
   }
 
-  void startJump(isShortJump) {
+  void startJump() {
     if (velocityY != 0) {
       return;
     }
     position.y = 1195;
-    isShortJump
-        ? velocityY += shortJumpAddVelocity
-        : velocityY += longJumpAddVelocity;
+    isLongJump = false;
+    velocityY = isLongJump ? longJumpVelocity : jumpVelocity;
+  }
+
+  void longJump() {
+    isLongJump = true;
+    velocityY += longJumpVelocity;
   }
 
   void loadAnimations() {
