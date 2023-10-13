@@ -18,7 +18,7 @@ class Player extends SpriteAnimationGroupComponent
   double velocityY = 0;
   double jumpVelocity = -700;
   double longJumpVelocity = -600;
-  double gravity = 0;
+  double gravity = 20;
   double jumpStartingPosition = 0;
   bool isLongJump = false;
   bool isjumping = false; //används ej atm.
@@ -40,11 +40,25 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   void update(double dt) {
+    if (dt > 0.05) return;
+
+    flipPlayerOnWallCollision();
+    
+    velocityY += gravity;
+    position.x += velocityX * dt;
+    position.y += velocityY * dt;
+    
+    if (Platform.isMovingOnScreen) {
+      position.y += dt * Platform.platformVelocity;
+    }
     super.update(dt);
+  }
+
+  void flipPlayerOnWallCollision() {
     if (((position.x > 300) && (position.x < 700)) && flipCooldown) {
       flipCooldown = false;
     }
-
+    
     if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
@@ -53,28 +67,21 @@ class Player extends SpriteAnimationGroupComponent
         position.x -= 128;
         notFlipped = true;
       }
-
+    
       flipHorizontally();
       velocityX = -velocityX;
       flipCooldown = true;
+    
+      
     }
-
-    velocityY += gravity;
-    position.x += velocityX * dt;
-
-    position.y += velocityY * dt;
-
-    if (Platform.isMovingOnScreen) {
-      position.y += dt * Platform.platformVelocity;
-    }
-    // platform: position.y += dt * platformVelocity;
   }
 
   void startJump() {
-    if (velocityY != 0) {
+
+    if (velocityY != 0 && velocityY != 20) {
       return;
     }
-    gravity = 20;
+
     jumpStartingPosition = position.y;
     isLongJump = false;
     velocityY = isLongJump ? longJumpVelocity : jumpVelocity;
@@ -112,19 +119,16 @@ class Player extends SpriteAnimationGroupComponent
 
     final isTopCollision = isTopCollisionWithPlatform(intersectionPoints);
 
-    if (isTopCollision) {
-      gravity = 0;
-      velocityY = 0;
-      Platform.collisionHappened();
-    }
-
-    super.onCollision(intersectionPoints, other);
-
     if (other is Platform) {
-      if (intersectionPoints.length == 2) {
+      if (isTopCollision) {
         platformIntersectionCheck(intersectionPoints);
+        velocityY = 0;
+        
+        Platform.collisionHappened();
       }
     }
+    
+    super.onCollision(intersectionPoints, other);
   }
 
   bool isTopCollisionWithPlatform(Set<Vector2> intersectionPoints) {
