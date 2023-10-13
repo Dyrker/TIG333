@@ -4,11 +4,11 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/levels/background.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import "package:flutter_flame/actors/platform.dart";
-
 
 class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   late TiledComponent level;
@@ -32,6 +32,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     // Set the long tap state
     longTapDetected = true;
     player.longJump();
+    Platform.startMovingPlatforms();
   }
 
   // Add onTapUp to reset the longTapDetected state
@@ -44,18 +45,16 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    StaticBackground level =
-        StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
+    StaticBackground level = StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
 
     addAll([level, player]);
 
-    for (double i = 1; i <= numberOfPlatforms; i++) {
-      add(createPlatforms(i * 0, ((i * gameRef.gameHeight/numberOfPlatforms) - 64) ));
+    PlatformInstances platformManager = PlatformInstances.initialize();
+    List platformList = platformManager.getPlatforms();
+    for (var platform in platformList) {
+      add(platform);
     }
-    return super.onLoad();
-  }
 
-  Platform createPlatforms(double x, double y) {
-    return Platform(position: Vector2(x, y));
+    return super.onLoad();
   }
 }

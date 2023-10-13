@@ -24,12 +24,13 @@ class Player extends SpriteAnimationGroupComponent
   bool isjumping = false; //används ej atm.
   bool notFlipped = true;
   bool flipCooldown = true;
-  
 
   String character;
 
-  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)){add(hitbox);}
-  
+  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)) {
+    add(hitbox);
+  }
+
   @override
   FutureOr<void> onLoad() {
     loadAnimations();
@@ -40,12 +41,11 @@ class Player extends SpriteAnimationGroupComponent
   @override
   void update(double dt) {
     super.update(dt);
-    if ((position.x > 540) && (position.x < 550)) {
+    if (((position.x > 300) && (position.x < 700)) && flipCooldown) {
       flipCooldown = false;
     }
 
-    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) &&
-        !flipCooldown) {
+    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
         notFlipped = false;
@@ -58,17 +58,20 @@ class Player extends SpriteAnimationGroupComponent
       velocityX = -velocityX;
       flipCooldown = true;
     }
-    
+
     velocityY += gravity;
     position.x += velocityX * dt;
 
-    
     position.y += velocityY * dt;
+
+    if (Platform.isMovingOnScreen) {
+      position.y += dt * Platform.platformVelocity;
+    }
+    // platform: position.y += dt * platformVelocity;
   }
 
   void startJump() {
-    
-    if (velocityY != 0){
+    if (velocityY != 0) {
       return;
     }
     gravity = 20;
@@ -94,48 +97,45 @@ class Player extends SpriteAnimationGroupComponent
     }
 
     animations = {
-      PlayerState.idle:
-          assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
-      PlayerState.running:
-          assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
+      PlayerState.idle: assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
+      PlayerState.running: assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
     };
 
     current = PlayerState.idle;
   }
 
-@override
-void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-  if (velocityY < 0) {
-    return; 
-  }
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (velocityY < 0) {
+      return;
+    }
 
-  final isTopCollision = isTopCollisionWithPlatform(intersectionPoints);
+    final isTopCollision = isTopCollisionWithPlatform(intersectionPoints);
 
-  if (isTopCollision) {
-    gravity = 0;
-    velocityY = 0;
-  }
+    if (isTopCollision) {
+      gravity = 0;
+      velocityY = 0;
+      Platform.collisionHappened();
+    }
 
-  super.onCollision(intersectionPoints, other);
+    super.onCollision(intersectionPoints, other);
 
-  if (other is Platform) {
-    if (intersectionPoints.length == 2) {
-      platformIntersectionCheck(intersectionPoints);
+    if (other is Platform) {
+      if (intersectionPoints.length == 2) {
+        platformIntersectionCheck(intersectionPoints);
+      }
     }
   }
-}
 
-bool isTopCollisionWithPlatform(Set<Vector2> intersectionPoints) {
-  
-  final characterCenter = Vector2(position.x + size.x / 2, position.y + size.y / 2);
-  
-  final averageIntersectionPoint = intersectionPoints.reduce((a, b) => a + b) / 2;
+  bool isTopCollisionWithPlatform(Set<Vector2> intersectionPoints) {
+    final characterCenter = Vector2(position.x + size.x / 2, position.y + size.y / 2);
 
-  return characterCenter.y < averageIntersectionPoint.y;
-}
+    final averageIntersectionPoint = intersectionPoints.reduce((a, b) => a + b) / 2;
 
+    return characterCenter.y < averageIntersectionPoint.y;
+  }
 
-  void platformIntersectionCheck(Set<Vector2> intersectionPoints){
+  void platformIntersectionCheck(Set<Vector2> intersectionPoints) {
     final Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
 
     final Vector2 collisionNormal = absoluteCenter - mid;
@@ -143,7 +143,5 @@ bool isTopCollisionWithPlatform(Set<Vector2> intersectionPoints) {
     collisionNormal.normalize();
 
     position += collisionNormal.scaled(penetrationlength);
-    
   }
-
 }

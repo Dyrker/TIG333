@@ -8,7 +8,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
   Flame.device.setPortrait();
-  
+
   TestAdventure game = TestAdventure();
   runApp(GameWidget(game: kDebugMode ? TestAdventure() : game));
 }
