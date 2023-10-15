@@ -6,11 +6,13 @@ import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/levels/level.dart';
 import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/actors/enemy.dart';
 
 class Platform extends SpriteComponent with HasGameRef<TestAdventure>, CollisionCallbacks {
   final hitbox = RectangleHitbox()..collisionType = CollisionType.passive;
 
-  Platform({position}) : super(position: position, size: Vector2(1080, 64));
+  Enemy? enemy;
+  Platform({Vector2? position, this.enemy}) : super(position: position, size: Vector2(1080, 64));
 
   @override
   FutureOr<void> onLoad() async {
@@ -59,6 +61,10 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
       isMovingOnScreen = true;
       waitingForPlatformToHitBottom = true;
     }
+
+    if(enemy != null) {
+  enemy!.position.y = position.y - enemy!.height;
+  }
     super.update(dt);
   }
 

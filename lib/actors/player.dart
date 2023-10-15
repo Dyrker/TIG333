@@ -16,8 +16,8 @@ class Player extends SpriteAnimationGroupComponent
   final hitbox = CircleHitbox()..collisionType = CollisionType.active;
   double velocityX = 300;
   double velocityY = 0;
-  double jumpVelocity = -700;
-  double longJumpVelocity = -600;
+  double jumpVelocity = -500;
+  double longJumpVelocity = -700;
   double gravity = 20;
   double jumpStartingPosition = 0;
   bool isLongJump = false;

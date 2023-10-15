@@ -9,6 +9,7 @@ import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/levels/background.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import "package:flutter_flame/actors/platform.dart";
+import 'package:flutter_flame/actors/enemy.dart';
 
 class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   late TiledComponent level;
@@ -16,6 +17,8 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   final int numberOfPlatforms = 5;
 
   Player player;
+
+  Enemy enemy;
 
   bool longTapDetected = false; // Define the variable here
 
@@ -41,7 +44,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     longTapDetected = false;
   }
 
-  Level({required this.levelName, required this.player});
+  Level({required this.levelName, required this.player, required this.enemy});
 
   @override
   FutureOr<void> onLoad() async {
@@ -53,6 +56,9 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     List platformList = platformManager.getPlatforms();
     for (var platform in platformList) {
       add(platform);
+      if(platform.enemy != null) {
+        add(platform.enemy!);
+      }
     }
 
     return super.onLoad();
