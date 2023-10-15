@@ -12,10 +12,11 @@ void main() {
   Flame.device.fullScreen();
   Flame.device.setPortrait();
 
-  // Define a callback function to run the game
-  void startGame() {
-    runApp(GameWidget(game: kDebugMode ? TestAdventure() : TestAdventure()));
-  }
+  runApp(const MaterialApp(
+    home: Startmenu(onPlayButtonPressed: startGame),
+  ));
+}
 
-  runApp(Startmenu(onPlayButtonPressed: startGame));
+void startGame() {
+  runApp(GameWidget(game: kDebugMode ? TestAdventure() : TestAdventure()));
 }

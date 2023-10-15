@@ -7,8 +7,8 @@ class HighScoreMenu extends StatelessWidget { // Callback for the button press
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return 
+      Scaffold(
         body: Container(
           decoration: const BoxDecoration(
                       image: (DecorationImage(image: AssetImage("assets/images/staticBackground.jpg"),
@@ -19,7 +19,6 @@ class HighScoreMenu extends StatelessWidget { // Callback for the button press
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
