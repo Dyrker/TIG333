@@ -18,7 +18,8 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   Color backgroundColor() => const Color(0xFF211F30);
 
   @override
-  final world = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"), enemy: Enemy());
+  final world =
+      Level(levelName: "placeholder", player: Player(character: "Ninja Frog"), enemy: Enemy());
 
   @override
   FutureOr<void> onLoad() async {

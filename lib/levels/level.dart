@@ -22,26 +22,24 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   bool longTapDetected = false; // Define the variable here
 
+  bool jumpingDisabled = false;
+
   @override
   void onTapDown(TapDownEvent event) {
-    // Check if it's a short tap (not a long tap)
-    if (!longTapDetected) {
-      player.startJump();
+    if (player.jumpState == JumpState.idle) {
+      player.jumpHandler();
     }
   }
 
   @override
   void onLongTapDown(TapDownEvent event) {
-    // Set the long tap state
-    longTapDetected = true;
-    player.longJump();
-    Platform.startMovingPlatforms();
+    if (player.jumpState == JumpState.shortJump) {
+      player.jumpHandler();
+    }
   }
 
-  // Add onTapUp to reset the longTapDetected state
-  @override
   void onTapUp(TapUpEvent event) {
-    longTapDetected = false;
+    player.jumpingDisabled = true;
   }
 
   Level({required this.levelName, required this.player, required this.enemy});
@@ -56,7 +54,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     List platformList = platformManager.getPlatforms();
     for (var platform in platformList) {
       add(platform);
-      if(platform.enemy != null) {
+      if (platform.enemy != null) {
         add(platform.enemy!);
       }
     }

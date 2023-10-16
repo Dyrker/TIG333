@@ -6,7 +6,9 @@ import 'package:flame/components.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import "package:flutter_flame/actors/platform.dart";
 
-enum PlayerState { idle, running }
+enum RunningState { idle, running }
+
+enum JumpState { idle, shortJump, longJump }
 
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<TestAdventure>, CollisionCallbacks {
@@ -16,19 +18,45 @@ class Player extends SpriteAnimationGroupComponent
   final hitbox = CircleHitbox()..collisionType = CollisionType.active;
   double velocityX = 300;
   double velocityY = 0;
-  double jumpVelocity = -500;
-  double longJumpVelocity = -700;
   double gravity = 20;
-  double jumpStartingPosition = 0;
-  bool isLongJump = false;
-  bool isjumping = false; //används ej atm.
   bool notFlipped = true;
   bool flipCooldown = true;
+
+  JumpState jumpState = JumpState.idle;
+  bool jumpingDisabled = false;
 
   String character;
 
   Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)) {
     add(hitbox);
+  }
+
+  void jumpHandler() {
+    if (jumpingDisabled) {
+      return;
+    }
+    switch (jumpState) {
+      case JumpState.idle:
+        jumpState = JumpState.shortJump;
+        position.y += 5;
+        resetForces();
+        velocityY -= 800;
+      case JumpState.shortJump:
+        jumpState = JumpState.longJump;
+        resetForces();
+        velocityY -= 1000;
+        Platform.prepareMovingPlatforms();
+      case JumpState.longJump:
+        return;
+    }
+  }
+
+  void resetForces() {
+    velocityY = 0;
+  }
+
+  void resetJumpState() {
+    jumpState = JumpState.idle;
   }
 
   @override
@@ -43,11 +71,11 @@ class Player extends SpriteAnimationGroupComponent
     if (dt > 0.05) return;
 
     flipPlayerOnWallCollision();
-    
+
     velocityY += gravity;
     position.x += velocityX * dt;
     position.y += velocityY * dt;
-    
+
     if (Platform.isMovingOnScreen) {
       position.y += dt * Platform.platformVelocity;
     }
@@ -58,7 +86,7 @@ class Player extends SpriteAnimationGroupComponent
     if (((position.x > 300) && (position.x < 700)) && flipCooldown) {
       flipCooldown = false;
     }
-    
+
     if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
@@ -67,29 +95,11 @@ class Player extends SpriteAnimationGroupComponent
         position.x -= 128;
         notFlipped = true;
       }
-    
+
       flipHorizontally();
       velocityX = -velocityX;
       flipCooldown = true;
-    
-      
     }
-  }
-
-  void startJump() {
-
-    if (velocityY != 0 && velocityY != 20) {
-      return;
-    }
-
-    jumpStartingPosition = position.y;
-    isLongJump = false;
-    velocityY = isLongJump ? longJumpVelocity : jumpVelocity;
-  }
-
-  void longJump() {
-    isLongJump = true;
-    velocityY += longJumpVelocity;
   }
 
   void loadAnimations() {
@@ -104,11 +114,11 @@ class Player extends SpriteAnimationGroupComponent
     }
 
     animations = {
-      PlayerState.idle: assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
-      PlayerState.running: assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
+      RunningState.idle: assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
+      RunningState.running: assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
     };
 
-    current = PlayerState.idle;
+    current = RunningState.running;
   }
 
   @override
@@ -123,11 +133,13 @@ class Player extends SpriteAnimationGroupComponent
       if (isTopCollision) {
         platformIntersectionCheck(intersectionPoints);
         velocityY = 0;
-        
+
+        resetJumpState();
+        jumpingDisabled = false;
         Platform.collisionHappened();
       }
     }
-    
+
     super.onCollision(intersectionPoints, other);
   }
 

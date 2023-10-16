@@ -27,6 +27,7 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
   static bool waitingForCollision = true;
   static bool waitingForPlatformToHitBottom = false;
   static bool platformHasTeleported = false;
+  static int waitingInQueue = 0;
 
   @override
   void update(double dt) {
@@ -53,6 +54,10 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
         waitingForCollision = true;
         isMovingOnScreen = false;
         platformHasTeleported = false;
+        if (waitingInQueue > 0) {
+          movementActivated = true;
+          waitingInQueue -= 1;
+        }
       }
     }
 
@@ -62,14 +67,19 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
       waitingForPlatformToHitBottom = true;
     }
 
-    if(enemy != null) {
-  enemy!.position.y = position.y - enemy!.height;
-  }
+    if (enemy != null) {
+      enemy!.position.y = position.y - enemy!.height;
+    }
     super.update(dt);
   }
 
-  static void startMovingPlatforms() {
-    movementActivated = true;
+  static void prepareMovingPlatforms() {
+    print("test");
+    if (movementActivated) {
+      waitingInQueue += 1;
+    } else {
+      movementActivated = true;
+    }
   }
 
   static void collisionHappened() {
