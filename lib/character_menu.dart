@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'test_adventure.dart';
 
-class CharacterMenu extends StatelessWidget {// Callback for the button press
+class CharacterMenu extends StatelessWidget {
 
   const CharacterMenu({super.key});
 
