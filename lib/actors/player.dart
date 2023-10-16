@@ -1,5 +1,3 @@
-// player.dart
-
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -18,7 +16,7 @@ class Player extends SpriteAnimationGroupComponent
   final hitbox = CircleHitbox()..collisionType = CollisionType.active;
   double velocityX = 300;
   double velocityY = 0;
-  double gravity = 20;
+  double gravity = 22;
   bool notFlipped = true;
   bool flipCooldown = true;
 
@@ -39,11 +37,11 @@ class Player extends SpriteAnimationGroupComponent
       case JumpState.idle:
         jumpState = JumpState.shortJump;
         position.y += 5;
-        resetForces();
+        resetVelocity();
         velocityY -= 800;
       case JumpState.shortJump:
         jumpState = JumpState.longJump;
-        resetForces();
+        resetVelocity();
         velocityY -= 1000;
         Platform.prepareMovingPlatforms();
       case JumpState.longJump:
@@ -51,7 +49,7 @@ class Player extends SpriteAnimationGroupComponent
     }
   }
 
-  void resetForces() {
+  void resetVelocity() {
     velocityY = 0;
   }
 
@@ -72,7 +70,9 @@ class Player extends SpriteAnimationGroupComponent
 
     flipPlayerOnWallCollision();
 
-    velocityY += gravity;
+    if (jumpState != JumpState.idle) {
+      velocityY += gravity;
+    }
     position.x += velocityX * dt;
     position.y += velocityY * dt;
 
@@ -83,7 +83,7 @@ class Player extends SpriteAnimationGroupComponent
   }
 
   void flipPlayerOnWallCollision() {
-    if (((position.x > 300) && (position.x < 700)) && flipCooldown) {
+    if (((position.x > 200) && (position.x < 900)) && flipCooldown) {
       flipCooldown = false;
     }
 
@@ -132,7 +132,6 @@ class Player extends SpriteAnimationGroupComponent
     if (other is Platform) {
       if (isTopCollision) {
         platformIntersectionCheck(intersectionPoints);
-        velocityY = 0;
 
         resetJumpState();
         jumpingDisabled = false;
