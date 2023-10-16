@@ -4,15 +4,20 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
+import 'package:flutter_flame/actors/slowenemy.dart';
 import 'package:flutter_flame/levels/level.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:flutter_flame/actors/enemy.dart';
+import 'package:flutter_flame/actors/baseenemy.dart';
 
-class Platform extends SpriteComponent with HasGameRef<TestAdventure>, CollisionCallbacks {
+class Platform extends SpriteComponent
+    with HasGameRef<TestAdventure>, CollisionCallbacks {
   final hitbox = RectangleHitbox()..collisionType = CollisionType.passive;
-
-  Enemy? enemy;
-  Platform({Vector2? position, this.enemy}) : super(position: position, size: Vector2(1080, 64));
+  
+  BaseEnemy? enemy;
+  
+  Platform({Vector2? position, this.enemy})
+      : super(position: position, size: Vector2(1080, 64));
 
   @override
   FutureOr<void> onLoad() async {
@@ -40,15 +45,15 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
 
     if (waitingForPlatformToHitBottom) {
       if (position.y > 2400) {
-        double minValue = platforms.reduce((a, b) => a < b ? a : b);
-
+        double minValue = platforms.reduce((a, b) => a < b ? a : b); 
         position.y = minValue - 480;
         waitingForPlatformToHitBottom = false;
         platformHasTeleported = true;
+        
       }
       if (position.y >= 2326 && platformHasTeleported) {
         position.y = 2336;
-
+        
         movementActivated = false;
         waitingForCollision = true;
         isMovingOnScreen = false;
@@ -62,9 +67,9 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
       waitingForPlatformToHitBottom = true;
     }
 
-    if(enemy != null) {
-  enemy!.position.y = position.y - enemy!.height;
-  }
+    if (enemy != null) {
+      enemy!.position.y = position.y - enemy!.height;
+    }
     super.update(dt);
   }
 
@@ -77,4 +82,6 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
       waitingForCollision = false;
     }
   }
+
+    
 }
