@@ -12,6 +12,7 @@ class TestAdventure extends FlameGame with TapCallbacks {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;
+  
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);

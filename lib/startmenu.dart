@@ -16,7 +16,8 @@ class Startmenu extends StatelessWidget {
           decoration: const BoxDecoration(
                       image: (DecorationImage(image: AssetImage("assets/images/staticBackground.jpg"),
                       fit: BoxFit.cover))),
-          child: Column(
+          child: Center(
+            child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
@@ -41,11 +42,11 @@ class Startmenu extends StatelessWidget {
                 onPressed: onPlayButtonPressed, 
                 child: Text(('Options'), style: GoogleFonts.pressStart2p()),
               ),
-            
             ],
           ),
         ),
       ),
-    );
+    )
+  );
   }
 }
