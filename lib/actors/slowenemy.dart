@@ -1,13 +1,13 @@
 import 'baseenemy.dart';
 import 'package:flame/components.dart';
 
-class Enemy extends BaseEnemy {
+class SlowEnemy extends BaseEnemy {
 
-  Enemy({Vector2? position})
+  SlowEnemy({Vector2? position})
       : super(
           position: position,
-          velocityX: 300,
-          texturePath: "Main Characters/Mask Dude/Run (32x32).png",
+          velocityX: 100,
+          texturePath: "Main Characters/Pink Man/Run (32x32).png",
         );
 
   @override
