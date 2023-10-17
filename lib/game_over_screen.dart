@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/actors/base_enemy.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
 
