@@ -8,6 +8,8 @@ import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/actors/slow_enemy.dart';
 import 'package:flutter_flame/actors/super_fast_enemy.dart';
 import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/main.dart';
+
 
 enum EnemyState { idle, running }
 
@@ -101,6 +103,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     if (other is Player) {
       print('Aj');
     }
+    
     // Handle other common collision logic for all enemies here.
     return super.onCollision(intersectionPoints, other);
   }

@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
+import 'main.dart';
 
 class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;
   int platformCount = 20;
+  
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
@@ -40,4 +42,24 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
 
     return super.onLoad();
   }
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    // Step 3: Render the score on the screen
+    final TextPainter painter = TextPainter(
+      text: TextSpan(
+        text: 'Score: $platformCount',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24.0,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+
+    painter.layout();
+    painter.paint(canvas, Offset(900, 0)); // Adjust the position as needed.
+  }
+
 }
+

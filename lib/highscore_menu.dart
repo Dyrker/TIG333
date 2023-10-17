@@ -40,7 +40,6 @@ Widget _score(String name, int? platformCount) {
     children: [
     Container(
     child: Row(
-      
       mainAxisAlignment: MainAxisAlignment.center,
         children: [
             Text(name,
