@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 import 'main.dart';
 
 class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
@@ -29,6 +30,10 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
 
   int getPlatformCount() {
     return platformCount;
+  }
+
+  void goToStartMenu(BuildContext context) {
+  Navigator.of(context).pop();
   }
 
   @override
@@ -59,7 +64,9 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
 
     painter.layout();
     painter.paint(canvas, Offset(900, 0)); // Adjust the position as needed.
-  }
 
+    // Add a back button to return to the start menu
+
+  }
 }
 

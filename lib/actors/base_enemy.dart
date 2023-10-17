@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/fast_enemy.dart';
 import 'package:flutter_flame/actors/platform.dart';
 import 'package:flutter_flame/actors/player.dart';
@@ -21,6 +22,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
   bool flipCooldown = true;
   String texturePath;
   Platform parentPlatform;
+  BuildContext? gameScreenContext;
 
   BaseEnemy({
     Vector2? position,
@@ -103,6 +105,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     if (other is Player) {
       print('Aj');
       gameRef.platformCount = 0;
+      BackToStartMenuButton();
     }
     
     // Handle other common collision logic for all enemies here.
