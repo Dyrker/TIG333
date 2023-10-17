@@ -7,7 +7,6 @@ import 'package:flutter_flame/actors/base_enemy.dart';
 
 class Platform extends SpriteComponent with HasGameRef<TestAdventure>, CollisionCallbacks {
   final hitbox = RectangleHitbox()..collisionType = CollisionType.passive;
-  static int platformCount = 0;
 
   BaseEnemy? enemy;
 
@@ -48,8 +47,8 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
       }
       if (position.y >= 2326 && platformHasTeleported) {
         position.y = 2336;
-        Platform.platformCount++;
-        print("Platform count: ${Platform.platformCount}");
+        game.incrementPlatformCount();
+        print("Platform count: ${game.platformCount}");
 
         movementActivated = false;
         waitingForCollision = true;

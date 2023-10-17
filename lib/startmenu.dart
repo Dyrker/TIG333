@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/Character_menu.dart';
 import 'package:flutter_flame/Highscore_menu.dart';
+import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'main.dart';
 
 class Startmenu extends StatelessWidget {
-  final VoidCallback onPlayButtonPressed; // Callback for the button press
+  final VoidCallback onPlayButtonPressed;
+  final TestAdventure game;
 
-  const Startmenu({super.key, required this.onPlayButtonPressed});
+  Startmenu({super.key, required this.onPlayButtonPressed, required this.game});
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +32,14 @@ class Startmenu extends StatelessWidget {
                 onPressed: () {
                 Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HighScoreMenu()));}),
+                MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)));}),
               SizedBox(height: 20),
               ElevatedButton(
                 child: Text(('Select Character'), style: GoogleFonts.pressStart2p()),
                 onPressed: () {
                 Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CharacterMenu()));}),
+                MaterialPageRoute(builder: (context) => CharacterMenu()));}),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: onPlayButtonPressed, 

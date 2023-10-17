@@ -12,6 +12,7 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;
+  int platformCount = 20;
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
@@ -19,6 +20,14 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
 
   @override
   final world = level;
+
+  void incrementPlatformCount() {
+    platformCount++;
+  }
+
+  int getPlatformCount() {
+    return platformCount;
+  }
 
   @override
   FutureOr<void> onLoad() async {

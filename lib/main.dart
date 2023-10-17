@@ -5,18 +5,25 @@ import "package:flame/game.dart";
 import "test_adventure.dart";
 import "startmenu.dart";
 
-
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
   Flame.device.setPortrait();
 
-  runApp(const MaterialApp(
-    home: Startmenu(onPlayButtonPressed: startGame),
-  ));
+  final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
+
+  runApp(
+    MaterialApp(
+      home: Startmenu(
+        onPlayButtonPressed: () {
+          startGame(game);
+        },
+        game: game,
+      ),
+    ),
+  );
 }
 
-void startGame() {
-  runApp(GameWidget(game: kDebugMode ? TestAdventure() : TestAdventure()));
+void startGame(TestAdventure game) {
+  runApp(GameWidget(game: game));
 }

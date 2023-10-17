@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'startmenu.dart';
+
+
 
 class HighScoreMenu extends StatelessWidget {
+  final TestAdventure game;
 
-  const HighScoreMenu({super.key});
+  const HighScoreMenu({Key? key, required this.game}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final platformCount = game.getPlatformCount();
     return Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -16,11 +22,11 @@ class HighScoreMenu extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _score("Miguel", "100"),
-              _score("Elmer", "99"),
-              _score("Anton", "99"),
-              _score("Samuel", "99"),
-              _score("Anthony", "98")
+              _score("Miguel", platformCount),
+              _score("Elmer",  platformCount),
+              _score("Anton",  platformCount),
+              _score("Samuel",  platformCount),
+              _score("Anthony",  platformCount)
             ],
           ),
         ),
@@ -28,7 +34,7 @@ class HighScoreMenu extends StatelessWidget {
   }
 }
 
-Widget _score(String name, String number) {
+Widget _score(String name, int? platformCount) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -41,8 +47,7 @@ Widget _score(String name, String number) {
             style:GoogleFonts.pressStart2p()
             ),
             SizedBox(width: 10),
-            Text(number,
-            style:GoogleFonts.pressStart2p()
+            Text("Score: $platformCount", style: GoogleFonts.pressStart2p(),
           )
         ],
       ),
