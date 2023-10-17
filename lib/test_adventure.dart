@@ -17,8 +17,9 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   final double gameHeight = 2400;
   int platformCount = 20;
   BuildContext? gameScreenContext;
-  
-  static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
+
+  static final level =
+      Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -35,31 +36,33 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   }
 
   void navigateBackToMainMenu() {
-  if (gameScreenContext != null) {
-    Navigator.of(gameScreenContext!).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => GameOverScreenOverlay(), // Replace with the actual game over screen widget
-      ),
-    );
+    if (gameScreenContext != null) {
+      Navigator.of(gameScreenContext!).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              GameOverScreenOverlay(), // Replace with the actual game over screen widget
+        ),
+      );
+    }
   }
-}
-
 
   void goToStartMenu(BuildContext context) {
-  Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
-    cam = CameraComponent.withFixedResolution(world: world, width: gameWidth, height: gameHeight);
+    cam = CameraComponent.withFixedResolution(
+        world: world, width: gameWidth, height: gameHeight);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
 
     return super.onLoad();
   }
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -77,8 +80,5 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
 
     painter.layout();
     painter.paint(canvas, Offset(900, 0));
-
-
   }
 }
-

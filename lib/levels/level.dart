@@ -34,7 +34,8 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    StaticBackground level = StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
+    StaticBackground level =
+        StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
 
     addAll([level, player]);
 
@@ -42,10 +43,19 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     List platforms = PlatformInstances.getPlatforms();
     for (var platform in platforms) {
       add(platform);
-      BaseEnemy enemy =
-          BaseEnemy.createEnemy(yPos: platform.position.y - 128, parentPlatform: platform);
-      add(enemy);
-      platform.childEnemy = enemy;
+      if (platform.position.y > 2200) {
+        BaseEnemy enemy = BaseEnemy.createEnemy(
+            forcecase: 3,
+            yPos: platform.position.y - 128,
+            parentPlatform: platform);
+        add(enemy);
+        platform.childEnemy = enemy;
+      } else {
+        BaseEnemy enemy = BaseEnemy.createEnemy(
+            yPos: platform.position.y - 128, parentPlatform: platform);
+        add(enemy);
+        platform.childEnemy = enemy;
+      }
     }
 
     return super.onLoad();

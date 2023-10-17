@@ -19,7 +19,8 @@ class GameOverScreenOverlay extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 20),
             ElevatedButton(
-              child: Text('Back to main menu', style: GoogleFonts.pressStart2p()),
+              child:
+                  Text('Back to main menu', style: GoogleFonts.pressStart2p()),
               onPressed: () {
                 Navigator.of(context).pop();
               },

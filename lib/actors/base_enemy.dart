@@ -11,19 +11,18 @@ import 'package:flutter_flame/actors/super_fast_enemy.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:flutter_flame/main.dart';
 
-
 enum EnemyState { idle, running }
 
 class BaseEnemy extends SpriteAnimationGroupComponent
     with HasGameRef<TestAdventure>, CollisionCallbacks {
-  late final hitbox = CircleHitbox(radius: 40, anchor: Anchor.topCenter)..collisionType = CollisionType.passive;
+  late final hitbox = CircleHitbox(radius: 40, anchor: Anchor.topCenter)
+    ..collisionType = CollisionType.passive;
   double velocityX;
   bool notFlipped = true;
   bool flipCooldown = true;
   String texturePath;
   Platform parentPlatform;
   BuildContext? gameScreenContext;
-  
 
   BaseEnemy({
     Vector2? position,
@@ -34,12 +33,18 @@ class BaseEnemy extends SpriteAnimationGroupComponent
           position: position,
           size: Vector2(128, 128),
         ) {
-    hitbox.position = size - Vector2(64,100);
+    hitbox.position = size - Vector2(64, 100);
     add(hitbox);
   }
 
-  static BaseEnemy createEnemy({required yPos, required parentPlatform}) {
-    int randomizer = Random().nextInt(4);
+  static BaseEnemy createEnemy(
+      {int? forcecase = null, required yPos, required parentPlatform}) {
+    int randomizer;
+    if (forcecase != null) {
+      randomizer = forcecase;
+    } else {
+      randomizer = Random().nextInt(4);
+    }
     print(randomizer);
     Vector2 position = Vector2(Random().nextInt(800).toDouble(),
         yPos); //obs: om värdet 800 ökas så behöver flipEnemy-metoden justeras
@@ -47,11 +52,14 @@ class BaseEnemy extends SpriteAnimationGroupComponent
       case 0:
         return SlowEnemy(position: position, parentPlatform: parentPlatform);
       case 1:
-        return SuperFastEnemy(position: position, parentPlatform: parentPlatform);
+        return SuperFastEnemy(
+            position: position, parentPlatform: parentPlatform);
       case 2:
         return FastEnemy(position: position, parentPlatform: parentPlatform);
       case 3:
-        return FastEnemy(position: Vector2(1200,3000), parentPlatform: parentPlatform); //spawnar tom plattform
+        return FastEnemy(
+            position: Vector2(1200, 3000),
+            parentPlatform: parentPlatform); //spawnar tom plattform
       default: // dart klagade på null om inget default
         throw UnimplementedError();
     }
@@ -68,7 +76,8 @@ class BaseEnemy extends SpriteAnimationGroupComponent
       flipCooldown = false;
     }
 
-    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
+    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) &&
+        !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
         notFlipped = false;
@@ -105,17 +114,15 @@ class BaseEnemy extends SpriteAnimationGroupComponent
   static bool collisionDisabled = false;
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (!collisionDisabled) {
-    if (other is Player) {
-      print('Aj');
-      gameRef.platformCount = 0;
-      gameRef.navigateBackToMainMenu();
+      if (other is Player) {
+        print('Aj');
+        gameRef.platformCount = 0;
+        gameRef.navigateBackToMainMenu();
 
-      
-      collisionDisabled = true;
+        collisionDisabled = true;
+      }
     }
-  }
-    
+
     return super.onCollision(intersectionPoints, other);
   }
 }
-
