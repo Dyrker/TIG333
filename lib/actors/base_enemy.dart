@@ -34,7 +34,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
   }
 
   static BaseEnemy createEnemy({required yPos, required parentPlatform}) {
-    int randomizer = Random().nextInt(3);
+    int randomizer = Random().nextInt(4);
     print(randomizer);
     Vector2 position = Vector2(Random().nextInt(800).toDouble(),
         yPos); //obs: om värdet 800 ökas så behöver flipEnemy-metoden justeras
@@ -45,6 +45,8 @@ class BaseEnemy extends SpriteAnimationGroupComponent
         return SuperFastEnemy(position: position, parentPlatform: parentPlatform);
       case 2:
         return FastEnemy(position: position, parentPlatform: parentPlatform);
+      case 3:
+        return FastEnemy(position: Vector2(1200,3000), parentPlatform: parentPlatform); //spawnar tom plattform
       default: // dart klagade på null om inget default
         throw UnimplementedError();
     }
