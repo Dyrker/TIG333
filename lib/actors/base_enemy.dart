@@ -102,6 +102,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       print('Aj');
+      gameRef.platformCount = 0;
     }
     
     // Handle other common collision logic for all enemies here.
