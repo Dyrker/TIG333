@@ -7,7 +7,7 @@ class SlowEnemy extends BaseEnemy {
   SlowEnemy({Vector2? position, required Platform parentPlatform})
       : super(
           position: position,
-          velocityX: 100,
+          velocityX: 200,
           texturePath: "Main Characters/Pink Man/Run (32x32).png",
           parentPlatform: parentPlatform,
         );

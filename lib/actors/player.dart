@@ -13,10 +13,10 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
-  final hitbox = CircleHitbox()..collisionType = CollisionType.active;
-  double velocityX = 300;
+  final hitbox = CircleHitbox(radius: 50, anchor: Anchor.topCenter)..collisionType = CollisionType.active;
+  double velocityX = 450;
   double velocityY = 0;
-  double gravity = 22;
+  double gravity = 30;
   bool notFlipped = true;
   bool flipCooldown = true;
 
@@ -26,6 +26,7 @@ class Player extends SpriteAnimationGroupComponent
   String character;
 
   Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)) {
+    hitbox.position = size - Vector2(64,100);
     add(hitbox);
   }
 
@@ -36,13 +37,13 @@ class Player extends SpriteAnimationGroupComponent
     switch (jumpState) {
       case JumpState.idle:
         jumpState = JumpState.shortJump;
-        position.y += 5;
+        position.y += 10;
         resetVelocity();
-        velocityY -= 800;
+        velocityY -= 750;
       case JumpState.shortJump:
         jumpState = JumpState.longJump;
         resetVelocity();
-        velocityY -= 1000;
+        velocityY -= 1150;
         Platform.prepareMovingPlatforms();
       case JumpState.longJump:
         return;
@@ -75,7 +76,7 @@ class Player extends SpriteAnimationGroupComponent
     }
     position.x += velocityX * dt;
     position.y += velocityY * dt;
-
+    
     if (Platform.isMovingOnScreen) {
       position.y += dt * Platform.platformVelocity;
     }

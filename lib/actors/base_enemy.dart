@@ -6,13 +6,14 @@ import 'package:flutter_flame/actors/fast_enemy.dart';
 import 'package:flutter_flame/actors/platform.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/actors/slow_enemy.dart';
+import 'package:flutter_flame/actors/super_fast_enemy.dart';
 import 'package:flutter_flame/test_adventure.dart';
 
 enum EnemyState { idle, running }
 
 class BaseEnemy extends SpriteAnimationGroupComponent
     with HasGameRef<TestAdventure>, CollisionCallbacks {
-  late final hitbox = CircleHitbox()..collisionType = CollisionType.passive;
+  late final hitbox = CircleHitbox(radius: 40, anchor: Anchor.topCenter)..collisionType = CollisionType.passive;
   double velocityX;
   bool notFlipped = true;
   bool flipCooldown = true;
@@ -28,17 +29,21 @@ class BaseEnemy extends SpriteAnimationGroupComponent
           position: position,
           size: Vector2(128, 128),
         ) {
+    hitbox.position = size - Vector2(64,100);
     add(hitbox);
   }
 
   static BaseEnemy createEnemy({required yPos, required parentPlatform}) {
-    int randomizer = Random().nextInt(2);
+    int randomizer = Random().nextInt(3);
+    print(randomizer);
     Vector2 position = Vector2(Random().nextInt(800).toDouble(),
         yPos); //obs: om värdet 800 ökas så behöver flipEnemy-metoden justeras
     switch (randomizer) {
       case 0:
         return SlowEnemy(position: position, parentPlatform: parentPlatform);
       case 1:
+        return SuperFastEnemy(position: position, parentPlatform: parentPlatform);
+      case 2:
         return FastEnemy(position: position, parentPlatform: parentPlatform);
       default: // dart klagade på null om inget default
         throw UnimplementedError();
