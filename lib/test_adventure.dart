@@ -9,12 +9,14 @@ import 'levels/level.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'game_over_screen.dart';
 
 class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;
   int platformCount = 20;
+  BuildContext? gameScreenContext;
   
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
@@ -31,6 +33,17 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   int getPlatformCount() {
     return platformCount;
   }
+
+  void navigateBackToMainMenu() {
+  if (gameScreenContext != null) {
+    Navigator.of(gameScreenContext!).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => GameOverScreenOverlay(), // Replace with the actual game over screen widget
+      ),
+    );
+  }
+}
+
 
   void goToStartMenu(BuildContext context) {
   Navigator.of(context).pop();

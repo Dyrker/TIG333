@@ -105,10 +105,11 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     if (other is Player) {
       print('Aj');
       gameRef.platformCount = 0;
-      BackToStartMenuButton();
-    }
+      gameRef.navigateBackToMainMenu();
+    
     
     // Handle other common collision logic for all enemies here.
     return super.onCollision(intersectionPoints, other);
   }
+}
 }

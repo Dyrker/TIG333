@@ -46,9 +46,12 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    game.gameScreenContext = context; 
     return Scaffold(
-      body: GameWidget(game: game),
+      body: GameWidget(
+      game: game),
       floatingActionButton: BackToStartMenuButton(),
+
     );
   }
 }
