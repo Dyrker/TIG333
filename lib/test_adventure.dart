@@ -76,9 +76,8 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     );
 
     painter.layout();
-    painter.paint(canvas, Offset(900, 0)); // Adjust the position as needed.
+    painter.paint(canvas, Offset(900, 0));
 
-    // Add a back button to return to the start menu
 
   }
 }

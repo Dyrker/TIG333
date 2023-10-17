@@ -23,6 +23,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
   String texturePath;
   Platform parentPlatform;
   BuildContext? gameScreenContext;
+  
 
   BaseEnemy({
     Vector2? position,
@@ -101,15 +102,20 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     current = EnemyState.running;
   }
 
+  static bool collisionDisabled = false;
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (!collisionDisabled) {
     if (other is Player) {
       print('Aj');
       gameRef.platformCount = 0;
       gameRef.navigateBackToMainMenu();
+
+      
+      collisionDisabled = true;
+    }
+  }
     
-    
-    // Handle other common collision logic for all enemies here.
     return super.onCollision(intersectionPoints, other);
   }
 }
-}
+
