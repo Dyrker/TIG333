@@ -13,10 +13,14 @@ class HighScoreMenu extends StatelessWidget {
                       image: (DecorationImage(image: AssetImage("assets/images/staticBackground.jpg"),
                       fit: BoxFit.cover))),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _score("Hello world", "100")
+              _score("Miguel", "100"),
+              _score("Elmer", "99"),
+              _score("Anton", "99"),
+              _score("Samuel", "99"),
+              _score("Anthony", "98")
             ],
           ),
         ),
@@ -30,14 +34,15 @@ Widget _score(String name, String number) {
     children: [
     Container(
     child: Row(
+      
       mainAxisAlignment: MainAxisAlignment.center,
         children: [
             Text(name,
-            style: TextStyle(fontSize: 15),
+            style:GoogleFonts.pressStart2p()
             ),
             SizedBox(width: 10),
             Text(number,
-            style: TextStyle(fontSize: 15)
+            style:GoogleFonts.pressStart2p()
           )
         ],
       ),
