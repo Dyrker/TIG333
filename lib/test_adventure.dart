@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
 import 'main.dart';
-import 'game_over_screen.dart';
 
 class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
@@ -32,21 +30,6 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
 
   int getPlatformCount() {
     return platformCount;
-  }
-
-  void navigateBackToMainMenu() {
-    if (gameScreenContext != null) {
-      Navigator.of(gameScreenContext!).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) =>
-              GameOverScreenOverlay(), // Replace with the actual game over screen widget
-        ),
-      );
-    }
-  }
-
-  void goToStartMenu(BuildContext context) {
-    Navigator.of(context).pop();
   }
 
   @override

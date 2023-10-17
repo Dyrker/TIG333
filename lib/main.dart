@@ -1,9 +1,9 @@
-import 'package:flame/flame.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
-import 'test_adventure.dart';
-import 'startmenu.dart';
+import "package:flame/flame.dart";
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:flame/game.dart";
+import "test_adventure.dart";
+import "startmenu.dart";
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +14,7 @@ void main() {
 
   runApp(
     MaterialApp(
+
       home: Builder(
         builder: (context) {
           return Startmenu(
@@ -33,38 +34,20 @@ void startGame(BuildContext context, TestAdventure game) {
     context,
     MaterialPageRoute(
       builder: (context) {
-        return GameScreen(game: game);
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Your Game Title'),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context); 
+              },
+            ),
+          ),
+          body: GameWidget(game: game),
+        );
       },
     ),
   );
-}
-
-class GameScreen extends StatelessWidget {
-  final TestAdventure game;
-
-  GameScreen({required this.game});
-
-  @override
-  Widget build(BuildContext context) {
-    game.gameScreenContext = context; 
-    return Scaffold(
-      body: GameWidget(
-      game: game),
-      floatingActionButton: BackToStartMenuButton(),
-
-    );
-  }
-}
-
-class BackToStartMenuButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        Navigator.pop(context); // Navigate back to the start menu.
-      },
-      child: Icon(Icons.arrow_back),
-    );
-  }
 }
 
