@@ -5,12 +5,14 @@ import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:flutter_flame/actors/base_enemy.dart';
 
-class Platform extends SpriteComponent with HasGameRef<TestAdventure>, CollisionCallbacks {
+class Platform extends SpriteComponent
+    with HasGameRef<TestAdventure>, CollisionCallbacks {
   final hitbox = RectangleHitbox()..collisionType = CollisionType.passive;
 
   BaseEnemy? enemy;
 
-  Platform({Vector2? position, this.enemy}) : super(position: position, size: Vector2(1080, 64));
+  Platform({Vector2? position, this.enemy})
+      : super(position: position, size: Vector2(1080, 64));
 
   @override
   FutureOr<void> onLoad() async {
@@ -34,14 +36,16 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
     List platforms = PlatformInstances.getPlatforms();
     if (waitingForPlatformToHitBottom) {
       if (position.y > 2400) {
-        Platform topPlatform = platforms.reduce((a, b) => a.position.y < b.position.y ? a : b);
-        Platform bottomPlatform = platforms.reduce((a, b) => a.position.y > b.position.y ? a : b);
+        Platform topPlatform =
+            platforms.reduce((a, b) => a.position.y < b.position.y ? a : b);
+        Platform bottomPlatform =
+            platforms.reduce((a, b) => a.position.y > b.position.y ? a : b);
         position.y = topPlatform.position.y - 480;
         waitingForPlatformToHitBottom = false;
         platformHasTeleported = true;
         TestAdventure.level.removeEnemy(bottomPlatform.childEnemy);
-        enemy =
-            BaseEnemy.createEnemy(yPos: bottomPlatform.position.y, parentPlatform: bottomPlatform);
+        enemy = BaseEnemy.createEnemy(
+            yPos: bottomPlatform.position.y, parentPlatform: bottomPlatform);
         TestAdventure.level.addEnemy(enemy);
         bottomPlatform.setChildEnemy(enemy);
       }

@@ -14,8 +14,9 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   final double gameWidth = 1080;
   final double gameHeight = 2400;
   int platformCount = 20;
-  
-  static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
+
+  static final level =
+      Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -35,13 +36,15 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
-    cam = CameraComponent.withFixedResolution(world: world, width: gameWidth, height: gameHeight);
+    cam = CameraComponent.withFixedResolution(
+        world: world, width: gameWidth, height: gameHeight);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
 
     return super.onLoad();
   }
+
   @override
   void render(Canvas canvas) {
     super.render(canvas);
@@ -58,8 +61,6 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     );
 
     painter.layout();
-    painter.paint(canvas, Offset(900, 0)); // Adjust the position as needed.
+    painter.paint(canvas, Offset(250, 0)); // Adjust the position as needed.
   }
-
 }
-
