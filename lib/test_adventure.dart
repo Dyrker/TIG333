@@ -8,25 +8,23 @@ import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
 
-class TestAdventure extends FlameGame with TapCallbacks {
+class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;
-  
+  static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
 
   @override
-  final world =
-      Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
+  final world = level;
 
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
-    cam = CameraComponent.withFixedResolution(
-        world: world, width: gameWidth, height: gameHeight);
+    cam = CameraComponent.withFixedResolution(world: world, width: gameWidth, height: gameHeight);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
