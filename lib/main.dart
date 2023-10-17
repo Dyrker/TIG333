@@ -14,16 +14,39 @@ void main() {
 
   runApp(
     MaterialApp(
-      home: Startmenu(
-        onPlayButtonPressed: () {
-          startGame(game);
+      home: Builder(
+        builder: (context) {
+          return Startmenu(
+            onPlayButtonPressed: () {
+              startGame(context, game);
+            },
+            game: game,
+          );
         },
-        game: game,
       ),
     ),
   );
 }
 
-void startGame(TestAdventure game) {
-  runApp(GameWidget(game: game));
+void startGame(BuildContext context, TestAdventure game) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Your Game Title'),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context); 
+              },
+            ),
+          ),
+          body: GameWidget(game: game),
+        );
+      },
+    ),
+  );
 }
+
