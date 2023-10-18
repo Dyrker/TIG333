@@ -39,7 +39,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   child: Text('Send score', style: GoogleFonts.pressStart2p()),
                   onPressed: () {
                     final String playername = _textEditingController.text.trim();
-                    scoresProvider.addScore(UserScore(name: playername));
+                    scoresProvider.addName(UserScore(name: playername));
                     Navigator.of(context).pop(); }),
                 SizedBox(height: 20),
                 ElevatedButton(

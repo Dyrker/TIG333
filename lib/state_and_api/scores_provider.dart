@@ -14,7 +14,7 @@ class ScoresProvider extends ChangeNotifier {
   List<UserScore> _name = [];
   List<UserScore> get name => _name;
 
-  void addScore(UserScore userScore) {
+  void addName(UserScore userScore) {
     _name.add(userScore);
     notifyListeners();
   }
