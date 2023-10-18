@@ -17,7 +17,8 @@ class Startmenu extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: (DecorationImage(
-                image: AssetImage("assets/images/staticBackground.jpg"), fit: BoxFit.cover))),
+                image: AssetImage("assets/images/background_glacial_mountains.png"),
+                fit: BoxFit.cover))),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

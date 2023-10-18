@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/parallax.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_flame/actors/base_enemy.dart';
 import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
@@ -34,10 +36,27 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    StaticBackground level =
-        StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
-
-    addAll([level, player]);
+    final ParallaxComponent backBG = await ParallaxComponent.load(
+      [ParallaxImageData('sky.png'), ParallaxImageData('clouds_bg.png')],
+      baseVelocity: Vector2(20, 0),
+      size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
+    );
+    final ParallaxComponent staticBG = await ParallaxComponent.load(
+      [ParallaxImageData('glacial_mountains.png')],
+      baseVelocity: Vector2(20, -5),
+      size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
+    );
+    final ParallaxComponent parallaxBG = await ParallaxComponent.load(
+      [
+        ParallaxImageData('clouds_mg_3.png'),
+        ParallaxImageData('clouds_mg_2.png'),
+        ParallaxImageData('clouds_mg_1.png'),
+      ],
+      baseVelocity: Vector2(5, 0),
+      velocityMultiplierDelta: Vector2(4, 0),
+      size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
+    );
+    addAll([backBG, staticBG, parallaxBG, player]);
 
     PlatformInstances.initialize();
     List platforms = PlatformInstances.getPlatforms();
@@ -45,14 +64,12 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
       add(platform);
       if (platform.position.y > 2200) {
         BaseEnemy enemy = BaseEnemy.createEnemy(
-            forcecase: 3,
-            yPos: platform.position.y - 128,
-            parentPlatform: platform);
+            forcecase: 3, yPos: platform.position.y - 128, parentPlatform: platform);
         add(enemy);
         platform.childEnemy = enemy;
       } else {
-        BaseEnemy enemy = BaseEnemy.createEnemy(
-            yPos: platform.position.y - 128, parentPlatform: platform);
+        BaseEnemy enemy =
+            BaseEnemy.createEnemy(yPos: platform.position.y - 128, parentPlatform: platform);
         add(enemy);
         platform.childEnemy = enemy;
       }
