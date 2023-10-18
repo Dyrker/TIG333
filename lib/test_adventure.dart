@@ -4,6 +4,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/state_and_api/scores_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
@@ -87,15 +88,18 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     final TextPainter painter = TextPainter(
       text: TextSpan(
         text: 'Score: $platformCount',
-        style: TextStyle(
-          color: Colors.white,
+        style: GoogleFonts.pressStart2p(
+        textStyle: TextStyle(
+          color: Colors.black,
           fontSize: 24.0,
         ),
       ),
+    ),
       textDirection: TextDirection.ltr,
     );
-
+    
     painter.layout();
-    painter.paint(canvas, Offset(900, 0));
+    double x = (canvasSize.x - painter.width) / 2;
+    painter.paint(canvas, Offset(x, 0));
   }
 }
