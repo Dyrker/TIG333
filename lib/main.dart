@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'test_adventure.dart';
-import 'startmenu.dart';
+import 'widgets/startmenu.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,12 +46,10 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    game.gameScreenContext = context; 
+    game.gameScreenContext = context;
     return Scaffold(
-      body: GameWidget(
-      game: game),
+      body: GameWidget(game: game),
       floatingActionButton: BackToStartMenuButton(),
-
     );
   }
 }
@@ -67,4 +65,3 @@ class BackToStartMenuButton extends StatelessWidget {
     );
   }
 }
-

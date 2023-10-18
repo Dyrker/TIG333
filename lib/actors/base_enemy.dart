@@ -9,7 +9,6 @@ import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/actors/slow_enemy.dart';
 import 'package:flutter_flame/actors/super_fast_enemy.dart';
 import 'package:flutter_flame/test_adventure.dart';
-import 'package:flutter_flame/main.dart';
 
 enum EnemyState { idle, running }
 
@@ -37,8 +36,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     add(hitbox);
   }
 
-  static BaseEnemy createEnemy(
-      {int? forcecase = null, required yPos, required parentPlatform}) {
+  static BaseEnemy createEnemy({int? forcecase = null, required yPos, required parentPlatform}) {
     int randomizer;
     if (forcecase != null) {
       randomizer = forcecase;
@@ -52,14 +50,12 @@ class BaseEnemy extends SpriteAnimationGroupComponent
       case 0:
         return SlowEnemy(position: position, parentPlatform: parentPlatform);
       case 1:
-        return SuperFastEnemy(
-            position: position, parentPlatform: parentPlatform);
+        return SuperFastEnemy(position: position, parentPlatform: parentPlatform);
       case 2:
         return FastEnemy(position: position, parentPlatform: parentPlatform);
       case 3:
         return FastEnemy(
-            position: Vector2(1200, 3000),
-            parentPlatform: parentPlatform); //spawnar tom plattform
+            position: Vector2(1200, 3000), parentPlatform: parentPlatform); //spawnar tom plattform
       default: // dart klagade på null om inget default
         throw UnimplementedError();
     }
@@ -76,8 +72,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
       flipCooldown = false;
     }
 
-    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) &&
-        !flipCooldown) {
+    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
         notFlipped = false;

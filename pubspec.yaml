@@ -11,7 +11,7 @@ dependencies:
   flame_tiled: ^1.14.1
   flutter:
     sdk: flutter
-  provider: any
+  provider: ^6.0.5
   google_fonts: any
 
 dev_dependencies:

@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
-import 'main.dart';
-import 'game_over_screen.dart';
+import 'widgets/game_over_screen.dart';
 
 class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
@@ -18,8 +14,7 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   int platformCount = 20;
   BuildContext? gameScreenContext;
 
-  static final level =
-      Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
+  static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -54,8 +49,7 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
-    cam = CameraComponent.withFixedResolution(
-        world: world, width: gameWidth, height: gameHeight);
+    cam = CameraComponent.withFixedResolution(world: world, width: gameWidth, height: gameHeight);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
