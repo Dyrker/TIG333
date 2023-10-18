@@ -14,6 +14,9 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   int platformCount = 0;
   BuildContext? gameScreenContext;
 
+  Map<String, int> playerScores = {};
+
+
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
@@ -30,12 +33,18 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     return platformCount;
   }
 
+  void resetPlatformCount() {
+    platformCount = 0;
+  }
+
+
   void navigateBackToMainMenu() {
     if (gameScreenContext != null) {
       Navigator.of(gameScreenContext!).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              GameOverScreenOverlay(), // Replace with the actual game over screen widget
+              GameOverScreenOverlay(resetScoreCallback: resetPlatformCount
+              ),
         ),
       );
     }

@@ -14,7 +14,7 @@ class HighScoreMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
     final platformCount = game.getPlatformCount();
-    List<UserScore> highScores = scoresProvider.name;
+    List<UserScore> highScores = scoresProvider.scores;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

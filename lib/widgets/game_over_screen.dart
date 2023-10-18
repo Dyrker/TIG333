@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_flame/test_adventure.dart';
+
 
 
 class GameOverScreenOverlay extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
+  final Function resetScoreCallback;
+
+  GameOverScreenOverlay({required this.resetScoreCallback});
+
+
+  
   @override
   
   Widget build(BuildContext context) {
-    ScoresProvider scoresProvider = context.read<ScoresProvider>();
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -38,13 +45,15 @@ class GameOverScreenOverlay extends StatelessWidget {
                 ElevatedButton(
                   child: Text('Send score', style: GoogleFonts.pressStart2p()),
                   onPressed: () {
-                    final String playername = _textEditingController.text.trim();
-                    scoresProvider.addName(UserScore(name: playername));
+                    final String playerName = _textEditingController.text.trim();
+                    final ScoresProvider scoresProvider = context.read<ScoresProvider>();
+                    scoresProvider.addScore(UserScore(name: playerName));
                     Navigator.of(context).pop(); }),
                 SizedBox(height: 20),
                 ElevatedButton(
                   child: Text('Back to main menu', style: GoogleFonts.pressStart2p()),
                   onPressed: () {
+                    resetScoreCallback();
                     Navigator.of(context).pop();
                   },
                 ),
