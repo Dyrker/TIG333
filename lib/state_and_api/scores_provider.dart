@@ -8,7 +8,7 @@ class UserScore {
   int score;
   
 
-  UserScore({required this.name, this.score = 0});
+  UserScore({required this.name, required this.score});
 
 }
 

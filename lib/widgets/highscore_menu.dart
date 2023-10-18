@@ -13,9 +13,7 @@ class HighScoreMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
-    final platformCount = scoresProvider.platformCount;
     List<UserScore> highScores = scoresProvider.scores;
-    scoresProvider.resetScore();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -24,8 +22,8 @@ class HighScoreMenu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[for (UserScore score in highScores)
-          _score(score.name, platformCount),
+          children: <Widget>[for (UserScore userScore in highScores)
+          _score(userScore),
           ],
         ),
       ),
@@ -33,14 +31,15 @@ class HighScoreMenu extends StatelessWidget {
   }
 }
 
-Widget _score(String playername, int platformCount) {
-  final score = platformCount.toString(); 
+Widget _score(UserScore userScore) {
+  final playerName = userScore.name;
+  final score = userScore.score; 
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(playername, style: GoogleFonts.pressStart2p()),
+          Text(playerName, style: GoogleFonts.pressStart2p()),
           SizedBox(width: 10),
           Text(
             "Score: $score",
