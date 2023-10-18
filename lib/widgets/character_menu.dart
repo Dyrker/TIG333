@@ -12,7 +12,7 @@ class CharacterMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ScoresProvider>(
       builder: (context, scoresProvider, child) {
-        String characterimg = scoresProvider.selectedCharacter;
+        String characterimg = scoresProvider.imageCharacter;
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -34,7 +34,7 @@ class CharacterMenu extends StatelessWidget {
                     height: 200, // Adjust the size as needed
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/images/$characterimg.png"),
+                        image: AssetImage("assets/images/$characterimg"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -44,7 +44,7 @@ class CharacterMenu extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {String selectedCharacter = "Pink Man";
                     scoresProvider.setSelectedCharacter(selectedCharacter);
-                    characterimg = "Pinkman";
+                    scoresProvider.setImageCharacter("Pinkman.png");
                     },
                     child: Text(
                       ('Pink Man'),
@@ -54,7 +54,7 @@ class CharacterMenu extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {String selectedCharacter = "Ninja Frog";
                     scoresProvider.setSelectedCharacter(selectedCharacter);
-                    characterimg = "Ninjafrog";
+                    scoresProvider.setImageCharacter("Ninjafrog.png");
                     },
                     child: Text(
                       ('Ninja Frog'),
@@ -64,7 +64,7 @@ class CharacterMenu extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {String selectedCharacter = "Virtual Guy";
                     scoresProvider.setSelectedCharacter(selectedCharacter);
-                    characterimg = "Pinkman";
+                    scoresProvider.setImageCharacter("Virtualguy.png");
                     },
                     child: Text(
                       ('Virtual Guy'),
@@ -74,6 +74,7 @@ class CharacterMenu extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {String selectedCharacter = "Mask Dude";
                     scoresProvider.setSelectedCharacter(selectedCharacter);
+                    scoresProvider.setImageCharacter("Maskeddude.png");
                     },
                     child: Text(
                       ('Mask Dude'),
