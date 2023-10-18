@@ -106,16 +106,9 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     current = EnemyState.running;
   }
 
-  static bool collisionDisabled = false;
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (!collisionDisabled) {
-      if (other is Player) {
-        print('Aj');
-        gameRef.platformCount = 0;
-        gameRef.navigateBackToMainMenu();
-
-        collisionDisabled = true;
-      }
+    if (other is Player) {
+      TestAdventure.level.restartGame();
     }
 
     return super.onCollision(intersectionPoints, other);

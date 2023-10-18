@@ -13,7 +13,8 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.05;
-  final hitbox = CircleHitbox(radius: 50, anchor: Anchor.topCenter)..collisionType = CollisionType.active;
+  final hitbox = CircleHitbox(radius: 50, anchor: Anchor.topCenter)
+    ..collisionType = CollisionType.active;
   double velocityX = 450;
   double velocityY = 0;
   double gravity = 30;
@@ -26,7 +27,7 @@ class Player extends SpriteAnimationGroupComponent
   String character;
 
   Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)) {
-    hitbox.position = size - Vector2(64,100);
+    hitbox.position = size - Vector2(64, 100);
     add(hitbox);
   }
 
@@ -76,7 +77,7 @@ class Player extends SpriteAnimationGroupComponent
     }
     position.x += velocityX * dt;
     position.y += velocityY * dt;
-    
+
     if (Platform.isMovingOnScreen) {
       position.y += dt * Platform.platformVelocity;
     }

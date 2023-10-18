@@ -2,11 +2,11 @@ import 'package:flame/game.dart';
 import "package:flutter_flame/actors/platform.dart";
 
 class PlatformInstances {
-  static late final platform1;
-  static late final platform2;
-  static late final platform3;
-  static late final platform4;
-  static late final platform5;
+  late final platform1;
+  late final platform2;
+  late final platform3;
+  late final platform4;
+  late final platform5;
 
   PlatformInstances.initialize() {
     List yPos = [480, 960, 1440, 1920, 2400];
@@ -23,7 +23,7 @@ class PlatformInstances {
     platform5 = Platform(position: Vector2(0, yPos[4] - platformHeight));
   }
 
-  static List getPlatforms() {
+  List getPlatforms() {
     return [platform1, platform2, platform3, platform4, platform5];
   }
 }

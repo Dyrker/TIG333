@@ -31,7 +31,7 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
 
   @override
   void update(double dt) {
-    List platforms = PlatformInstances.getPlatforms();
+    List platforms = TestAdventure.level.platformInstances.getPlatforms();
     if (waitingForPlatformToHitBottom) {
       if (position.y > 2400) {
         Platform topPlatform = platforms.reduce((a, b) => a.position.y < b.position.y ? a : b);
@@ -90,5 +90,15 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
 
   void setChildEnemy(enemy) {
     this.childEnemy = enemy;
+  }
+
+  static void resetStaticVariables() {
+    platformVelocity = 500;
+    movementActivated = false;
+    isMovingOnScreen = false;
+    waitingForCollision = true;
+    waitingForPlatformToHitBottom = false;
+    platformHasTeleported = false;
+    waitingInQueue = 0;
   }
 }
