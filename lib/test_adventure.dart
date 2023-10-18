@@ -11,7 +11,7 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   late CameraComponent cam;
   final double gameWidth = 1080;
   final double gameHeight = 2400;
-  int platformCount = 20;
+  int platformCount = 0;
   BuildContext? gameScreenContext;
 
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));

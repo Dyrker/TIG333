@@ -88,7 +88,6 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     addPlatformsEnemiesPlayer();
 
     // moved these two lines to here from base_enemy (restartGame() is called from base_enemy)
-    game.platformCount = 0;
     game.navigateBackToMainMenu();
   }
 }
