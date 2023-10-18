@@ -15,8 +15,8 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   final double gameHeight = 2400;
   int platformCount = 0;
   BuildContext? gameScreenContext;
-
   Map<String, int> playerScores = {};
+  
 
 
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
@@ -24,8 +24,17 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   @override
   Color backgroundColor() => const Color(0xFF211F30);
 
+  
+
   @override
   final world = level;
+
+  void updatePlayerCharacter(String character) {
+  final playerComponent = level.player;
+  playerComponent.character = character;
+  playerComponent.loadAnimations(character); // Load animations for the new character
+}
+
 
   void incrementPlatformCount() {
     final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
@@ -61,6 +70,12 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
+
+    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+  scoresProvider.addListener(() {
+    final selectedCharacter = scoresProvider.selectedCharacter;
+    updatePlayerCharacter(selectedCharacter);
+  });
 
     return super.onLoad();
   }

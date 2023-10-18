@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_flame/state_and_api/scores_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class CharacterMenu extends StatelessWidget {
-  const CharacterMenu({Key? key});
+  
+  CharacterMenu({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    ScoresProvider scoresProvider = context.read<ScoresProvider>();
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -34,8 +38,9 @@ class CharacterMenu extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-
+                    onPressed: () {String selectedCharacter = "Pink Man";
+                    scoresProvider.setSelectedCharacter(selectedCharacter);
+                    Navigator.of(context).pop();;
                     },
                     child: Text(
                       ('Please Select Character'),

@@ -15,6 +15,7 @@ class UserScore {
 class ScoresProvider extends ChangeNotifier {
   List<UserScore> _scores = [];
   int platformCount = 0;
+  String selectedCharacter = "Ninja Frog";
   List<UserScore> get scores => _scores;
 
 
@@ -25,6 +26,11 @@ class ScoresProvider extends ChangeNotifier {
 
   void resetScore(){
     platformCount = 0;
+    notifyListeners();
+  }
+
+  void setSelectedCharacter(String character) {
+    selectedCharacter = character;
     notifyListeners();
   }
 

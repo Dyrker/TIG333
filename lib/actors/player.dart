@@ -61,7 +61,7 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   FutureOr<void> onLoad() {
-    loadAnimations();
+    loadAnimations(character);
     position.y = gameRef.gameHeight - Platform().size.y - size.y;
     return super.onLoad();
   }
@@ -104,7 +104,7 @@ class Player extends SpriteAnimationGroupComponent
     }
   }
 
-  void loadAnimations() {
+  void loadAnimations(String character) {
     SpriteAnimation assembleAnimation(String location, int amount) {
       return SpriteAnimation.fromFrameData(
           game.images.fromCache(location),

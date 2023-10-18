@@ -71,7 +71,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
         platform.childEnemy = enemy;
       }
     }
-    player = Player(character: "Ninja Frog");
+    player = Player(character: player.character);
     add(player);
   }
 
