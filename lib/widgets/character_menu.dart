@@ -80,7 +80,19 @@ class CharacterMenu extends StatelessWidget {
                       ('Mask Dude'),
                       style: GoogleFonts.pressStart2p(),
                     ),
+                    
                   ),
+                  ElevatedButton(
+                    onPressed: () {String selectedCharacter = "Purple Man";
+                    scoresProvider.setSelectedCharacter(selectedCharacter);
+                    scoresProvider.setImageCharacter("Purpleman.png");
+                    },
+                    child: Text(
+                      ('Mask Dude'),
+                      style: GoogleFonts.pressStart2p(),
+                    ),
+                    
+                  )
                   ]),
                   ElevatedButton(
                     onPressed: () {
@@ -91,6 +103,7 @@ class CharacterMenu extends StatelessWidget {
                       style: GoogleFonts.pressStart2p(),
                     ),
                   ),
+                  
                 ],
               ),
             ),
