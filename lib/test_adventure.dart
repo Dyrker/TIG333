@@ -3,6 +3,8 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/actors/player.dart';
+import 'package:flutter_flame/state_and_api/scores_provider.dart';
+import 'package:provider/provider.dart';
 import 'levels/level.dart';
 import 'package:flame/game.dart';
 import 'widgets/game_over_screen.dart';
@@ -26,15 +28,23 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   final world = level;
 
   void incrementPlatformCount() {
-    platformCount++;
+    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    scoresProvider.platformCount++;
   }
 
   int getPlatformCount() {
-    return platformCount;
+    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    return scoresProvider.platformCount;
   }
 
   void resetPlatformCount() {
-    platformCount = 0;
+    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    scoresProvider.platformCount = 0;
+  }
+
+  int getPlatformScore() {
+    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    return platformCount = scoresProvider.platformCount;
   }
 
 
@@ -69,7 +79,7 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    // Step 3: Render the score on the screen
+    int platformCount = getPlatformScore();
     final TextPainter painter = TextPainter(
       text: TextSpan(
         text: 'Score: $platformCount',

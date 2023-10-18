@@ -48,6 +48,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                     final String playerName = _textEditingController.text.trim();
                     final ScoresProvider scoresProvider = context.read<ScoresProvider>();
                     scoresProvider.addScore(UserScore(name: playerName));
+                    
                     Navigator.of(context).pop(); }),
                 SizedBox(height: 20),
                 ElevatedButton(

@@ -13,8 +13,9 @@ class HighScoreMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
-    final platformCount = game.getPlatformCount();
+    final platformCount = scoresProvider.platformCount;
     List<UserScore> highScores = scoresProvider.scores;
+    scoresProvider.resetScore();
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -24,7 +25,7 @@ class HighScoreMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[for (UserScore score in highScores)
-          _score(score.name, platformCount)
+          _score(score.name, platformCount),
           ],
         ),
       ),
