@@ -32,16 +32,6 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     scoresProvider.platformCount++;
   }
 
-  int getPlatformCount() {
-    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
-    return scoresProvider.platformCount;
-  }
-
-  void resetPlatformCount() {
-    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
-    scoresProvider.platformCount = 0;
-  }
-
   int getPlatformScore() {
     final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
     return platformCount = scoresProvider.platformCount;
@@ -53,8 +43,7 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
       Navigator.of(gameScreenContext!).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              GameOverScreenOverlay(resetScoreCallback: resetPlatformCount
-              ),
+              GameOverScreenOverlay(),
         ),
       );
     }
