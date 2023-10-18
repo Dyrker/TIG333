@@ -2,8 +2,11 @@ import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
+import 'package:flutter_flame/state_and_api/scores_provider.dart';
+import 'package:provider/provider.dart';
 import 'test_adventure.dart';
 import 'widgets/startmenu.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,20 +16,25 @@ void main() {
   final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
 
   runApp(
-    MaterialApp(
-      home: Builder(
-        builder: (context) {
-          return Startmenu(
-            onPlayButtonPressed: () {
-              startGame(context, game);
-            },
-            game: game,
-          );
-        },
+    ChangeNotifierProvider(
+      create: (context) => ScoresProvider(),
+      child: MaterialApp(
+        home: Builder(
+          builder: (context) {
+            return Startmenu(
+              onPlayButtonPressed: () {
+                startGame(context, game);
+              },
+              game: game,
+            );
+          },
+        ),
       ),
     ),
   );
 }
+
+
 
 void startGame(BuildContext context, TestAdventure game) {
   Navigator.push(
