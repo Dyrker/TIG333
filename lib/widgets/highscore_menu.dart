@@ -14,6 +14,7 @@ class HighScoreMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
     List<UserScore> highScores = scoresProvider.scores;
+    highScores.sort((a, b) => b.score.compareTo(a.score));
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -42,7 +43,7 @@ Widget _score(UserScore userScore) {
           Text(playerName, style: GoogleFonts.pressStart2p()),
           SizedBox(width: 10),
           Text(
-            "Score: $score",
+            ": $score",
             style: GoogleFonts.pressStart2p(),
           )
         ],
