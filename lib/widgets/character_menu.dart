@@ -10,7 +10,9 @@ class CharacterMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScoresProvider scoresProvider = context.read<ScoresProvider>();
+    return Consumer<ScoresProvider>(
+      builder: (context, scoresProvider, child) {
+        String characterimg = scoresProvider.selectedCharacter;
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -32,21 +34,53 @@ class CharacterMenu extends StatelessWidget {
                     height: 200, // Adjust the size as needed
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/images/pinkdude.png"),
+                        image: AssetImage("assets/images/$characterimg.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
                   ElevatedButton(
                     onPressed: () {String selectedCharacter = "Pink Man";
                     scoresProvider.setSelectedCharacter(selectedCharacter);
-                    Navigator.of(context).pop();;
+                    characterimg = "Pinkman";
                     },
                     child: Text(
-                      ('Please Select Character'),
+                      ('Pink Man'),
                       style: GoogleFonts.pressStart2p(),
                     ),
                   ),
+                  ElevatedButton(
+                    onPressed: () {String selectedCharacter = "Ninja Frog";
+                    scoresProvider.setSelectedCharacter(selectedCharacter);
+                    characterimg = "Ninjafrog";
+                    },
+                    child: Text(
+                      ('Ninja Frog'),
+                      style: GoogleFonts.pressStart2p(),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {String selectedCharacter = "Virtual Guy";
+                    scoresProvider.setSelectedCharacter(selectedCharacter);
+                    characterimg = "Pinkman";
+                    },
+                    child: Text(
+                      ('Virtual Guy'),
+                      style: GoogleFonts.pressStart2p(),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {String selectedCharacter = "Mask Dude";
+                    scoresProvider.setSelectedCharacter(selectedCharacter);
+                    },
+                    child: Text(
+                      ('Mask Dude'),
+                      style: GoogleFonts.pressStart2p(),
+                    ),
+                  ),
+                  ]),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -62,6 +96,8 @@ class CharacterMenu extends StatelessWidget {
           ],
         ),
       ),
+    );
+    }
     );
   }
 }
