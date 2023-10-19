@@ -5,7 +5,6 @@ import '/widgets/Highscore_menu.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../state_and_api/scores_provider.dart';
 import 'dart:core';
 
 class Startmenu extends StatelessWidget {
