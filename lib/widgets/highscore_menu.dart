@@ -27,14 +27,15 @@ class HighScoreMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: 50),
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
                 'HIGHSCORES',
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24.0,
+                    color: Colors.white,
+                    fontSize: 16.0,
                   ),
                 ),
               ),
@@ -49,14 +50,17 @@ class HighScoreMenu extends StatelessWidget {
                 },
               ),
             ),
-            ElevatedButton(
-              child: Text(
-                'Back to menu',
-                style: GoogleFonts.pressStart2p(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: ElevatedButton(
+                child: Text(
+                  'Return to menu',
+                  style: GoogleFonts.pressStart2p(),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
             ),
           ],
         ),

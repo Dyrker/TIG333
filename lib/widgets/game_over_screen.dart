@@ -25,34 +25,52 @@ class GameOverScreenOverlay extends StatelessWidget {
               children: <Widget>[
                 Container(
                     height: 100,
-                    child: Text("Your Score: $score", style: GoogleFonts.pressStart2p())),
-                Container(
-                  height: 40, // Adjust the height as needed
-                  child: Text(
-                    'Type in your name if you want to register your score',
-                    style: GoogleFonts.pressStart2p(),
+                    child: Text("Score: $score",
+                        style: GoogleFonts.pressStart2p(
+                            textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                        )))),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50.0, right: 50, top: 50, bottom: 20),
+                  child: Container(
+                    height: 40,
+                    child: Text(
+                      'Optionally enter name to save score',
+                      style: GoogleFonts.pressStart2p(
+                          textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.0,
+                      )),
+                    ),
                   ),
                 ),
                 SizedBox(
-                  width: 250, // Adjust width to control size
+                  width: 350,
                   child: TextFormField(
                     controller: _textEditingController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: BorderSide(color: Colors.white, width: 2),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: BorderSide(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
                     ),
-                    style: GoogleFonts.pressStart2p(),
+                    style: GoogleFonts.pressStart2p(
+                      color: Colors.white,
+                      decoration: TextDecoration.none,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 ElevatedButton(
-                  child: Text('Send score', style: GoogleFonts.pressStart2p()),
+                  child: Text('Save score', style: GoogleFonts.pressStart2p()),
                   onPressed: () {
                     final String playerName = _textEditingController.text.trim();
                     scoresProvider.addScore(UserScore(name: playerName, score: score));
@@ -62,12 +80,11 @@ class GameOverScreenOverlay extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  child: Text('Back to the main menu', style: GoogleFonts.pressStart2p()),
-                  onPressed: () {
-                    scoresProvider.resetScore();
-                    Navigator.of(context).pop();
-                  },
-                ),
+                    child: Text('Return to menu', style: GoogleFonts.pressStart2p()),
+                    onPressed: () {
+                      scoresProvider.resetScore();
+                      Navigator.of(context).pop();
+                    }),
               ],
             ),
           ),
