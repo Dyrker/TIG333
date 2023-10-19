@@ -21,7 +21,8 @@ class Startmenu extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: (DecorationImage(
-                image: AssetImage("assets/images/background_glacial_mountains.png"),
+                image: AssetImage(
+                    "assets/images/background_glacial_mountains.png"),
                 fit: BoxFit.cover))),
         child: Center(
           child: Column(
@@ -29,25 +30,31 @@ class Startmenu extends StatelessWidget {
             children: <Widget>[
               ElevatedButton(
                   onPressed: onPlayButtonPressed,
-                  child: Text(('Start Game'), style: GoogleFonts.pressStart2p())),
+                  child:
+                      Text(('Start Game'), style: GoogleFonts.pressStart2p())),
               SizedBox(height: 20),
               ElevatedButton(
-                  child: Text(('Highscores'), style: GoogleFonts.pressStart2p()),
+                  child:
+                      Text(('Highscores'), style: GoogleFonts.pressStart2p()),
                   onPressed: () async {
                     final highScoreApi = context.read<ApiUserScore>();
                     await highScoreApi.removeApiScoresBelowTop();
                     highScoreApi.fetchScores().then((_) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)));});
-
-                        
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HighScoreMenu(game: game)));
+                    });
                   }),
               SizedBox(height: 20),
               ElevatedButton(
-                  child: Text(('Select Character'), style: GoogleFonts.pressStart2p()),
+                  child: Text(('Select Character'),
+                      style: GoogleFonts.pressStart2p()),
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => CharacterMenu()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CharacterMenu()));
                   }),
               SizedBox(height: 20),
               ElevatedButton(

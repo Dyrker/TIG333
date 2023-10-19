@@ -8,7 +8,6 @@ import 'test_adventure.dart';
 import 'widgets/startmenu.dart';
 import 'state_and_api/scores_api.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
@@ -18,17 +17,16 @@ void main() async {
 
   final ApiUserScore apiUserScore = ApiUserScore();
   await apiUserScore.fetchScores();
-  
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ScoresProvider()), // Use ScoresProvider
-        ChangeNotifierProvider.value(value: apiUserScore), // Use ScoresProviderNew
-      ],
-      
-      child: MyApp(game: game),
-    ) 
-  );
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+          create: (_) => ScoresProvider()), // Use ScoresProvider
+      ChangeNotifierProvider.value(
+          value: apiUserScore), // Use ScoresProviderNew
+    ],
+    child: MyApp(game: game),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,11 +46,11 @@ class MyApp extends StatelessWidget {
             game: game,
           );
         },
-      ), debugShowCheckedModeBanner: false, 
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
-
 
 void startGame(BuildContext context, TestAdventure game) {
   Navigator.push(

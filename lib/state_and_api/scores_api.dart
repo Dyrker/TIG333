@@ -83,8 +83,8 @@ class ApiUserScore extends ChangeNotifier {
       await http.delete(
         Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'),
         headers: {
-            'Content-Type': 'application/json',
-          },
+          'Content-Type': 'application/json',
+        },
       );
       await fetchScores();
     }
@@ -94,7 +94,8 @@ class ApiUserScore extends ChangeNotifier {
   }
 
   Future<void> removeApiScoresBelowTop() async {
-    final int topN = 10; // Change this value as needed for the top scores you want to keep
+    final int topN =
+        10; // Change this value as needed for the top scores you want to keep
     _apiScores.sort((a, b) {
       final scoreA = int.tryParse(a.title.split(' ')[1]) ?? 0;
       final scoreB = int.tryParse(b.title.split(' ')[1]) ?? 0;

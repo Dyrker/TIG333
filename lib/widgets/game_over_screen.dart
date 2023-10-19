@@ -86,16 +86,15 @@ class GameOverScreenOverlay extends StatelessWidget {
                           content: Text('Player name cannot be empty'),
                         ),
                       );
-                    }
-                    else if (playerName.contains(' ')) {
+                    } else if (playerName.contains(' ')) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Player name cannot contain spaces'),
                         ),
                       );
                     } else {
-                      scoresProvider
-                          .addScore(LocalUserScore(name: playerName, score: score));
+                      scoresProvider.addScore(
+                          LocalUserScore(name: playerName, score: score));
                       scoreApi.addApiScore(playerName, score);
                       scoresProvider.resetScore();
                       Navigator.of(context).pop();

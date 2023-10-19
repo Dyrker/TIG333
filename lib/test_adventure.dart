@@ -18,7 +18,8 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   BuildContext? gameScreenContext;
   Map<String, int> playerScores = {};
 
-  static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
+  static final level =
+      Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -29,16 +30,19 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   void updatePlayerCharacter(String character) {
     final playerComponent = level.player;
     playerComponent.character = character;
-    playerComponent.loadAnimations(character); // Load animations for the new character
+    playerComponent
+        .loadAnimations(character); // Load animations for the new character
   }
 
   void incrementPlatformCount() {
-    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    final scoresProvider =
+        Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
     scoresProvider.platformCount++;
   }
 
   int getPlatformScore() {
-    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    final scoresProvider =
+        Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
     return platformCount = scoresProvider.platformCount;
   }
 
@@ -56,12 +60,14 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
 
-    cam = CameraComponent.withFixedResolution(world: world, width: gameWidth, height: gameHeight);
+    cam = CameraComponent.withFixedResolution(
+        world: world, width: gameWidth, height: gameHeight);
     cam.viewfinder.anchor = Anchor.topLeft;
 
     addAll([cam, world]);
 
-    final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
+    final scoresProvider =
+        Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
     scoresProvider.addListener(() {
       final selectedCharacter = scoresProvider.selectedCharacter;
       updatePlayerCharacter(selectedCharacter);

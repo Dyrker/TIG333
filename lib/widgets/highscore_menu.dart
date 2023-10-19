@@ -46,8 +46,8 @@ class HighScoreMenu extends StatelessWidget {
             ),
             SizedBox(height: 40),
             Container(
-            height: 300,
-            child: ListView.builder(
+              height: 300,
+              child: ListView.builder(
                 itemCount: highScoreApi.apiScores.length,
                 itemBuilder: (BuildContext context, int index) {
                   final apiScoreItem = highScoreApi.apiScores[index];
@@ -92,6 +92,7 @@ class HighScoreMenu extends StatelessWidget {
   }
 }
 
+//Don't remove this, this widget might be used to keep track of your attempts that don't make it to highscore
 Widget _score(LocalUserScore userScore) {
   final playerName = userScore.name;
   final score = userScore.score;

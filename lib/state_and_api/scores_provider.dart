@@ -1,13 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-
 class LocalUserScore {
   final String name;
   int score;
-  
 
   LocalUserScore({required this.name, required this.score});
-
 }
 
 class ScoresProvider extends ChangeNotifier {
