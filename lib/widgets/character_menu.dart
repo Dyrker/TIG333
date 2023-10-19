@@ -88,7 +88,7 @@ class CharacterMenu extends StatelessWidget {
                     scoresProvider.setImageCharacter("Purpleman.png");
                     },
                     child: Text(
-                      ('Mask Dude'),
+                      ('Purple Man'),
                       style: GoogleFonts.pressStart2p(),
                     ),
                     
