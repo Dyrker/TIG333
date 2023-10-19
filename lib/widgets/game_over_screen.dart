@@ -24,10 +24,8 @@ class GameOverScreenOverlay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                height:100,
-                child: Text(
-                "Your Score: $score",
-                style: GoogleFonts.pressStart2p())),
+                    height: 100,
+                    child: Text("Your Score: $score", style: GoogleFonts.pressStart2p())),
                 Container(
                   height: 40, // Adjust the height as needed
                   child: Text(

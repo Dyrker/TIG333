@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter_flame/actors/platform_instances.dart';
+import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:flutter_flame/actors/base_enemy.dart';
 
@@ -47,9 +47,6 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
       }
       if (position.y >= 2326 && platformHasTeleported) {
         position.y = 2336;
-        game.incrementPlatformCount();
-        print("Platform count: ${game.platformCount}");
-
         movementActivated = false;
         waitingForCollision = true;
         isMovingOnScreen = false;
@@ -74,7 +71,7 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
   }
 
   static void prepareMovingPlatforms() {
-    print("test");
+    Player.setWaitingForScore(true);
     if (movementActivated) {
       waitingInQueue += 1;
     } else {

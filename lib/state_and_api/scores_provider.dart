@@ -1,15 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_flame/test_adventure.dart';
-
-
 
 class UserScore {
   final String name;
   int score;
-  
 
   UserScore({required this.name, required this.score});
-
 }
 
 class ScoresProvider extends ChangeNotifier {
@@ -19,13 +14,12 @@ class ScoresProvider extends ChangeNotifier {
   String imageCharacter = "Ninjafrog.png";
   List<UserScore> get scores => _scores;
 
-
   void addScore(UserScore userScore) {
     _scores.add(userScore);
     notifyListeners();
   }
 
-  void resetScore(){
+  void resetScore() {
     platformCount = 0;
     notifyListeners();
   }
@@ -39,6 +33,4 @@ class ScoresProvider extends ChangeNotifier {
     imageCharacter = characterimg;
     notifyListeners();
   }
-
-  
 }

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'test_adventure.dart';
 import 'widgets/startmenu.dart';
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
@@ -33,8 +32,6 @@ void main() {
     ),
   );
 }
-
-
 
 void startGame(BuildContext context, TestAdventure game) {
   Navigator.push(
@@ -67,7 +64,7 @@ class BackToStartMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        TestAdventure.level.restartGame(); 
+        TestAdventure.level.restartGame();
       },
       child: Icon(Icons.arrow_back),
     );
