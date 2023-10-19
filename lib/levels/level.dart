@@ -2,11 +2,9 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/parallax.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_flame/actors/base_enemy.dart';
 import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
-import 'package:flutter_flame/levels/background.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import '../actors/platform.dart';
 

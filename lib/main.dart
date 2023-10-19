@@ -74,19 +74,6 @@ class GameScreen extends StatelessWidget {
     game.gameScreenContext = context;
     return Scaffold(
       body: GameWidget(game: game),
-      floatingActionButton: BackToStartMenuButton(),
-    );
-  }
-}
-
-class BackToStartMenuButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        TestAdventure.level.restartGame(); 
-      },
-      child: Icon(Icons.arrow_back),
     );
   }
 }

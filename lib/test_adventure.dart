@@ -17,25 +17,20 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   int platformCount = 0;
   BuildContext? gameScreenContext;
   Map<String, int> playerScores = {};
-  
-
 
   static final level = Level(levelName: "placeholder", player: Player(character: "Ninja Frog"));
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
 
-  
-
   @override
   final world = level;
 
   void updatePlayerCharacter(String character) {
-  final playerComponent = level.player;
-  playerComponent.character = character;
-  playerComponent.loadAnimations(character); // Load animations for the new character
-}
-
+    final playerComponent = level.player;
+    playerComponent.character = character;
+    playerComponent.loadAnimations(character); // Load animations for the new character
+  }
 
   void incrementPlatformCount() {
     final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
@@ -47,18 +42,15 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     return platformCount = scoresProvider.platformCount;
   }
 
-
   void navigateBackToMainMenu() {
     if (gameScreenContext != null) {
       Navigator.of(gameScreenContext!).pushReplacement(
         MaterialPageRoute(
-          builder: (context) =>
-              GameOverScreenOverlay(),
+          builder: (context) => GameOverScreenOverlay(),
         ),
       );
     }
   }
-
 
   @override
   FutureOr<void> onLoad() async {
@@ -70,10 +62,10 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     addAll([cam, world]);
 
     final scoresProvider = Provider.of<ScoresProvider>(gameScreenContext!, listen: false);
-  scoresProvider.addListener(() {
-    final selectedCharacter = scoresProvider.selectedCharacter;
-    updatePlayerCharacter(selectedCharacter);
-  });
+    scoresProvider.addListener(() {
+      final selectedCharacter = scoresProvider.selectedCharacter;
+      updatePlayerCharacter(selectedCharacter);
+    });
 
     return super.onLoad();
   }
@@ -86,17 +78,17 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
       text: TextSpan(
         text: 'Score: $platformCount',
         style: GoogleFonts.pressStart2p(
-        textStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 24.0,
+          textStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+          ),
         ),
       ),
-    ),
       textDirection: TextDirection.ltr,
     );
-    
+
     painter.layout();
     double x = (canvasSize.x - painter.width) / 2;
-    painter.paint(canvas, Offset(x, 0));
+    painter.paint(canvas, Offset(x, 50));
   }
 }

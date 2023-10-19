@@ -20,10 +20,9 @@ class Player extends SpriteAnimationGroupComponent
   double gravity = 30;
   bool notFlipped = true;
   bool flipCooldown = true;
-
   JumpState jumpState = JumpState.idle;
   bool jumpingDisabled = false;
-
+  static bool waitingForScore = false;
   String character;
 
   Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)) {
@@ -123,6 +122,10 @@ class Player extends SpriteAnimationGroupComponent
     current = RunningState.running;
   }
 
+  static void setWaitingForScore(bool choice) {
+    waitingForScore = choice;
+  }
+
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (velocityY < 0) {
@@ -138,6 +141,10 @@ class Player extends SpriteAnimationGroupComponent
         resetJumpState();
         jumpingDisabled = false;
         Platform.collisionHappened();
+        if (waitingForScore) {
+          game.incrementPlatformCount();
+          setWaitingForScore(false);
+        }
       }
     }
 
