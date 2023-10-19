@@ -15,6 +15,8 @@ class HighScoreMenu extends StatelessWidget {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
     List<UserScore> highScores = scoresProvider.scores;
     highScores.sort((a, b) => b.score.compareTo(a.score));
+    final ApiUserScore highScoreApi = context.read<ApiUserScore>();
+    highScoreApi.fetchScores();
 
     return Scaffold(
       body: Container(
@@ -45,10 +47,10 @@ class HighScoreMenu extends StatelessWidget {
             
             Expanded(
               child: ListView.builder(
-                itemCount: highScores.length,
-                itemBuilder: (BuildContext context, int index) {
-                  UserScore userScore = highScores[index]; 
-                  return _score(userScore);
+                itemCount: highScoreApi.apiScores.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final apiScoreItem = highScoreApi.apiScores[index];
+                        return _scorestring(apiScoreItem.title);
                 },
               ),
             ),
