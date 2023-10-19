@@ -59,7 +59,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   child: Text('Send score', style: GoogleFonts.pressStart2p()),
                   onPressed: () async {
                     final String playerName = _textEditingController.text.trim();
-                    final String playerAndScore = '$playerName - $score';
+                    final String playerAndScore = '$playerName : $score';
                     scoresProvider.addScore(UserScore(name: playerName, score: score));
                     scoreApi.addApiScore(playerAndScore);
                     scoresProvider.resetScore();

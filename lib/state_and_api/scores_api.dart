@@ -36,19 +36,20 @@ class ApiUserScore extends ChangeNotifier {
 
 
   void fetchScores() async {
-    try {
-      if (!_scoresFetched) {
-        var apiScores = await getScores();
-        _apiScores = apiScores;
-        _scoresFetched = true;
-        print('API items fetched successfully: $_apiScores');
-        notifyListeners();
-      }
-    } catch (e) {
-      // Error testing
-      print('Error fetching todos: $e');
+  try {
+    _scoresFetched = false; // Reset the flag to force fetching again
+    if (!_scoresFetched) {
+      var apiScores = await getScores();
+      _apiScores = apiScores;
+      _scoresFetched = true;
+      print('API items fetched successfully: $_apiScores');
+      notifyListeners();
     }
+  } catch (e) {
+    print('Error fetching todos: $e');
   }
+}
+
 
   Future<List<apiUserScore>> getScores() async {
     print('Testing API');
@@ -71,6 +72,7 @@ class ApiUserScore extends ChangeNotifier {
   _scoresFetched = false;
   notifyListeners();
 }
+
 
   apiUserScore convertToApiUserScore(String scoreString) {
     return apiUserScore(title: scoreString);

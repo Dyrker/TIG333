@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ApiUserScore state = context.read<ApiUserScore>();
     state.fetchScores();
+    
 
     return MaterialApp(
       home: Builder(

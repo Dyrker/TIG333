@@ -4,6 +4,7 @@ import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../state_and_api/scores_provider.dart';
+import 'dart:core';
 
 class HighScoreMenu extends StatelessWidget {
   final TestAdventure game;
