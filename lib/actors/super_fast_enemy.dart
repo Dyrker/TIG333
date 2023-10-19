@@ -8,7 +8,7 @@ class SuperFastEnemy extends BaseEnemy {
       : super(
           position: position,
           velocityX: 500,
-          texturePath: "Main Characters/Virtual Guy/Run (32x32).png",
+          texturePath: "Main Characters/Purple Man/Run (32x32).png",
           parentPlatform: parentPlatform,
         );
 
