@@ -81,6 +81,30 @@ class ApiUserScore extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeApiScoresBelowTop() async {
+    final int topN = 10; // Change this value as needed for the top scores you want to keep
+    _apiScores.sort((a, b) {
+      final scoreA = int.tryParse(a.title.split(' ')[1]) ?? 0;
+      final scoreB = int.tryParse(b.title.split(' ')[1]) ?? 0;
+      return scoreB.compareTo(scoreA);
+    });
+
+    if (_apiScores.length > topN) {
+      // Delete scores beyond the top of the leaderboard
+      for (int i = topN; i < _apiScores.length; i++) {
+        final id = _apiScores[i].id;
+        await http.delete(
+          Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        );
+      }
+      _apiScores.removeRange(topN, _apiScores.length);
+    }
+    notifyListeners();
+  }
+
   apiUserScore convertToApiUserScore(String scoreString) {
     return apiUserScore(title: scoreString);
   }
