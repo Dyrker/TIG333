@@ -1,26 +1,23 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_flame/test_adventure.dart';
-import 'package:flutter_flame/state_and_api/scores_api.dart';
 
 
-
-class UserScore {
+class LocalUserScore {
   final String name;
   int score;
   
 
-  UserScore({required this.name, required this.score});
+  LocalUserScore({required this.name, required this.score});
 
 }
 
 class ScoresProvider extends ChangeNotifier {
-  List<UserScore> _scores = [];
+  List<LocalUserScore> _scores = [];
   int platformCount = 0;
   String selectedCharacter = "Ninja Frog";
   String imageCharacter = "Ninjafrog.png";
-  List<UserScore> get scores => _scores;
+  List<LocalUserScore> get scores => _scores;
 
-  void addScore(UserScore userScore) {
+  void addScore(LocalUserScore userScore) {
     _scores.add(userScore);
     notifyListeners();
   }

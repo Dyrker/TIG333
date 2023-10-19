@@ -95,7 +95,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                       );
                     } else {
                       scoresProvider
-                          .addScore(UserScore(name: playerName, score: score));
+                          .addScore(LocalUserScore(name: playerName, score: score));
                       scoreApi.addApiScore(playerName, score);
                       scoresProvider.resetScore();
                       Navigator.of(context).pop();

@@ -14,10 +14,10 @@ class HighScoreMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
-    List<UserScore> highScores = scoresProvider.scores;
+    List<LocalUserScore> highScores = scoresProvider.scores;
     highScores.sort((a, b) => b.score.compareTo(a.score));
     final ApiUserScore highScoreApi = context.read<ApiUserScore>();
-    //highScoreApi.removeApiScoresBelowTop();
+    highScoreApi.removeApiScoresBelowTop();
 
     return Scaffold(
       body: Container(
@@ -45,20 +45,34 @@ class HighScoreMenu extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40),
-            
-            
-            Expanded(
-  child: ListView.builder(
-    itemCount: highScoreApi.apiScores.length,
-    itemBuilder: (BuildContext context, int index) {
-      final apiScoreItem = highScoreApi.apiScores[index];
-      final parts = apiScoreItem.title.split(' '); // Split the title into parts
-      final playerName = parts[0];
-      final score = int.tryParse(parts[1]) ?? 0;
-      return _scorestring(playerName, score.toString()); 
-    },
-  ),
-),
+            Container(
+            height: 300,
+            child: ListView.builder(
+                itemCount: highScoreApi.apiScores.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final apiScoreItem = highScoreApi.apiScores[index];
+                  final parts = apiScoreItem.title
+                      .split(' '); // Split the title into parts
+                  final playerName = parts[0];
+                  final score = int.tryParse(parts[1]) ?? 0;
+                  return _scorestring(playerName, score.toString());
+                },
+              ),
+            ),
+            SizedBox(height: 40),
+            Transform.translate(
+              offset: Offset(0, 10),
+              child: Text(
+                'Your Score: ',
+                style: GoogleFonts.pressStart2p(
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
@@ -68,8 +82,7 @@ class HighScoreMenu extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
-        
-              },
+                },
               ),
             ),
           ],
@@ -79,9 +92,9 @@ class HighScoreMenu extends StatelessWidget {
   }
 }
 
-Widget _score(UserScore userScore) {
-final playerName = userScore.name;
-final score = userScore.score;
+Widget _score(LocalUserScore userScore) {
+  final playerName = userScore.name;
+  final score = userScore.score;
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,8 +135,3 @@ Widget _scorestring(String playerName, String score) {
     ],
   );
 }
-
-
-
-
-

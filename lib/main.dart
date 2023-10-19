@@ -9,7 +9,7 @@ import 'widgets/startmenu.dart';
 import 'state_and_api/scores_api.dart';
 
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Flame.device.fullScreen();
   Flame.device.setPortrait();
@@ -17,6 +17,7 @@ void main() {
   final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
 
   final ApiUserScore apiUserScore = ApiUserScore();
+  await apiUserScore.fetchScores();
   
   runApp(
     MultiProvider(
