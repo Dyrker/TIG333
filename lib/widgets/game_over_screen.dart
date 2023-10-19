@@ -77,7 +77,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   onPressed: () async {
                     final String playerName =
                         _textEditingController.text.trim();
-                    final String playerAndScore = '$playerName $score';
+                    final String playerAndScore = playerName;
                     if (playerName.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -94,7 +94,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                     } else {
                       scoresProvider
                           .addScore(UserScore(name: playerName, score: score));
-                      scoreApi.addApiScore(playerAndScore);
+                      scoreApi.addApiScore(playerName, score);
                       scoresProvider.resetScore();
                       Navigator.of(context).pop();
                     }

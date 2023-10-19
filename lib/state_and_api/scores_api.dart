@@ -9,13 +9,10 @@ class apiUserScore {
   String? id;
   final String title;
 
-
   apiUserScore({this.id, required this.title});
 
   factory apiUserScore.fromJson(Map<String, dynamic> json) {
-    return apiUserScore(
-      id: json['id'], 
-      title: json['title'] ?? 'untitled'); 
+    return apiUserScore(id: json['id'], title: json['title'] ?? 'untitled');
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{
@@ -26,7 +23,7 @@ class apiUserScore {
     }
     return data;
   }
-  }
+}
 
 class ApiUserScore extends ChangeNotifier {
   List<apiUserScore> _apiScores = [];
@@ -34,50 +31,57 @@ class ApiUserScore extends ChangeNotifier {
   List<apiUserScore> get apiScores => _apiScores;
   bool _scoresFetched = false;
 
-
   void fetchScores() async {
-  try {
-    _scoresFetched = false; // Reset the flag to force fetching again
-    if (!_scoresFetched) {
-      var apiScores = await getScores();
-      _apiScores = apiScores;
-      _scoresFetched = true;
-      print('API items fetched successfully: $_apiScores');
-      notifyListeners();
+    try {
+      _scoresFetched = false; // Reset the flag to force fetching again
+      if (!_scoresFetched) {
+        var apiScores = await getScores();
+        _apiScores = apiScores;
+        _scoresFetched = true;
+        print('API items fetched successfully: $_apiScores');
+        notifyListeners();
+      }
+    } catch (e) {
+      print('Error fetching todos: $e');
     }
-  } catch (e) {
-    print('Error fetching todos: $e');
   }
-}
-
 
   Future<List<apiUserScore>> getScores() async {
     print('Testing API');
-    http.Response response = await http.get(Uri.parse('$ENDPOINT/todos?key=$apiKey'));
+    http.Response response =
+        await http.get(Uri.parse('$ENDPOINT/todos?key=$apiKey'));
     String body = response.body;
     print(body);
     List<dynamic> jsonResponse = jsonDecode(body);
     print("success");
-    return jsonResponse.map((json) => apiUserScore.fromJson(json)).toList();
+
+    List<apiUserScore> sortedScores =
+        jsonResponse.map((json) => apiUserScore.fromJson(json)).toList();
+    sortedScores.sort((a, b) {
+      final scoreA = int.tryParse(a.title.split(' ')[1]) ?? 0;
+      final scoreB = int.tryParse(b.title.split(' ')[1]) ?? 0;
+      return scoreB.compareTo(scoreA);
+    });
+
+    _apiScores = sortedScores;
+
+    return sortedScores;
   }
 
-  void addApiScore(String playerAndScore) async {
-  await http.post(
-    Uri.parse('$ENDPOINT/todos?key=$apiKey'),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: jsonEncode(apiUserScore(title: playerAndScore).toJson()),
-  );
-  _scoresFetched = false;
-  notifyListeners();
-}
-
+  void addApiScore(String playerName, int score) async {
+    final playerAndScore = '$playerName $score';
+    await http.post(
+      Uri.parse('$ENDPOINT/todos?key=$apiKey'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(apiUserScore(title: playerAndScore).toJson()),
+    );
+    _scoresFetched = false;
+    notifyListeners();
+  }
 
   apiUserScore convertToApiUserScore(String scoreString) {
     return apiUserScore(title: scoreString);
-
   }
-
-
 }

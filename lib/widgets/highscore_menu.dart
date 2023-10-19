@@ -48,14 +48,17 @@ class HighScoreMenu extends StatelessWidget {
             
             
             Expanded(
-              child: ListView.builder(
-                itemCount: highScoreApi.apiScores.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final apiScoreItem = highScoreApi.apiScores[index];
-                        return _scorestring(apiScoreItem.title);
-                },
-              ),
-            ),
+  child: ListView.builder(
+    itemCount: highScoreApi.apiScores.length,
+    itemBuilder: (BuildContext context, int index) {
+      final apiScoreItem = highScoreApi.apiScores[index];
+      final parts = apiScoreItem.title.split(' '); // Split the title into parts
+      final playerName = parts[0];
+      final score = int.tryParse(parts[1]) ?? 0;
+      return _scorestring(playerName, score.toString()); 
+    },
+  ),
+),
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
@@ -77,8 +80,8 @@ class HighScoreMenu extends StatelessWidget {
 }
 
 Widget _score(UserScore userScore) {
-  final playerName = userScore.name;
-  final score = userScore.score;
+ final playerName = userScore.name;
+final score = userScore.score;
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,8 +104,8 @@ Widget _score(UserScore userScore) {
   );
 }
 
-Widget _scorestring(_score) {
-  final scoreName = _score;
+Widget _scorestring(String playerName, String score) {
+  final scoreName = '$playerName $score';
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
