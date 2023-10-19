@@ -67,7 +67,7 @@ class BackToStartMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        Navigator.pop(context); // Navigate back to the start menu.
+        TestAdventure.level.restartGame(); 
       },
       child: Icon(Icons.arrow_back),
     );

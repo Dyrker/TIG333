@@ -59,9 +59,6 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
     }
   }
 
-  void goToStartMenu(BuildContext context) {
-    Navigator.of(context).pop();
-  }
 
   @override
   FutureOr<void> onLoad() async {
