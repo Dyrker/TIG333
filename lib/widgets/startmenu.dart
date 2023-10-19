@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/state_and_api/scores_api.dart';
 import '/widgets/Character_menu.dart';
 import '/widgets/Highscore_menu.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../state_and_api/scores_provider.dart';
+import 'dart:core';
 
 class Startmenu extends StatelessWidget {
   final VoidCallback onPlayButtonPressed;
@@ -29,9 +33,14 @@ class Startmenu extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                   child: Text(('Highscores'), style: GoogleFonts.pressStart2p()),
-                  onPressed: () {
+                  onPressed: () async {
+                    final highScoreApi = context.read<ApiUserScore>();
+                    await highScoreApi.removeApiScoresBelowTop();
+                    highScoreApi.fetchScores().then((_) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)));
+                        MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)));});
+
+                        
                   }),
               SizedBox(height: 20),
               ElevatedButton(

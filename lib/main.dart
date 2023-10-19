@@ -15,12 +15,14 @@ void main() {
   Flame.device.setPortrait();
 
   final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
+
+  final ApiUserScore apiUserScore = ApiUserScore();
   
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ScoresProvider()), // Use ScoresProvider
-        ChangeNotifierProvider(create: (_) => ApiUserScore()), // Use ScoresProviderNew
+        ChangeNotifierProvider.value(value: apiUserScore), // Use ScoresProviderNew
       ],
       
       child: MyApp(game: game),
@@ -35,10 +37,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ApiUserScore state = context.read<ApiUserScore>();
-    state.fetchScores();
-    
-
     return MaterialApp(
       home: Builder(
         builder: (context) {

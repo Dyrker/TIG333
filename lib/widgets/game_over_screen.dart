@@ -12,6 +12,8 @@ class GameOverScreenOverlay extends StatelessWidget {
     final ScoresProvider scoresProvider = context.read<ScoresProvider>();
     final int score = scoresProvider.platformCount;
     var scoreApi = Provider.of<ApiUserScore>(context, listen: false);
+    scoreApi.fetchScores();
+    scoreApi.removeApiScoresBelowTop();
     return Scaffold(
       body: Stack(
         children: <Widget>[

@@ -31,7 +31,7 @@ class ApiUserScore extends ChangeNotifier {
   List<apiUserScore> get apiScores => _apiScores;
   bool _scoresFetched = false;
 
-  void fetchScores() async {
+  Future<void> fetchScores() async {
     try {
       _scoresFetched = false; // Reset the flag to force fetching again
       if (!_scoresFetched) {
@@ -77,6 +77,18 @@ class ApiUserScore extends ChangeNotifier {
       },
       body: jsonEncode(apiUserScore(title: playerAndScore).toJson()),
     );
+    await fetchScores();
+    if (_apiScores.length > 10) {
+      final id = _apiScores.last.id;
+      await http.delete(
+        Uri.parse('$ENDPOINT/todos/$id?key=$apiKey'),
+        headers: {
+            'Content-Type': 'application/json',
+          },
+      );
+      await fetchScores();
+    }
+
     _scoresFetched = false;
     notifyListeners();
   }
