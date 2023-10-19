@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/parallax.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_flame/actors/base_enemy.dart';
 import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
@@ -38,9 +40,27 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    StaticBackground level = StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
-
-    add(level);
+    final ParallaxComponent skyBG = await ParallaxComponent.load(
+      [ParallaxImageData('sky.png'), ParallaxImageData('clouds_bg.png')],
+      baseVelocity: Vector2(20, 0),
+      size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
+    );
+    final ParallaxComponent mountainsBG = await ParallaxComponent.load(
+      [ParallaxImageData('glacial_mountains.png')],
+      baseVelocity: Vector2(20, -5),
+      size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
+    );
+    final ParallaxComponent cloudsBG = await ParallaxComponent.load(
+      [
+        ParallaxImageData('clouds_mg_3.png'),
+        ParallaxImageData('clouds_mg_2.png'),
+        ParallaxImageData('clouds_mg_1.png'),
+      ],
+      baseVelocity: Vector2(5, 0),
+      velocityMultiplierDelta: Vector2(4, 0),
+      size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
+    );
+    addAll([skyBG, mountainsBG, cloudsBG]);
     addPlatformsEnemiesPlayer();
 
     return super.onLoad();
@@ -71,7 +91,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
         platform.childEnemy = enemy;
       }
     }
-    player = Player(character: "Ninja Frog");
+    player = Player(character: player.character);
     add(player);
   }
 
@@ -88,7 +108,6 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     addPlatformsEnemiesPlayer();
 
     // moved these two lines to here from base_enemy (restartGame() is called from base_enemy)
-    game.platformCount = 0;
     game.navigateBackToMainMenu();
   }
 }
