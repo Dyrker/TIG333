@@ -29,17 +29,19 @@ class apiUserScore {
   }
 
 class ApiUserScore extends ChangeNotifier {
-  List<apiUserScore> _scores = [];
+  List<apiUserScore> _apiScores = [];
   int platformCount = 0;
-  List<apiUserScore> get scores => _scores;
+  List<apiUserScore> get apiScores => _apiScores;
   bool _scoresFetched = false;
+
 
   void fetchScores() async {
     try {
       if (!_scoresFetched) {
-        var scores = await getScores();
-        _scores = scores;
+        var apiScores = await getScores();
+        _apiScores = apiScores;
         _scoresFetched = true;
+        print('API items fetched successfully: $_apiScores');
         notifyListeners();
       }
     } catch (e) {
@@ -58,5 +60,22 @@ class ApiUserScore extends ChangeNotifier {
     return jsonResponse.map((json) => apiUserScore.fromJson(json)).toList();
   }
 
-  
+  void addApiScore(String playerAndScore) async {
+  await http.post(
+    Uri.parse('$ENDPOINT/todos?key=$apiKey'),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(apiUserScore(title: playerAndScore).toJson()),
+  );
+  _scoresFetched = false;
+  notifyListeners();
+}
+
+  apiUserScore convertToApiUserScore(String scoreString) {
+    return apiUserScore(title: scoreString);
+
+  }
+
+
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/state_and_api/scores_api.dart';
 import 'package:flutter_flame/state_and_api/scores_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ class GameOverScreenOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScoresProvider scoresProvider = context.read<ScoresProvider>();
     final int score = scoresProvider.platformCount;
+    var scoreApi = Provider.of<ApiUserScore>(context, listen: false);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -55,9 +57,11 @@ class GameOverScreenOverlay extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   child: Text('Send score', style: GoogleFonts.pressStart2p()),
-                  onPressed: () {
+                  onPressed: () async {
                     final String playerName = _textEditingController.text.trim();
+                    final String playerAndScore = '$playerName - $score';
                     scoresProvider.addScore(UserScore(name: playerName, score: score));
+                    scoreApi.addApiScore(playerAndScore);
                     scoresProvider.resetScore();
                     Navigator.of(context).pop();
                   },
