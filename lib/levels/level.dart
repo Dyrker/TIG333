@@ -40,17 +40,17 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    final ParallaxComponent backBG = await ParallaxComponent.load(
+    final ParallaxComponent skyBG = await ParallaxComponent.load(
       [ParallaxImageData('sky.png'), ParallaxImageData('clouds_bg.png')],
       baseVelocity: Vector2(20, 0),
       size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
     );
-    final ParallaxComponent staticBG = await ParallaxComponent.load(
+    final ParallaxComponent mountainsBG = await ParallaxComponent.load(
       [ParallaxImageData('glacial_mountains.png')],
       baseVelocity: Vector2(20, -5),
       size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
     );
-    final ParallaxComponent parallaxBG = await ParallaxComponent.load(
+    final ParallaxComponent cloudsBG = await ParallaxComponent.load(
       [
         ParallaxImageData('clouds_mg_3.png'),
         ParallaxImageData('clouds_mg_2.png'),
@@ -60,11 +60,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
       velocityMultiplierDelta: Vector2(4, 0),
       size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
     );
-    addAll([backBG, staticBG, parallaxBG, player]);
-
-    StaticBackground level = StaticBackground(Vector2(gameRef.gameWidth, gameRef.gameHeight));
-
-    add(level);
+    addAll([skyBG, mountainsBG, cloudsBG]);
     addPlatformsEnemiesPlayer();
 
     return super.onLoad();
