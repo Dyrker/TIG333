@@ -34,7 +34,8 @@ class GameOverScreenOverlay extends StatelessWidget {
                           fontSize: 18.0,
                         )))),
                 Padding(
-                  padding: const EdgeInsets.only(left: 50.0, right: 50, top: 50, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      left: 50.0, right: 50, top: 50, bottom: 20),
                   child: Container(
                     height: 40,
                     child: Text(
@@ -74,17 +75,35 @@ class GameOverScreenOverlay extends StatelessWidget {
                 ElevatedButton(
                   child: Text('Save score', style: GoogleFonts.pressStart2p()),
                   onPressed: () async {
-                    final String playerName = _textEditingController.text.trim();
-                    final String playerAndScore = '$playerName : $score';
-                    scoresProvider.addScore(UserScore(name: playerName, score: score));
-                    scoreApi.addApiScore(playerAndScore);
-                    scoresProvider.resetScore();
-                    Navigator.of(context).pop();
+                    final String playerName =
+                        _textEditingController.text.trim();
+                    final String playerAndScore = '$playerName $score';
+                    if (playerName.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Player name cannot be empty'),
+                        ),
+                      );
+                    }
+                    else if (playerName.contains(' ')) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Player name cannot contain spaces'),
+                        ),
+                      );
+                    } else {
+                      scoresProvider
+                          .addScore(UserScore(name: playerName, score: score));
+                      scoreApi.addApiScore(playerAndScore);
+                      scoresProvider.resetScore();
+                      Navigator.of(context).pop();
+                    }
                   },
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                    child: Text('Return to menu', style: GoogleFonts.pressStart2p()),
+                    child: Text('Return to menu',
+                        style: GoogleFonts.pressStart2p()),
                     onPressed: () {
                       scoresProvider.resetScore();
                       Navigator.of(context).pop();

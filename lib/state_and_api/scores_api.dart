@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 String ENDPOINT = "https://todoapp-api.apps.k8s.gu.se";
-String apiKey = "5c737970-b8f3-44b9-8bbb-d93f96962098";
+String apiKey = "4b4bbd3e-63c0-4e6a-bb40-2aa65ea125a1";
 
 class apiUserScore {
   String? id;
