@@ -1,10 +1,16 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/state_and_api/scores_api.dart';
+
+
 
 class UserScore {
   final String name;
   int score;
+  
 
   UserScore({required this.name, required this.score});
+
 }
 
 class ScoresProvider extends ChangeNotifier {

@@ -6,6 +6,8 @@ import 'package:flutter_flame/state_and_api/scores_provider.dart';
 import 'package:provider/provider.dart';
 import 'test_adventure.dart';
 import 'widgets/startmenu.dart';
+import 'state_and_api/scores_api.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,26 +15,45 @@ void main() {
   Flame.device.setPortrait();
 
   final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
-
+  
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ScoresProvider(),
-      child: MaterialApp(
-        home: Builder(
-          builder: (context) {
-            return Startmenu(
-              onPlayButtonPressed: () {
-                startGame(context, game);
-              },
-              game: game,
-            );
-          },
-        ),
-        debugShowCheckedModeBanner: false,
-      ),
-    ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ScoresProvider()), // Use ScoresProvider
+        ChangeNotifierProvider(create: (_) => ApiUserScore()), // Use ScoresProviderNew
+      ],
+      
+      child: MyApp(game: game),
+    ) 
   );
 }
+
+class MyApp extends StatelessWidget {
+  final TestAdventure game;
+
+  MyApp({required this.game});
+
+  @override
+  Widget build(BuildContext context) {
+    ApiUserScore state = context.read<ApiUserScore>();
+    state.fetchScores();
+    
+
+    return MaterialApp(
+      home: Builder(
+        builder: (context) {
+          return Startmenu(
+            onPlayButtonPressed: () {
+              startGame(context, game);
+            },
+            game: game,
+          );
+        },
+      ), debugShowCheckedModeBanner: false, 
+    );
+  }
+}
+
 
 void startGame(BuildContext context, TestAdventure game) {
   Navigator.push(
@@ -55,6 +76,19 @@ class GameScreen extends StatelessWidget {
     game.gameScreenContext = context;
     return Scaffold(
       body: GameWidget(game: game),
+      floatingActionButton: BackToStartMenuButton(),
+    );
+  }
+}
+
+class BackToStartMenuButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        TestAdventure.level.restartGame();
+      },
+      child: Icon(Icons.arrow_back),
     );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/state_and_api/scores_api.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../state_and_api/scores_provider.dart';
+import 'dart:core';
 
 class HighScoreMenu extends StatelessWidget {
   final TestAdventure game;
@@ -14,6 +16,8 @@ class HighScoreMenu extends StatelessWidget {
     ScoresProvider scoresProvider = context.read<ScoresProvider>();
     List<UserScore> highScores = scoresProvider.scores;
     highScores.sort((a, b) => b.score.compareTo(a.score));
+    final ApiUserScore highScoreApi = context.read<ApiUserScore>();
+    highScoreApi.fetchScores();
 
     return Scaffold(
       body: Container(
@@ -41,12 +45,14 @@ class HighScoreMenu extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40),
+            
+            
             Expanded(
               child: ListView.builder(
-                itemCount: highScores.length,
-                itemBuilder: (BuildContext context, int index) {
-                  UserScore userScore = highScores[index];
-                  return _score(userScore);
+                itemCount: highScoreApi.apiScores.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final apiScoreItem = highScoreApi.apiScores[index];
+                        return _scorestring(apiScoreItem.title);
                 },
               ),
             ),
@@ -59,7 +65,8 @@ class HighScoreMenu extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
-                },
+        
+              },
               ),
             ),
           ],
@@ -93,3 +100,27 @@ Widget _score(UserScore userScore) {
     ],
   );
 }
+
+Widget _scorestring(_score) {
+  final scoreName = _score;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(scoreName, style: GoogleFonts.pressStart2p(fontSize: 24.0)),
+            SizedBox(width: 10),
+          ],
+        ),
+      ),
+      SizedBox(height: 10),
+    ],
+  );
+}
+
+
+
+
+
