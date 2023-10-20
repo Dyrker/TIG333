@@ -12,5 +12,5 @@ Jump dust
 death
 ?
 
-Kända buggar:
+Kända buggar: api errors when it comes to building widgets when you press the highscore button
 ?
