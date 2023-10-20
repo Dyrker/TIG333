@@ -10,10 +10,10 @@ class GameOverScreenOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScoresProvider scoresProvider = context.read<ScoresProvider>();
-    final int score = scoresProvider.platformCount;
+    final int score = scoresProvider.platformCount + 20;
     var scoreApi = Provider.of<ApiUserScore>(context, listen: false);
-    scoreApi.fetchScores();
-    scoreApi.removeApiScoresBelowTop();
+    //scoreApi.fetchScores();
+    //scoreApi.removeApiScoresBelowTop();
     return Scaffold(
       body: Stack(
         children: <Widget>[
