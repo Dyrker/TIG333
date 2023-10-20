@@ -1,5 +1,4 @@
 import 'package:flutter_flame/actors/platform.dart';
-
 import 'base_enemy.dart';
 import 'package:flame/components.dart';
 
@@ -15,7 +14,7 @@ class FastEnemy extends BaseEnemy {
   @override
   void update(double dt) {
     super.update(dt); // Call the base class's update method
-
+    
     position.y = parentPlatform.position.y - 128;
 
     // Custom update logic specific to the FastEnemy class
