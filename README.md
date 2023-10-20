@@ -12,5 +12,5 @@ Jump dust
 death
 ?
 
-Kända buggar:
+Kända buggar: api errors vad gäller byggandet av widget när det kommer till highscore
 ?
