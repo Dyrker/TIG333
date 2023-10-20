@@ -17,7 +17,7 @@ class HighScoreMenu extends StatelessWidget {
     List<LocalUserScore> highScores = scoresProvider.scores;
     highScores.sort((a, b) => b.score.compareTo(a.score));
     final ApiUserScore highScoreApi = context.read<ApiUserScore>();
-    highScoreApi.removeApiScoresBelowTop();
+    //highScoreApi.removeApiScoresBelowTop();
 
     return Scaffold(
       body: Container(

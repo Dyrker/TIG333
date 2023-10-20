@@ -16,7 +16,6 @@ void main() async {
   final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
 
   final ApiUserScore apiUserScore = ApiUserScore();
-  await apiUserScore.fetchScores();
 
   runApp(MultiProvider(
     providers: [
@@ -31,7 +30,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final TestAdventure game;
-
   MyApp({required this.game});
 
   @override
