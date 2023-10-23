@@ -102,20 +102,28 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     add(player);
   }
 
-  ///Resets game variables to the initial state.  
+  
   void restartGame() {
-    var platforms = platformInstances.getPlatforms();
-    for (var platform in platforms) {
-      remove(platform.childEnemy);
-      remove(platform);
-    }
-    remove(player);
-
-    Platform.resetStaticVariables();
-    platformInstances = PlatformInstances.initialize(); // new instance of PlatformInstances
-    loadPlatformsAndEnemies();
-
-    // moved these two lines to here from base_enemy (restartGame() is called from base_enemy)
-    game.navigateBackToMainMenu();
+  var platforms = platformInstances.getPlatforms();
+  for (var platform in platforms) {
+    remove(platform.childEnemy);
+    remove(platform);
   }
+
+ 
+  if (player != null) {
+    remove(player);
+  }
+
+  Platform.resetStaticVariables();
+  platformInstances = PlatformInstances.initialize(); 
+  loadPlatformsAndEnemies();
+  
+  
+  player = Player(character: player.character);
+  add(player);
+
+  
+  game.navigateBackToMainMenu();
+}
 }
