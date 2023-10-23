@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/widgets/jumper_men_buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
@@ -65,14 +66,11 @@ class HighScoreMenu extends StatelessWidget {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
-              child: ElevatedButton(
-                child: Text(
-                  'Return to menu',
-                  style: GoogleFonts.pressStart2p(),
-                ),
+              child: ButtonStyles.retroElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                  Navigator.of(context).pop(); },
+                  label: 'Return to menu', 
+                  fontSize: 16.0
               ),
             ),
           ],

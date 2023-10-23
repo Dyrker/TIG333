@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/character_manager.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_flame/widgets/jumper_men_buttons.dart';
 

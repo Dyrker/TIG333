@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_flame/widgets/jumper_men_buttons.dart'; // Import the ButtonStyles class
 
 class GameOverScreenOverlay extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -74,8 +75,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-                ElevatedButton(
-                  child: Text('Save score', style: GoogleFonts.pressStart2p()),
+                ButtonStyles.retroElevatedButton(
                   onPressed: () async {
                     final String playerName = _textEditingController.text.trim();
 
@@ -97,14 +97,18 @@ class GameOverScreenOverlay extends StatelessWidget {
                       Navigator.of(context).pop();
                     }
                   },
+                  label: 'Save score', 
+                  fontSize: 16.0, 
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                    child: Text('Return to menu', style: GoogleFonts.pressStart2p()),
-                    onPressed: () {
-                      scoresManager.resetScore();
-                      Navigator.of(context).pop();
-                    }),
+                ButtonStyles.retroElevatedButton( 
+                  onPressed: () {
+                    scoresManager.resetScore();
+                    Navigator.of(context).pop();
+                  },
+                  label: 'Return to menu', 
+                  fontSize: 16.0, 
+                ),
               ],
             ),
           ),

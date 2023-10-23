@@ -3,9 +3,9 @@ import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import '/widgets/Character_menu.dart';
 import '/widgets/Highscore_menu.dart';
 import 'package:flutter_flame/test_adventure.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
+import 'package:flutter_flame/widgets/jumper_men_buttons.dart'; // Import the ButtonStyles class
 
 class Startmenu extends StatelessWidget {
   final VoidCallback onPlayButtonPressed;
@@ -17,43 +17,53 @@ class Startmenu extends StatelessWidget {
   Widget build(BuildContext context) {
     ScoresManager scoresManager = context.read<ScoresManager>();
     return MaterialApp(
-        home: Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
+      home: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
             image: (DecorationImage(
-                image: AssetImage("assets/images/background_glacial_mountains.png"),
-                fit: BoxFit.cover))),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
+              image: AssetImage("assets/images/background_glacial_mountains.png"),
+              fit: BoxFit.cover,
+            )),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ButtonStyles.retroElevatedButton( // Use the retro button style
                   onPressed: onPlayButtonPressed,
-                  child: Text(('Start Game'), style: GoogleFonts.pressStart2p())),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  child: Text(('Highscores'), style: GoogleFonts.pressStart2p()),
+                  label: 'Start Game',
+                ),
+                SizedBox(height: 20),
+                ButtonStyles.retroElevatedButton( // Use the retro button style
                   onPressed: () async {
                     await scoresManager.updateLocalScores();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)));
-                  }),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  child: Text(('Select Character'), style: GoogleFonts.pressStart2p()),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)),
+                    );
+                  },
+                  label: 'Highscores',
+                ),
+                SizedBox(height: 20),
+                ButtonStyles.retroElevatedButton( // Use the retro button style
                   onPressed: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => CharacterMenu()));
-                  }),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: onPlayButtonPressed,
-                child: Text(('Options'), style: GoogleFonts.pressStart2p()),
-              ),
-            ],
+                      context,
+                      MaterialPageRoute(builder: (context) => CharacterMenu()),
+                    );
+                  },
+                  label: 'Select Character',
+                ),
+                SizedBox(height: 20),
+                ButtonStyles.retroElevatedButton( // Use the retro button style
+                  onPressed: onPlayButtonPressed,
+                  label: 'Options',
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
