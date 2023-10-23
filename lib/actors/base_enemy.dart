@@ -9,6 +9,7 @@ import 'package:flutter_flame/actors/platform.dart';
 import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/actors/slow_enemy.dart';
 import 'package:flutter_flame/actors/super_fast_enemy.dart';
+import 'package:flutter_flame/actors/non_flipping_enemy.dart';
 import 'package:flutter_flame/test_adventure.dart';
 
 enum EnemyState { idle, running }
@@ -42,14 +43,14 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     if (forcecase != null) {
       randomizer = forcecase;
     } else {
-      randomizer = Random().nextInt(5);
+      randomizer = Random().nextInt(6);
     }
     print(randomizer);
     Vector2 position = Vector2(Random().nextInt(800).toDouble(),
         yPos); //obs: om värdet 800 ökas så behöver flipEnemy-metoden justeras
     switch (randomizer) {
       case 0:
-        return FlippingEnemy(position: position, parentPlatform: parentPlatform);
+        return NonFlippingEnemy(position: position, parentPlatform: parentPlatform);
       case 1:
         return SuperFastEnemy(position: position, parentPlatform: parentPlatform);
       case 2:
@@ -59,6 +60,8 @@ class BaseEnemy extends SpriteAnimationGroupComponent
             position: Vector2(1200, 3000), parentPlatform: parentPlatform); //spawnar tom plattform
       case 4:
         return SlowEnemy(position: position, parentPlatform: parentPlatform);
+      case 5:
+        return FlippingEnemy(position: position, parentPlatform: parentPlatform);
       default: // dart klagade på null om inget default
         throw UnimplementedError();
     }
