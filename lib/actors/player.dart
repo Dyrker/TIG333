@@ -13,6 +13,8 @@ class Player extends SpriteAnimationGroupComponent
     with HasGameRef<TestAdventure>, CollisionCallbacks {
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
+  late final SpriteAnimation doubleJumpAnimation;
+  late final SpriteAnimation jumpAnimation;
   final double stepTime = 0.05;
   final hitbox = CircleHitbox(radius: 50, anchor: Anchor.topCenter)
     ..collisionType = CollisionType.active;
@@ -74,6 +76,19 @@ class Player extends SpriteAnimationGroupComponent
 
     if (jumpState != JumpState.idle) {
       velocityY += gravity;
+      switch (jumpState) {
+        case JumpState.shortJump:
+          current = JumpState.shortJump;
+          break;
+        case JumpState.longJump:
+          current = JumpState.longJump;
+          break;
+        default:
+          current = RunningState.running;
+          break;
+      }
+    } else {
+      current = RunningState.running;
     }
     position.x += velocityX * dt;
     position.y += velocityY * dt;
@@ -118,6 +133,9 @@ class Player extends SpriteAnimationGroupComponent
     animations = {
       RunningState.idle: assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
       RunningState.running: assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
+      JumpState.shortJump: assembleAnimation("Main Characters/$character/Jump (32x32).png", 1),
+      JumpState.longJump:
+          assembleAnimation("Main Characters/$character/Double Jump (32x32).png", 6),
     };
 
     current = RunningState.running;
