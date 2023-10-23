@@ -8,6 +8,7 @@ enum RunningState { idle, running }
 
 enum JumpState { idle, shortJump, longJump }
 
+///The player controlled character.
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<TestAdventure>, CollisionCallbacks {
   late final SpriteAnimation idleAnimation;

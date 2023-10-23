@@ -15,11 +15,11 @@ class SuperFastEnemy extends BaseEnemy {
   @override
   void update(double dt) {
     if (dt > 0.05) return;
-    super.update(dt); // Call the base class's update method
+    super.update(dt); 
 
     position.y = parentPlatform.position.y - 128;
 
-    // Custom update logic specific to the FastEnemy class
+    
     flipEnemyOnWallCollision();
     position.x += velocityX * dt;
   }

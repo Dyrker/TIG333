@@ -38,6 +38,14 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
+    await LoadBackground();
+    loadPlatformsAndEnemies();
+    loadPlayer();
+    return super.onLoad();
+  }
+
+  ///Add the parallax background
+  Future<void> LoadBackground() async {
     final ParallaxComponent skyBG = await ParallaxComponent.load(
       [ParallaxImageData('sky.png'), ParallaxImageData('clouds_bg.png')],
       baseVelocity: Vector2(20, 0),
@@ -59,9 +67,6 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
       size: Vector2(gameRef.gameWidth, gameRef.gameHeight),
     );
     addAll([skyBG, mountainsBG, cloudsBG]);
-    addPlatformsEnemiesPlayer();
-
-    return super.onLoad();
   }
 
   void removeEnemy(enemy) {
@@ -72,14 +77,14 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     add(enemy);
   }
 
-  void addPlatformsEnemiesPlayer() {
+  ///Add the initial platform and enemy positions.  
+  void loadPlatformsAndEnemies() {
     List platforms = platformInstances.getPlatforms();
     for (var platform in platforms) {
       add(platform);
       if (platform.position.y > 2200) {
-        print("test321");
         BaseEnemy enemy = BaseEnemy.createEnemy(
-            forcecase: 3, yPos: platform.position.y - 128, parentPlatform: platform);
+            emptyPlatform: true, yPos: platform.position.y - 128, parentPlatform: platform);
         add(enemy);
         platform.childEnemy = enemy;
       } else {
@@ -89,10 +94,15 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
         platform.childEnemy = enemy;
       }
     }
+    
+  }
+
+  void loadPlayer() {
     player = Player(character: player.character);
     add(player);
   }
 
+  ///Resets game variables to the initial state.  
   void restartGame() {
     var platforms = platformInstances.getPlatforms();
     for (var platform in platforms) {
@@ -103,7 +113,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
     Platform.resetStaticVariables();
     platformInstances = PlatformInstances.initialize(); // new instance of PlatformInstances
-    addPlatformsEnemiesPlayer();
+    loadPlatformsAndEnemies();
 
     // moved these two lines to here from base_enemy (restartGame() is called from base_enemy)
     game.navigateBackToMainMenu();

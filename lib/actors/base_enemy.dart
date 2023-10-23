@@ -14,6 +14,7 @@ import 'package:flutter_flame/test_adventure.dart';
 
 enum EnemyState { idle, running }
 
+///Base class for enemies in the game. 
 class BaseEnemy extends SpriteAnimationGroupComponent
     with HasGameRef<TestAdventure>, CollisionCallbacks {
   late final hitbox = CircleHitbox(radius: 40, anchor: Anchor.topCenter)
@@ -38,14 +39,19 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     add(hitbox);
   }
 
-  static BaseEnemy createEnemy({int? forcecase = null, required yPos, required parentPlatform}) {
+  
+  /// Returns a random enemy type. 
+  /// if [emptyPlatform] = true the platform will be empty.
+  /// [ypos] is the starting position.y value for the enemy.
+  /// [parrentPlatform] is the platform where the enemy should be placed.
+  static BaseEnemy createEnemy({bool emptyPlatform = false, required double yPos, required Platform parentPlatform}) {
     int randomizer;
-    if (forcecase != null) {
-      randomizer = forcecase;
+    if (emptyPlatform == true) {
+      randomizer = 3;
     } else {
       randomizer = Random().nextInt(6);
     }
-    print(randomizer);
+    
     Vector2 position = Vector2(Random().nextInt(800).toDouble(),
         yPos); //obs: om värdet 800 ökas så behöver flipEnemy-metoden justeras
     switch (randomizer) {

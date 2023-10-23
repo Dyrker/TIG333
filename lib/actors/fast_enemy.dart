@@ -2,6 +2,7 @@ import 'package:flutter_flame/actors/platform.dart';
 import 'base_enemy.dart';
 import 'package:flame/components.dart';
 
+
 class FastEnemy extends BaseEnemy {
   FastEnemy({Vector2? position, required Platform parentPlatform})
       : super(
@@ -14,11 +15,11 @@ class FastEnemy extends BaseEnemy {
   @override
   void update(double dt) {
     if (dt > 0.05) return;
-    super.update(dt); // Call the base class's update method
+    super.update(dt);
     
     position.y = parentPlatform.position.y - 128;
 
-    // Custom update logic specific to the FastEnemy class
+    
     flipEnemyOnWallCollision();
     position.x += velocityX * dt;
   }

@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import "package:flutter_flame/actors/platform.dart";
 
+///The platforms being used in the game
 class PlatformInstances {
   late final platform1;
   late final platform2;
@@ -22,7 +23,7 @@ class PlatformInstances {
 
     platform5 = Platform(position: Vector2(0, yPos[4] - platformHeight));
   }
-
+  
   List getPlatforms() {
     return [platform1, platform2, platform3, platform4, platform5];
   }
