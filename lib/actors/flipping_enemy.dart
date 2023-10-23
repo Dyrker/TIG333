@@ -1,4 +1,3 @@
-import 'package:flutter_flame/actors/fast_enemy.dart';
 import 'package:flutter_flame/actors/platform.dart';
 import 'package:flutter_flame/test_adventure.dart';
 
@@ -19,6 +18,7 @@ class FlippingEnemy extends BaseEnemy {
 
   @override
   void update(double dt) {
+    if (dt > 0.05) return;
     super.update(dt); // Call the base class's update method
     Vector2 playerPos = TestAdventure.level.player.position;
     position.y = parentPlatform.position.y - 128;

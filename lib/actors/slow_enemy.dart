@@ -14,11 +14,12 @@ class SlowEnemy extends BaseEnemy {
 
   @override
   void update(double dt) {
-    super.update(dt); // Call the base class's update method
+    if (dt > 0.05) return;
+    super.update(dt); 
 
     position.y = parentPlatform.position.y - 128;
 
-    // Custom update logic specific to the Enemy class
+    
     flipEnemyOnWallCollision();
     position.x += velocityX * dt;
   }
