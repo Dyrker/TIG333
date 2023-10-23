@@ -28,6 +28,7 @@ class CharacterMenu extends StatelessWidget {
                   image: DecorationImage(
                     image: AssetImage("assets/images/staticBackground.jpg"),
                     fit: BoxFit.cover,
+                    alignment: Alignment.bottomCenter
                   ),
                 ),
               ),
@@ -43,10 +44,9 @@ class CharacterMenu extends StatelessWidget {
                           size: 40,
                           color: Colors.white,
                         ),
-                        SizedBox(width: 20),
                         Container(
                           width: 100, 
-                          height: 100,
+                          height: 120,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/images/${characterManager.imageCharacter}"),
@@ -62,7 +62,7 @@ class CharacterMenu extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 100),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
