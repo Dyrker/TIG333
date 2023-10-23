@@ -39,8 +39,8 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   @override
   FutureOr<void> onLoad() async {
     await LoadBackground();
-    loadPlatformsAndEnemies();
-    loadPlayer();
+    await loadPlatformsAndEnemies();
+    await loadPlayer();
     return super.onLoad();
   }
 
@@ -78,7 +78,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   }
 
   ///Add the initial platform and enemy positions.  
-  void loadPlatformsAndEnemies() {
+  Future<void> loadPlatformsAndEnemies() async {
     List platforms = platformInstances.getPlatforms();
     for (var platform in platforms) {
       add(platform);
@@ -97,7 +97,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     
   }
 
-  void loadPlayer() {
+  Future<void> loadPlayer() async{
     player = Player(character: player.character);
     add(player);
   }
