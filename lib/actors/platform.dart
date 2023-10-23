@@ -14,7 +14,7 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
 
   @override
   FutureOr<void> onLoad() async {
-    sprite = await Sprite.load('Terrain/redplatform.png');
+    sprite = await Sprite.load('Terrain/smalliceplatform.png');
     add(hitbox);
     return super.onLoad();
   }
@@ -31,6 +31,7 @@ class Platform extends SpriteComponent with HasGameRef<TestAdventure>, Collision
 
   @override
   void update(double dt) {
+    if (dt > 0.05) return;
     List platforms = TestAdventure.level.platformInstances.getPlatforms();
     if (waitingForPlatformToHitBottom) {
       if (position.y > 2400) {
