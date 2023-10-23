@@ -9,10 +9,19 @@ class CharacterMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<CharacterManager>(builder: (context, characterManager, child) {
-      String characterimg = characterManager.imageCharacter;
-      return MaterialApp(
-        home: Scaffold(
-          body: Stack(
+
+      return Scaffold(
+        body: GestureDetector(
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! > 0) {
+              characterManager.previousCharacter();
+              print('Selected Character: ${characterManager.selectedCharacter}');
+            } else {
+              characterManager.nextCharacter();
+              print('Selected Character: ${characterManager.selectedCharacter}');
+            }
+          },
+          child: Stack(
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
@@ -26,88 +35,41 @@ class CharacterMenu extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Container(
-                        width: 50, // Adjust the size as needed
-                        height: 50, // Adjust the size as needed
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/$characterimg"),
-                            fit: BoxFit.cover,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.arrow_back_ios, // left arrow
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 20),
+                        Container(
+                          width: 100, 
+                          height: 100,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/${characterManager.imageCharacter}"),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
+                        SizedBox(width: 20, height: 10,),
+                        Icon(
+                          Icons.arrow_forward_ios, // right arrow
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            String selectedCharacter = "Pink Man";
-                            characterManager.setSelectedCharacter(selectedCharacter);
-                            characterManager.setImageCharacter("Pinkman.png");
-                          },
-                          child: Text(
-                            ('Pink Man'),
-                            style: GoogleFonts.pressStart2p(),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            String selectedCharacter = "Ninja Frog";
-                            characterManager.setSelectedCharacter(selectedCharacter);
-                            characterManager.setImageCharacter("Ninjafrog.png");
-                          },
-                          child: Text(
-                            ('Ninja Frog'),
-                            style: GoogleFonts.pressStart2p(),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            String selectedCharacter = "Virtual Guy";
-                            characterManager.setSelectedCharacter(selectedCharacter);
-                            characterManager.setImageCharacter("Virtualguy.png");
-                          },
-                          child: Text(
-                            ('Virtual Guy'),
-                            style: GoogleFonts.pressStart2p(),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            String selectedCharacter = "Mask Dude";
-                            characterManager.setSelectedCharacter(selectedCharacter);
-                            characterManager.setImageCharacter("Maskeddude.png");
-                          },
-                          child: Text(
-                            ('Mask Dude'),
-                            style: GoogleFonts.pressStart2p(),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            String selectedCharacter = "Purple Man";
-                            characterManager.setSelectedCharacter(selectedCharacter);
-                            characterManager.setImageCharacter("Purpleman.png");
-                          },
-                          child: Text(
-                            ('Purple Man'),
-                            style: GoogleFonts.pressStart2p(),
-                          ),
-                        )
-                      ]),
-                    ),
-                    IntrinsicWidth(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          ('Return to menu'),
-                          style: GoogleFonts.pressStart2p(),
-                        ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        ('Return to menu'),
+                        style: GoogleFonts.pressStart2p(),
                       ),
                     ),
                   ],
