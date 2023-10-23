@@ -1,4 +1,4 @@
-import 'package:flutter_flame/actors/fast_enemy.dart';
+
 import 'package:flutter_flame/actors/platform.dart';
 import 'package:flutter_flame/test_adventure.dart';
 
