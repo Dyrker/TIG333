@@ -37,11 +37,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CharacterManager characterManager = context.read<CharacterManager>();
     return MaterialApp(
       home: Builder(
         builder: (context) {
           return Startmenu(
             onPlayButtonPressed: () {
+              characterManager.tryScore = 0;
               startGame(context, game);
             },
             game: game,

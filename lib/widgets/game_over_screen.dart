@@ -93,6 +93,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                       );
                     } else {
                       scoresManager.submitScore(playerName, score);
+
                       scoresManager.resetScore();
                       Navigator.of(context).pop();
                     }

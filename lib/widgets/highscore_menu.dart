@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/state_and_api/character_manager.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:flutter_flame/widgets/jumper_menu_buttons.dart';
@@ -14,6 +15,8 @@ class HighScoreMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScoresManager scoresManager = context.read<ScoresManager>();
+    final CharacterManager characterManager = context.read<CharacterManager>();
+    final int attemptScore = characterManager.tryScore;
 
     return Scaffold(
       body: Container(
@@ -54,7 +57,7 @@ class HighScoreMenu extends StatelessWidget {
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
-                'Your highscore: TBA',
+                'Your highscore: $attemptScore',
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
                     color: Colors.white,

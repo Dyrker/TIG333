@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/state_and_api/character_manager.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import '/widgets/Character_menu.dart';
 import '/widgets/Highscore_menu.dart';
