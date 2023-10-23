@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_flame/widgets/jumper_men_buttons.dart'; // Import the ButtonStyles class
+import 'package:flutter_flame/widgets/jumper_menu_buttons.dart'; // Import the ButtonStyles class
 
 class GameOverScreenOverlay extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
