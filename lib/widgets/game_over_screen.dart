@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flame/state_and_api/scores_api.dart';
-import 'package:flutter_flame/state_and_api/scores_provider.dart';
+import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -9,11 +8,9 @@ class GameOverScreenOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScoresProvider scoresProvider = context.read<ScoresProvider>();
-    final int score = scoresProvider.platformCount + 20;
-    var scoreApi = Provider.of<ApiUserScore>(context, listen: false);
-    //scoreApi.fetchScores();
-    //scoreApi.removeApiScoresBelowTop();
+    final ScoresManager scoresManager = context.read<ScoresManager>();
+    final int score = scoresManager.platformCount;
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -36,8 +33,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                           fontSize: 18.0,
                         )))),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 50.0, right: 50, top: 50, bottom: 20),
+                  padding: const EdgeInsets.only(left: 50.0, right: 50, top: 50, bottom: 20),
                   child: Container(
                     height: 40,
                     child: Text(
@@ -53,6 +49,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                 SizedBox(
                   width: 350,
                   child: TextFormField(
+                    maxLength: 15,
                     controller: _textEditingController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -64,6 +61,9 @@ class GameOverScreenOverlay extends StatelessWidget {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
+                      counterStyle: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
                     style: GoogleFonts.pressStart2p(
@@ -77,9 +77,8 @@ class GameOverScreenOverlay extends StatelessWidget {
                 ElevatedButton(
                   child: Text('Save score', style: GoogleFonts.pressStart2p()),
                   onPressed: () async {
-                    final String playerName =
-                        _textEditingController.text.trim();
-                    
+                    final String playerName = _textEditingController.text.trim();
+
                     if (playerName.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -93,20 +92,17 @@ class GameOverScreenOverlay extends StatelessWidget {
                         ),
                       );
                     } else {
-                      scoresProvider.addScore(
-                          LocalUserScore(name: playerName, score: score));
-                      scoreApi.addApiScore(playerName, score);
-                      scoresProvider.resetScore();
+                      scoresManager.submitScore(playerName, score);
+                      scoresManager.resetScore();
                       Navigator.of(context).pop();
                     }
                   },
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                    child: Text('Return to menu',
-                        style: GoogleFonts.pressStart2p()),
+                    child: Text('Return to menu', style: GoogleFonts.pressStart2p()),
                     onPressed: () {
-                      scoresProvider.resetScore();
+                      scoresManager.resetScore();
                       Navigator.of(context).pop();
                     }),
               ],

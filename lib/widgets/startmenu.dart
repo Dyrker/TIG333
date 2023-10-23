@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flame/state_and_api/scores_api.dart';
+import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import '/widgets/Character_menu.dart';
 import '/widgets/Highscore_menu.dart';
 import 'package:flutter_flame/test_adventure.dart';
@@ -15,13 +15,13 @@ class Startmenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScoresManager scoresManager = context.read<ScoresManager>();
     return MaterialApp(
         home: Scaffold(
       body: Container(
         decoration: const BoxDecoration(
             image: (DecorationImage(
-                image: AssetImage(
-                    "assets/images/background_glacial_mountains.png"),
+                image: AssetImage("assets/images/background_glacial_mountains.png"),
                 fit: BoxFit.cover))),
         child: Center(
           child: Column(
@@ -29,31 +29,21 @@ class Startmenu extends StatelessWidget {
             children: <Widget>[
               ElevatedButton(
                   onPressed: onPlayButtonPressed,
-                  child:
-                      Text(('Start Game'), style: GoogleFonts.pressStart2p())),
+                  child: Text(('Start Game'), style: GoogleFonts.pressStart2p())),
               SizedBox(height: 20),
               ElevatedButton(
-                  child:
-                      Text(('Highscores'), style: GoogleFonts.pressStart2p()),
+                  child: Text(('Highscores'), style: GoogleFonts.pressStart2p()),
                   onPressed: () async {
-                    final highScoreApi = context.read<ApiUserScore>();
-                    await highScoreApi.removeApiScoresBelowTop();
-                    highScoreApi.fetchScores().then((_) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HighScoreMenu(game: game)));
-                    });
+                    await scoresManager.updateLocalScores();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)));
                   }),
               SizedBox(height: 20),
               ElevatedButton(
-                  child: Text(('Select Character'),
-                      style: GoogleFonts.pressStart2p()),
+                  child: Text(('Select Character'), style: GoogleFonts.pressStart2p()),
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CharacterMenu()));
+                        context, MaterialPageRoute(builder: (context) => CharacterMenu()));
                   }),
               SizedBox(height: 20),
               ElevatedButton(

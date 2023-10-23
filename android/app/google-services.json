@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "542081061872",
+    "firebase_url": "https://tig333-5eb08-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tig333-5eb08",
+    "storage_bucket": "tig333-5eb08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542081061872:android:826f3154d9468fc3b88335",
+        "android_client_info": {
+          "package_name": "com.example.flutter_flame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ3_5_t6KZZXV-sfLp2SwAfNCAYvbEd8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

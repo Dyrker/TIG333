@@ -2,27 +2,30 @@ import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
-import 'package:flutter_flame/state_and_api/scores_provider.dart';
+import 'package:flutter_flame/state_and_api/character_manager.dart';
+import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:provider/provider.dart';
 import 'test_adventure.dart';
 import 'widgets/startmenu.dart';
-import 'state_and_api/scores_api.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'state_and_api/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAuth.instance.signInAnonymously();
   Flame.device.fullScreen();
   Flame.device.setPortrait();
 
-  final TestAdventure game = kDebugMode ? TestAdventure() : TestAdventure();
-
-  final ApiUserScore apiUserScore = ApiUserScore();
+  final TestAdventure game = TestAdventure();
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(
-          create: (_) => ScoresProvider()), // Use ScoresProvider
-      ChangeNotifierProvider.value(
-          value: apiUserScore), // Use ScoresProviderNew
+      ChangeNotifierProvider(create: (_) => CharacterManager()),
+      ChangeNotifierProvider(create: (_) => ScoresManager()),
     ],
     child: MyApp(game: game),
   ));

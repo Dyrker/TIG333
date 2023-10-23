@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flame/state_and_api/scores_api.dart';
+import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../state_and_api/scores_provider.dart';
 import 'dart:core';
 
 class HighScoreMenu extends StatelessWidget {
@@ -13,11 +12,7 @@ class HighScoreMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScoresProvider scoresProvider = context.read<ScoresProvider>();
-    List<LocalUserScore> highScores = scoresProvider.scores;
-    highScores.sort((a, b) => b.score.compareTo(a.score));
-    final ApiUserScore highScoreApi = context.read<ApiUserScore>();
-    //highScoreApi.removeApiScoresBelowTop();
+    ScoresManager scoresManager = context.read<ScoresManager>();
 
     return Scaffold(
       body: Container(
@@ -31,7 +26,6 @@ class HighScoreMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 50),
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
@@ -46,16 +40,12 @@ class HighScoreMenu extends StatelessWidget {
             ),
             SizedBox(height: 40),
             Container(
-              height: 300,
+              height: 400,
               child: ListView.builder(
-                itemCount: highScoreApi.apiScores.length,
+                itemCount: scoresManager.localScores.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final apiScoreItem = highScoreApi.apiScores[index];
-                  final parts = apiScoreItem.title
-                      .split(' '); // Split the title into parts
-                  final playerName = parts[0];
-                  final score = int.tryParse(parts[1]) ?? 0;
-                  return _scorestring(playerName, score.toString());
+                  final scoreObject = scoresManager.localScores[index];
+                  return _scorestring(scoreObject.name, scoreObject.score.toString());
                 },
               ),
             ),
@@ -63,7 +53,7 @@ class HighScoreMenu extends StatelessWidget {
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
-                'Your Score: ',
+                'Your highscore: TBA',
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
                     color: Colors.white,
@@ -93,7 +83,7 @@ class HighScoreMenu extends StatelessWidget {
 }
 
 //Don't remove this, this widget might be used to keep track of your attempts that don't make it to highscore
-Widget _score(LocalUserScore userScore) {
+Widget _score(Score userScore) {
   final playerName = userScore.name;
   final score = userScore.score;
 
@@ -119,20 +109,28 @@ Widget _score(LocalUserScore userScore) {
 }
 
 Widget _scorestring(String playerName, String score) {
-  final scoreName = '$playerName $score';
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+  return Padding(
+    padding: const EdgeInsets.only(left: 20, right: 20),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(scoreName, style: GoogleFonts.pressStart2p(fontSize: 24.0)),
-            SizedBox(width: 10),
+            Text(playerName,
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                )),
+            Text(score,
+                style: GoogleFonts.pressStart2p(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                )),
           ],
         ),
-      ),
-      SizedBox(height: 10),
-    ],
+        SizedBox(height: 15),
+      ],
+    ),
   );
 }

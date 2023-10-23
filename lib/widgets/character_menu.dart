@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flame/state_and_api/character_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_flame/state_and_api/scores_provider.dart';
 import 'package:provider/provider.dart';
 
 class CharacterMenu extends StatelessWidget {
@@ -8,8 +8,8 @@ class CharacterMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ScoresProvider>(builder: (context, scoresProvider, child) {
-      String characterimg = scoresProvider.imageCharacter;
+    return Consumer<CharacterManager>(builder: (context, characterManager, child) {
+      String characterimg = characterManager.imageCharacter;
       return MaterialApp(
         home: Scaffold(
           body: Stack(
@@ -41,74 +41,63 @@ class CharacterMenu extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {
-                                String selectedCharacter = "Pink Man";
-                                scoresProvider
-                                    .setSelectedCharacter(selectedCharacter);
-                                scoresProvider.setImageCharacter("Pinkman.png");
-                              },
-                              child: Text(
-                                ('Pink Man'),
-                                style: GoogleFonts.pressStart2p(),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                String selectedCharacter = "Ninja Frog";
-                                scoresProvider
-                                    .setSelectedCharacter(selectedCharacter);
-                                scoresProvider
-                                    .setImageCharacter("Ninjafrog.png");
-                              },
-                              child: Text(
-                                ('Ninja Frog'),
-                                style: GoogleFonts.pressStart2p(),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                String selectedCharacter = "Virtual Guy";
-                                scoresProvider
-                                    .setSelectedCharacter(selectedCharacter);
-                                scoresProvider
-                                    .setImageCharacter("Virtualguy.png");
-                              },
-                              child: Text(
-                                ('Virtual Guy'),
-                                style: GoogleFonts.pressStart2p(),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                String selectedCharacter = "Mask Dude";
-                                scoresProvider
-                                    .setSelectedCharacter(selectedCharacter);
-                                scoresProvider
-                                    .setImageCharacter("Maskeddude.png");
-                              },
-                              child: Text(
-                                ('Mask Dude'),
-                                style: GoogleFonts.pressStart2p(),
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                String selectedCharacter = "Purple Man";
-                                scoresProvider
-                                    .setSelectedCharacter(selectedCharacter);
-                                scoresProvider
-                                    .setImageCharacter("Purpleman.png");
-                              },
-                              child: Text(
-                                ('Purple Man'),
-                                style: GoogleFonts.pressStart2p(),
-                              ),
-                            )
-                          ]),
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                        ElevatedButton(
+                          onPressed: () {
+                            String selectedCharacter = "Pink Man";
+                            characterManager.setSelectedCharacter(selectedCharacter);
+                            characterManager.setImageCharacter("Pinkman.png");
+                          },
+                          child: Text(
+                            ('Pink Man'),
+                            style: GoogleFonts.pressStart2p(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            String selectedCharacter = "Ninja Frog";
+                            characterManager.setSelectedCharacter(selectedCharacter);
+                            characterManager.setImageCharacter("Ninjafrog.png");
+                          },
+                          child: Text(
+                            ('Ninja Frog'),
+                            style: GoogleFonts.pressStart2p(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            String selectedCharacter = "Virtual Guy";
+                            characterManager.setSelectedCharacter(selectedCharacter);
+                            characterManager.setImageCharacter("Virtualguy.png");
+                          },
+                          child: Text(
+                            ('Virtual Guy'),
+                            style: GoogleFonts.pressStart2p(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            String selectedCharacter = "Mask Dude";
+                            characterManager.setSelectedCharacter(selectedCharacter);
+                            characterManager.setImageCharacter("Maskeddude.png");
+                          },
+                          child: Text(
+                            ('Mask Dude'),
+                            style: GoogleFonts.pressStart2p(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            String selectedCharacter = "Purple Man";
+                            characterManager.setSelectedCharacter(selectedCharacter);
+                            characterManager.setImageCharacter("Purpleman.png");
+                          },
+                          child: Text(
+                            ('Purple Man'),
+                            style: GoogleFonts.pressStart2p(),
+                          ),
+                        )
+                      ]),
                     ),
                     IntrinsicWidth(
                       child: ElevatedButton(
