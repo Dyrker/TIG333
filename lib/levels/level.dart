@@ -103,7 +103,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
   }
 
   
-  void restartGame() {
+  Future<void> restartGame() async {
   var platforms = platformInstances.getPlatforms();
   for (var platform in platforms) {
     remove(platform.childEnemy);
@@ -117,11 +117,8 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
 
   Platform.resetStaticVariables();
   platformInstances = PlatformInstances.initialize(); 
-  loadPlatformsAndEnemies();
-  
-  
-  player = Player(character: player.character);
-  add(player);
+  await loadPlatformsAndEnemies();
+  await loadPlayer();
 
   
   game.navigateBackToMainMenu();
