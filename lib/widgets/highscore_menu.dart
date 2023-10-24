@@ -32,7 +32,7 @@ class HighScoreMenu extends StatelessWidget {
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
-                'HIGHSCORES',
+                'GLOBAL HIGHSCORES',
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
                     color: Colors.white,
@@ -56,7 +56,7 @@ class HighScoreMenu extends StatelessWidget {
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
-                'Your highscore this session: $sessionHighscore',
+                'Your session highscore: $sessionHighscore',
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
                     color: Colors.white,
