@@ -20,7 +20,7 @@ class Player extends SpriteAnimationGroupComponent
     ..collisionType = CollisionType.active;
   double velocityX = 450;
   double velocityY = 0;
-  double gravity = 30;
+  double gravity = 1800;
   bool notFlipped = true;
   bool flipCooldown = true;
   JumpState jumpState = JumpState.idle;
@@ -75,7 +75,7 @@ class Player extends SpriteAnimationGroupComponent
     flipPlayerOnWallCollision();
 
     if (jumpState != JumpState.idle) {
-      velocityY += gravity;
+      velocityY += gravity * dt;
       switch (jumpState) {
         case JumpState.shortJump:
           current = JumpState.shortJump;
