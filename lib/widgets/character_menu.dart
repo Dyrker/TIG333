@@ -8,19 +8,16 @@ class CharacterMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CharacterManager>(
-        builder: (context, characterManager, child) {
+    return Consumer<CharacterManager>(builder: (context, characterManager, child) {
       return Scaffold(
         body: GestureDetector(
           onHorizontalDragEnd: (details) {
             if (details.primaryVelocity! > 0) {
               characterManager.previousCharacter();
-              print(
-                  'Selected Character: ${characterManager.selectedCharacter}');
+              print('Selected Character: ${characterManager.selectedCharacter}');
             } else {
               characterManager.nextCharacter();
-              print(
-                  'Selected Character: ${characterManager.selectedCharacter}');
+              print('Selected Character: ${characterManager.selectedCharacter}');
             }
           },
           child: Stack(
@@ -45,20 +42,21 @@ class CharacterMenu extends StatelessWidget {
                           size: 40,
                           color: Colors.white,
                         ),
+                        SizedBox(
+                          width: 20,
+                        ),
                         Container(
-                          width: 100,
-                          height: 120,
+                          width: 80,
+                          height: 95,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/${characterManager.imageCharacter}"),
+                              image: AssetImage("assets/images/${characterManager.imageCharacter}"),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 20,
-                          height: 10,
+                          width: 35,
                         ),
                         Icon(
                           Icons.arrow_forward_ios, // right arrow

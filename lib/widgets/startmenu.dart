@@ -6,7 +6,7 @@ import '/widgets/Highscore_menu.dart';
 import 'package:flutter_flame/test_adventure.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
-import 'package:flutter_flame/widgets/jumper_menu_buttons.dart'; 
+import 'package:flutter_flame/widgets/jumper_menu_buttons.dart';
 
 class Startmenu extends StatelessWidget {
   final VoidCallback onPlayButtonPressed;
@@ -30,12 +30,12 @@ class Startmenu extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ButtonStyles.retroElevatedButton( 
+                ButtonStyles.retroElevatedButton(
                   onPressed: onPlayButtonPressed,
                   label: 'Start Game',
                 ),
-                SizedBox(height: 20),
-                ButtonStyles.retroElevatedButton( 
+                SizedBox(height: 35),
+                ButtonStyles.retroElevatedButton(
                   onPressed: () async {
                     await scoresManager.updateLocalScores();
                     Navigator.push(
@@ -45,8 +45,8 @@ class Startmenu extends StatelessWidget {
                   },
                   label: 'Highscores',
                 ),
-                SizedBox(height: 20),
-                ButtonStyles.retroElevatedButton( 
+                SizedBox(height: 35),
+                ButtonStyles.retroElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -55,8 +55,8 @@ class Startmenu extends StatelessWidget {
                   },
                   label: 'Select Character',
                 ),
-                SizedBox(height: 20),
-                ButtonStyles.retroElevatedButton( 
+                SizedBox(height: 35),
+                ButtonStyles.retroElevatedButton(
                   onPressed: onPlayButtonPressed,
                   label: 'Options',
                 ),

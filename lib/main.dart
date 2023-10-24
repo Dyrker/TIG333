@@ -74,11 +74,12 @@ class GameScreen extends StatelessWidget {
     game.gameScreenContext = context;
     return Scaffold(
       body: GameWidget(game: game),
-      floatingActionButton: BackToStartMenuButton(),
+      // floatingActionButton: BackToStartMenuButton(),
     );
   }
 }
 
+/*
 class BackToStartMenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -90,3 +91,4 @@ class BackToStartMenuButton extends StatelessWidget {
     );
   }
 }
+*/

@@ -7,10 +7,6 @@ class ButtonStyles {
       backgroundColor: Color.fromARGB(255, 91, 157, 185),
       padding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.black,
-          width: 1,
-        ),
         borderRadius: BorderRadius.circular(0),
       ),
     );
@@ -25,9 +21,6 @@ class ButtonStyles {
       onPressed: onPressed,
       style: retroElevatedButtonStyle(),
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1),
-        ),
         padding: EdgeInsets.all(10),
         child: Text(
           label,

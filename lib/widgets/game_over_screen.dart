@@ -102,7 +102,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   label: 'Save score',
                   fontSize: 16.0,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 35),
                 ButtonStyles.retroElevatedButton(
                   onPressed: () {
                     scoresManager.resetScore();
