@@ -36,8 +36,6 @@ class TestAdventure extends FlameGame with TapCallbacks, HasCollisionDetection {
   void incrementPlatformCount() {
     final scoresProvider = Provider.of<ScoresManager>(gameScreenContext!, listen: false);
     scoresProvider.platformCount++;
-    final characterManager = Provider.of<CharacterManager>(gameScreenContext!, listen: false);
-    characterManager.tryScore++;
   }
 
   int getPlatformScore() {

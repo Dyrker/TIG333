@@ -5,9 +5,17 @@ class ScoresManager extends ChangeNotifier {
   DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   int platformCount = 0;
+  int sessionHighscore = 0;
+
   void resetScore() {
     platformCount = 0;
     notifyListeners();
+  }
+
+  void updateSessionHighscore() {
+    if (platformCount > sessionHighscore) {
+      sessionHighscore = platformCount;
+    }
   }
 
   List<Score> localScores = [];

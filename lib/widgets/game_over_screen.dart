@@ -11,6 +11,7 @@ class GameOverScreenOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScoresManager scoresManager = context.read<ScoresManager>();
     final int score = scoresManager.platformCount;
+    scoresManager.updateSessionHighscore();
 
     return Scaffold(
       body: Stack(
@@ -98,17 +99,17 @@ class GameOverScreenOverlay extends StatelessWidget {
                       Navigator.of(context).pop();
                     }
                   },
-                  label: 'Save score', 
-                  fontSize: 16.0, 
+                  label: 'Save score',
+                  fontSize: 16.0,
                 ),
                 SizedBox(height: 20),
-                ButtonStyles.retroElevatedButton( 
+                ButtonStyles.retroElevatedButton(
                   onPressed: () {
                     scoresManager.resetScore();
                     Navigator.of(context).pop();
                   },
-                  label: 'Return to menu', 
-                  fontSize: 16.0, 
+                  label: 'Return to menu',
+                  fontSize: 16.0,
                 ),
               ],
             ),

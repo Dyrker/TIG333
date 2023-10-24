@@ -15,8 +15,7 @@ class HighScoreMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScoresManager scoresManager = context.read<ScoresManager>();
-    final CharacterManager characterManager = context.read<CharacterManager>();
-    final int attemptScore = characterManager.tryScore;
+    final int sessionHighscore = scoresManager.sessionHighscore;
 
     return Scaffold(
       body: Container(
@@ -57,11 +56,11 @@ class HighScoreMenu extends StatelessWidget {
             Transform.translate(
               offset: Offset(0, 10),
               child: Text(
-                'Your highscore: $attemptScore',
+                'Your highscore this session: $sessionHighscore',
                 style: GoogleFonts.pressStart2p(
                   textStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ),
@@ -70,11 +69,11 @@ class HighScoreMenu extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: ButtonStyles.retroElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); },
-                  label: 'Return to menu', 
-                  fontSize: 16.0
-              ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  label: 'Return to menu',
+                  fontSize: 16.0),
             ),
           ],
         ),

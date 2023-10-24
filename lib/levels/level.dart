@@ -77,7 +77,7 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
     add(enemy);
   }
 
-  ///Add the initial platform and enemy positions.  
+  ///Add the initial platform and enemy positions.
   Future<void> loadPlatformsAndEnemies() async {
     List platforms = platformInstances.getPlatforms();
     for (var platform in platforms) {
@@ -94,33 +94,29 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
         platform.childEnemy = enemy;
       }
     }
-    
   }
 
-  Future<void> loadPlayer() async{
+  Future<void> loadPlayer() async {
     player = Player(character: player.character);
     add(player);
   }
 
-  
   Future<void> restartGame() async {
-  var platforms = platformInstances.getPlatforms();
-  for (var platform in platforms) {
-    remove(platform.childEnemy);
-    remove(platform);
+    var platforms = platformInstances.getPlatforms();
+    for (var platform in platforms) {
+      remove(platform.childEnemy);
+      remove(platform);
+    }
+
+    if (player != null) {
+      remove(player);
+    }
+
+    Platform.resetStaticVariables();
+    platformInstances = PlatformInstances.initialize();
+    await loadPlatformsAndEnemies();
+    await loadPlayer();
+
+    game.navigateBackToMainMenu();
   }
-
- 
-  if (player != null) {
-    remove(player);
-  }
-
-  Platform.resetStaticVariables();
-  platformInstances = PlatformInstances.initialize(); 
-  await loadPlatformsAndEnemies();
-  await loadPlayer();
-
-  
-  game.navigateBackToMainMenu();
-}
 }
