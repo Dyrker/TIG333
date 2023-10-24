@@ -21,7 +21,7 @@ class HighScoreMenu extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/staticBackground.jpg"),
+            image: AssetImage("assets/images/background_glacial_mountains.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -41,7 +41,7 @@ class HighScoreMenu extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 50),
             Container(
               height: 400,
               child: ListView.builder(

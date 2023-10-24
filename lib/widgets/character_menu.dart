@@ -25,7 +25,7 @@ class CharacterMenu extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/images/staticBackground.jpg"),
+                      image: AssetImage("assets/images/background_glacial_mountains.png"),
                       fit: BoxFit.cover,
                       alignment: Alignment.bottomCenter),
                 ),
@@ -34,14 +34,20 @@ class CharacterMenu extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(height: 145),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(
-                          Icons.arrow_back_ios, // left arrow
-                          size: 40,
-                          color: Colors.white,
-                        ),
+                        Icon(Icons.arrow_back_ios, // left arrow
+                            size: 40,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 10.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              )
+                            ]),
                         SizedBox(
                           width: 20,
                         ),
@@ -56,13 +62,18 @@ class CharacterMenu extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: 35,
+                          width: 40,
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios, // right arrow
-                          size: 40,
-                          color: Colors.white,
-                        ),
+                        Icon(Icons.arrow_forward_ios, // right arrow
+                            size: 40,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 10.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              )
+                            ]),
                       ],
                     ),
                     SizedBox(height: 100),

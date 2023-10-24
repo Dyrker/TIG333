@@ -18,7 +18,7 @@ class GameOverScreenOverlay extends StatelessWidget {
         children: <Widget>[
           Positioned.fill(
             child: Image.asset(
-              "assets/images/staticBackground.jpg",
+              "assets/images/background_glacial_mountains.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -26,29 +26,29 @@ class GameOverScreenOverlay extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                    height: 100,
-                    child: Text("Score: $score",
-                        style: GoogleFonts.pressStart2p(
-                            textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                        )))),
+                Text("Score: $score",
+                    style: GoogleFonts.pressStart2p(
+                        textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22.0,
+                    ))),
+                SizedBox(height: 170),
                 Padding(
                   padding: const EdgeInsets.only(left: 50.0, right: 50, top: 50, bottom: 20),
-                  child: Container(
-                    height: 40,
-                    child: Text(
-                      'Optionally enter name to save score',
-                      style: GoogleFonts.pressStart2p(
-                          textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14.0,
-                      )),
-                    ),
+                  child: Text(
+                    'Optionally enter name to save score',
+                    style: GoogleFonts.pressStart2p(
+                        textStyle: TextStyle(color: Colors.white, fontSize: 12.0, shadows: [
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 10.0,
+                        color: Color.fromARGB(255, 0, 0, 0),
+                      )
+                    ])),
                   ),
                 ),
-                SizedBox(
+                SizedBox(height: 25),
+                Container(
                   width: 350,
                   child: TextFormField(
                     maxLength: 15,
@@ -75,7 +75,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
                 ButtonStyles.retroElevatedButton(
                   onPressed: () async {
                     final String playerName = _textEditingController.text.trim();
