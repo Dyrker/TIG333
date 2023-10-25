@@ -7,6 +7,7 @@ import 'package:flutter_flame/test_adventure.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 import 'package:flutter_flame/widgets/jumper_menu_buttons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Startmenu extends StatelessWidget {
   final VoidCallback onPlayButtonPressed;
@@ -22,7 +23,8 @@ class Startmenu extends StatelessWidget {
         body: Container(
           decoration: const BoxDecoration(
             image: (DecorationImage(
-              image: AssetImage("assets/images/background_glacial_mountains.png"),
+              image:
+                  AssetImage("assets/images/background_glacial_mountains.png"),
               fit: BoxFit.cover,
             )),
           ),
@@ -40,7 +42,8 @@ class Startmenu extends StatelessWidget {
                     await scoresManager.updateLocalScores();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)),
+                      MaterialPageRoute(
+                          builder: (context) => HighScoreMenu(game: game)),
                     );
                   },
                   label: 'Highscores',
@@ -55,10 +58,19 @@ class Startmenu extends StatelessWidget {
                   },
                   label: 'Select Character',
                 ),
-                SizedBox(height: 35),
-                ButtonStyles.retroElevatedButton(
-                  onPressed: onPlayButtonPressed,
-                  label: 'Options',
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    'Controls:\nTap to jump\nHold to double jump',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.pressStart2p(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.0,
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
