@@ -39,7 +39,6 @@ class ScoresManager extends ChangeNotifier {
     }
     freshScores.sort((a, b) => b.score.compareTo(a.score));
     localScores = freshScores;
-    print(localScores);
     return localScores;
   }
 }

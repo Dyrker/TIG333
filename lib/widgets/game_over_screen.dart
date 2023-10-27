@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_flame/widgets/jumper_menu_buttons.dart'; // Import the ButtonStyles class
+import 'package:flutter_flame/widgets/buttons.dart';
 
 class GameOverScreenOverlay extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
@@ -76,7 +76,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                ButtonStyles.retroElevatedButton(
+                Buttons.retroElevatedButton(
                   onPressed: () async {
                     final String playerName = _textEditingController.text.trim();
 
@@ -103,7 +103,7 @@ class GameOverScreenOverlay extends StatelessWidget {
                   fontSize: 16.0,
                 ),
                 SizedBox(height: 35),
-                ButtonStyles.retroElevatedButton(
+                Buttons.retroElevatedButton(
                   onPressed: () {
                     scoresManager.resetScore();
                     Navigator.of(context).pop();

@@ -1,5 +1,4 @@
 import 'package:flame/flame.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flutter_flame/state_and_api/character_manager.dart';
@@ -54,41 +53,13 @@ class MyApp extends StatelessWidget {
 }
 
 void startGame(BuildContext context, TestAdventure game) {
+  game.gameScreenContext = context;
   Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) {
-        return GameScreen(game: game);
+        return GameWidget(game: game);
       },
     ),
   );
 }
-
-class GameScreen extends StatelessWidget {
-  final TestAdventure game;
-
-  GameScreen({required this.game});
-
-  @override
-  Widget build(BuildContext context) {
-    game.gameScreenContext = context;
-    return Scaffold(
-      body: GameWidget(game: game),
-      // floatingActionButton: BackToStartMenuButton(),
-    );
-  }
-}
-
-/*
-class BackToStartMenuButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        TestAdventure.level.restartGame();
-      },
-      child: Icon(Icons.arrow_back),
-    );
-  }
-}
-*/

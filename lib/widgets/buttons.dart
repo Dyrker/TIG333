@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ButtonStyles {
-  static ButtonStyle retroElevatedButtonStyle() {
-    return ElevatedButton.styleFrom(
-      backgroundColor: Color.fromARGB(255, 91, 157, 185),
-      padding: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0),
-      ),
-    );
-  }
-
+class Buttons {
   static Widget retroElevatedButton({
     required VoidCallback onPressed,
     required String label,
@@ -31,6 +21,17 @@ class ButtonStyles {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  // Style used for the button above
+  static ButtonStyle retroElevatedButtonStyle() {
+    return ElevatedButton.styleFrom(
+      backgroundColor: Color.fromARGB(255, 91, 157, 185),
+      padding: EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0),
       ),
     );
   }

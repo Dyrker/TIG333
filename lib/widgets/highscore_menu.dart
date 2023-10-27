@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flame/state_and_api/character_manager.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:flutter_flame/test_adventure.dart';
-import 'package:flutter_flame/widgets/jumper_menu_buttons.dart';
+import 'package:flutter_flame/widgets/buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
@@ -29,46 +28,40 @@ class HighScoreMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Transform.translate(
-              offset: Offset(0, 10),
-              child: Text(
-                'GLOBAL HIGHSCORES',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                  ),
+            Text(
+              'GLOBAL HIGHSCORES',
+              style: GoogleFonts.pressStart2p(
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 40),
             Container(
               height: 400,
               child: ListView.builder(
                 itemCount: scoresManager.localScores.length,
                 itemBuilder: (BuildContext context, int index) {
                   final scoreObject = scoresManager.localScores[index];
-                  return _scorestring(scoreObject.name, scoreObject.score.toString());
+                  return scoreRow(scoreObject.name, scoreObject.score.toString());
                 },
               ),
             ),
             SizedBox(height: 40),
-            Transform.translate(
-              offset: Offset(0, 10),
-              child: Text(
-                'Your session highscore: $sessionHighscore',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.0,
-                  ),
+            Text(
+              'Your session highscore: $sessionHighscore',
+              style: GoogleFonts.pressStart2p(
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.0,
                 ),
               ),
             ),
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
-              child: ButtonStyles.retroElevatedButton(
+              child: Buttons.retroElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -82,8 +75,30 @@ class HighScoreMenu extends StatelessWidget {
   }
 }
 
+Widget scoreRow(String playerName, String score) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(playerName,
+            style: GoogleFonts.pressStart2p(
+              fontSize: 20.0,
+              color: Colors.white,
+            )),
+        Text(score,
+            style: GoogleFonts.pressStart2p(
+              fontSize: 20.0,
+              color: Colors.white,
+            )),
+      ],
+    ),
+  );
+}
+
+
 //Don't remove this, this widget might be used to keep track of your attempts that don't make it to highscore
-Widget _score(Score userScore) {
+/* Widget _score(Score userScore) {
   final playerName = userScore.name;
   final score = userScore.score;
 
@@ -106,31 +121,4 @@ Widget _score(Score userScore) {
       SizedBox(height: 10),
     ],
   );
-}
-
-Widget _scorestring(String playerName, String score) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 20, right: 20),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(playerName,
-                style: GoogleFonts.pressStart2p(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                )),
-            Text(score,
-                style: GoogleFonts.pressStart2p(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                )),
-          ],
-        ),
-        SizedBox(height: 15),
-      ],
-    ),
-  );
-}
+} */

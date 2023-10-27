@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/character_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_flame/widgets/jumper_menu_buttons.dart';
+import 'package:flutter_flame/widgets/buttons.dart';
 
 class CharacterMenu extends StatelessWidget {
   CharacterMenu({Key? key});
@@ -14,10 +14,8 @@ class CharacterMenu extends StatelessWidget {
           onHorizontalDragEnd: (details) {
             if (details.primaryVelocity! > 0) {
               characterManager.previousCharacter();
-              print('Selected Character: ${characterManager.selectedCharacter}');
             } else {
               characterManager.nextCharacter();
-              print('Selected Character: ${characterManager.selectedCharacter}');
             }
           },
           child: Stack(
@@ -38,16 +36,13 @@ class CharacterMenu extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.arrow_back_ios, // left arrow
-                            size: 40,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                offset: Offset(1.0, 1.0),
-                                blurRadius: 10.0,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              )
-                            ]),
+                        Icon(Icons.arrow_back_ios, size: 40, color: Colors.white, shadows: [
+                          Shadow(
+                            offset: Offset(1.0, 1.0),
+                            blurRadius: 10.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          )
+                        ]),
                         SizedBox(
                           width: 20,
                         ),
@@ -64,20 +59,17 @@ class CharacterMenu extends StatelessWidget {
                         SizedBox(
                           width: 40,
                         ),
-                        Icon(Icons.arrow_forward_ios, // right arrow
-                            size: 40,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                offset: Offset(1.0, 1.0),
-                                blurRadius: 10.0,
-                                color: Color.fromARGB(255, 0, 0, 0),
-                              )
-                            ]),
+                        Icon(Icons.arrow_forward_ios, size: 40, color: Colors.white, shadows: [
+                          Shadow(
+                            offset: Offset(1.0, 1.0),
+                            blurRadius: 10.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          )
+                        ]),
                       ],
                     ),
                     SizedBox(height: 100),
-                    ButtonStyles.retroElevatedButton(
+                    Buttons.retroElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
