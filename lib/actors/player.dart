@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/cloud_chasers.dart';
 import "package:flutter_flame/actors/platform.dart";
 
 enum RunningState { idle, running }
@@ -10,7 +10,7 @@ enum JumpState { idle, shortJump, longJump }
 
 ///The player controlled character.
 class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<TestAdventure>, CollisionCallbacks {
+    with HasGameRef<CloudChasers>, CollisionCallbacks {
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
   late final SpriteAnimation doubleJumpAnimation;
@@ -28,7 +28,8 @@ class Player extends SpriteAnimationGroupComponent
   static bool waitingForScore = false;
   String character;
 
-  Player({position, required this.character}) : super(position: position, size: Vector2(128, 128)) {
+  Player({position, required this.character})
+      : super(position: position, size: Vector2(128, 128)) {
     hitbox.position = size - Vector2(64, 100);
     add(hitbox);
   }
@@ -104,7 +105,8 @@ class Player extends SpriteAnimationGroupComponent
       flipCooldown = false;
     }
 
-    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
+    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) &&
+        !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
         notFlipped = false;
@@ -131,11 +133,14 @@ class Player extends SpriteAnimationGroupComponent
     }
 
     animations = {
-      RunningState.idle: assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
-      RunningState.running: assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
-      JumpState.shortJump: assembleAnimation("Main Characters/$character/Jump (32x32).png", 1),
-      JumpState.longJump:
-          assembleAnimation("Main Characters/$character/Double Jump (32x32).png", 6),
+      RunningState.idle:
+          assembleAnimation("Main Characters/$character/Idle (32x32).png", 11),
+      RunningState.running:
+          assembleAnimation("Main Characters/$character/Run (32x32).png", 12),
+      JumpState.shortJump:
+          assembleAnimation("Main Characters/$character/Jump (32x32).png", 1),
+      JumpState.longJump: assembleAnimation(
+          "Main Characters/$character/Double Jump (32x32).png", 6),
     };
 
     current = RunningState.running;
@@ -171,15 +176,18 @@ class Player extends SpriteAnimationGroupComponent
   }
 
   bool isTopCollisionWithPlatform(Set<Vector2> intersectionPoints) {
-    final characterCenter = Vector2(position.x + size.x / 2, position.y + size.y / 2);
+    final characterCenter =
+        Vector2(position.x + size.x / 2, position.y + size.y / 2);
 
-    final averageIntersectionPoint = intersectionPoints.reduce((a, b) => a + b) / 2;
+    final averageIntersectionPoint =
+        intersectionPoints.reduce((a, b) => a + b) / 2;
 
     return characterCenter.y < averageIntersectionPoint.y;
   }
 
   void platformIntersectionCheck(Set<Vector2> intersectionPoints) {
-    final Vector2 mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
+    final Vector2 mid =
+        (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
 
     final Vector2 collisionNormal = absoluteCenter - mid;
     double penetrationlength = (size.x / 2) - collisionNormal.length;

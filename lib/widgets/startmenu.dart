@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
-import '/widgets/Character_menu.dart';
+import '/widgets/character_menu.dart';
 import '/widgets/highscore_menu.dart';
-import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/cloud_chasers.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 import 'package:flutter_flame/widgets/buttons.dart';
@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Startmenu extends StatelessWidget {
   final VoidCallback onPlayButtonPressed;
-  final TestAdventure game;
+  final CloudChasers game;
 
   Startmenu({super.key, required this.onPlayButtonPressed, required this.game});
 
@@ -39,7 +39,8 @@ class Startmenu extends StatelessWidget {
                   await scoresManager.updateLocalScores();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HighScoreMenu(game: game)),
+                    MaterialPageRoute(
+                        builder: (context) => HighScoreMenu(game: game)),
                   );
                 },
                 label: 'Highscores',

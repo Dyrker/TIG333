@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
-import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/cloud_chasers.dart';
 import 'package:flutter_flame/widgets/buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 
 class HighScoreMenu extends StatelessWidget {
-  final TestAdventure game;
+  final CloudChasers game;
 
   const HighScoreMenu({Key? key, required this.game}) : super(key: key);
 
@@ -44,7 +44,8 @@ class HighScoreMenu extends StatelessWidget {
                 itemCount: scoresManager.localScores.length,
                 itemBuilder: (BuildContext context, int index) {
                   final scoreObject = scoresManager.localScores[index];
-                  return scoreRow(scoreObject.name, scoreObject.score.toString());
+                  return scoreRow(
+                      scoreObject.name, scoreObject.score.toString());
                 },
               ),
             ),

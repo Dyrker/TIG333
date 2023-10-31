@@ -1,5 +1,5 @@
 import 'package:flutter_flame/actors/platform.dart';
-import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/cloud_chasers.dart';
 
 import 'base_enemy.dart';
 import 'package:flame/components.dart';
@@ -20,7 +20,7 @@ class FlippingEnemy extends BaseEnemy {
   void update(double dt) {
     if (dt > 0.05) return;
     super.update(dt); // Call the base class's update method
-    Vector2 playerPos = TestAdventure.level.player.position;
+    Vector2 playerPos = CloudChasers.level.player.position;
     position.y = parentPlatform.position.y - 128;
     dtTimer += dt;
     flipOnPlayerJump(playerPos);
@@ -29,9 +29,11 @@ class FlippingEnemy extends BaseEnemy {
     position.x += velocityX * dt;
   }
 
-  void flipOnPlayerJump(Vector2 playerPos){
-    
-    if ((dtTimer > 0.25 ) && ((position.x >= playerPos.x && position.x <= playerPos.x + 10)) && (playerPos.y <= position.y - 10) && (playerPos.y > position.y - 400)) {
+  void flipOnPlayerJump(Vector2 playerPos) {
+    if ((dtTimer > 0.25) &&
+        ((position.x >= playerPos.x && position.x <= playerPos.x + 10)) &&
+        (playerPos.y <= position.y - 10) &&
+        (playerPos.y > position.y - 400)) {
       print("here");
       if (notFlipped) {
         position.x += 128;
@@ -44,6 +46,5 @@ class FlippingEnemy extends BaseEnemy {
       velocityX = -velocityX;
       dtTimer = 0;
     }
-
   }
 }

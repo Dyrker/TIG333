@@ -10,13 +10,13 @@ import 'package:flutter_flame/actors/player.dart';
 import 'package:flutter_flame/actors/slow_enemy.dart';
 import 'package:flutter_flame/actors/super_fast_enemy.dart';
 import 'package:flutter_flame/actors/non_flipping_enemy.dart';
-import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/cloud_chasers.dart';
 
 enum EnemyState { idle, running }
 
-///Base class for enemies in the game. 
+///Base class for enemies in the game.
 class BaseEnemy extends SpriteAnimationGroupComponent
-    with HasGameRef<TestAdventure>, CollisionCallbacks {
+    with HasGameRef<CloudChasers>, CollisionCallbacks {
   late final hitbox = CircleHitbox(radius: 40, anchor: Anchor.topCenter)
     ..collisionType = CollisionType.passive;
   double velocityX;
@@ -39,35 +39,41 @@ class BaseEnemy extends SpriteAnimationGroupComponent
     add(hitbox);
   }
 
-  
-  /// Returns a random enemy type. 
+  /// Returns a random enemy type.
   /// if [emptyPlatform] = true the platform will be empty.
   /// [ypos] is the starting position.y value for the enemy.
   /// [parrentPlatform] is the platform where the enemy should be placed.
-  static BaseEnemy createEnemy({bool emptyPlatform = false, required double yPos, required Platform parentPlatform}) {
+  static BaseEnemy createEnemy(
+      {bool emptyPlatform = false,
+      required double yPos,
+      required Platform parentPlatform}) {
     int randomizer;
     if (emptyPlatform == true) {
       randomizer = 3;
     } else {
       randomizer = Random().nextInt(6);
     }
-    
+
     Vector2 position = Vector2(Random().nextInt(800).toDouble(),
         yPos); //obs: om värdet 800 ökas så behöver flipEnemy-metoden justeras
     switch (randomizer) {
       case 0:
-        return NonFlippingEnemy(position: position, parentPlatform: parentPlatform);
+        return NonFlippingEnemy(
+            position: position, parentPlatform: parentPlatform);
       case 1:
-        return SuperFastEnemy(position: position, parentPlatform: parentPlatform);
+        return SuperFastEnemy(
+            position: position, parentPlatform: parentPlatform);
       case 2:
         return FastEnemy(position: position, parentPlatform: parentPlatform);
       case 3:
         return FastEnemy(
-            position: Vector2(1200, 3000), parentPlatform: parentPlatform); //spawnar tom plattform
+            position: Vector2(1200, 3000),
+            parentPlatform: parentPlatform); //spawnar tom plattform
       case 4:
         return SlowEnemy(position: position, parentPlatform: parentPlatform);
       case 5:
-        return FlippingEnemy(position: position, parentPlatform: parentPlatform);
+        return FlippingEnemy(
+            position: position, parentPlatform: parentPlatform);
       default: // dart klagade på null om inget default
         throw UnimplementedError();
     }
@@ -84,7 +90,8 @@ class BaseEnemy extends SpriteAnimationGroupComponent
       flipCooldown = false;
     }
 
-    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) && !flipCooldown) {
+    if ((position.x < 128 || position.x + size.x > gameRef.gameWidth) &&
+        !flipCooldown) {
       if (notFlipped) {
         position.x += 128;
         notFlipped = false;
@@ -120,7 +127,7 @@ class BaseEnemy extends SpriteAnimationGroupComponent
 
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
-      TestAdventure.level.restartGame();
+      CloudChasers.level.restartGame();
     }
 
     return super.onCollision(intersectionPoints, other);

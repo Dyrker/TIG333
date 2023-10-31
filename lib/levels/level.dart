@@ -5,10 +5,10 @@ import 'package:flame/parallax.dart';
 import 'package:flutter_flame/actors/base_enemy.dart';
 import 'package:flutter_flame/actors/platform_instances.dart';
 import 'package:flutter_flame/actors/player.dart';
-import 'package:flutter_flame/test_adventure.dart';
+import 'package:flutter_flame/cloud_chasers.dart';
 import '../actors/platform.dart';
 
-class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
+class Level extends World with HasGameRef<CloudChasers>, TapCallbacks {
   final String levelName;
   Player player;
   bool jumpingDisabled = false;
@@ -84,12 +84,14 @@ class Level extends World with HasGameRef<TestAdventure>, TapCallbacks {
       add(platform);
       if (platform.position.y > 2200) {
         BaseEnemy enemy = BaseEnemy.createEnemy(
-            emptyPlatform: true, yPos: platform.position.y - 128, parentPlatform: platform);
+            emptyPlatform: true,
+            yPos: platform.position.y - 128,
+            parentPlatform: platform);
         add(enemy);
         platform.childEnemy = enemy;
       } else {
-        BaseEnemy enemy =
-            BaseEnemy.createEnemy(yPos: platform.position.y - 128, parentPlatform: platform);
+        BaseEnemy enemy = BaseEnemy.createEnemy(
+            yPos: platform.position.y - 128, parentPlatform: platform);
         add(enemy);
         platform.childEnemy = enemy;
       }

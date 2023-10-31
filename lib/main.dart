@@ -4,7 +4,7 @@ import 'package:flame/game.dart';
 import 'package:flutter_flame/state_and_api/character_manager.dart';
 import 'package:flutter_flame/state_and_api/scores_manager.dart';
 import 'package:provider/provider.dart';
-import 'test_adventure.dart';
+import 'cloud_chasers.dart';
 import 'widgets/startmenu.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'state_and_api/firebase_options.dart';
@@ -19,7 +19,7 @@ void main() async {
   Flame.device.fullScreen();
   Flame.device.setPortrait();
 
-  final TestAdventure game = TestAdventure();
+  final CloudChasers game = CloudChasers();
 
   runApp(MultiProvider(
     providers: [
@@ -31,7 +31,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final TestAdventure game;
+  final CloudChasers game;
   MyApp({required this.game});
 
   @override
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void startGame(BuildContext context, TestAdventure game) {
+void startGame(BuildContext context, CloudChasers game) {
   game.gameScreenContext = context;
   Navigator.push(
     context,
